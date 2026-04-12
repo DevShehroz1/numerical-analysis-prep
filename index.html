@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerical Analysis - Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0f0f1a;
+  --bg2: #1a1a2e;
+  --bg3: #25254a;
+  --card: #1e1e35;
+  --text: #e8e8f0;
+  --muted: #8888aa;
+  --accent: #e07a5f;
+  --accent2: #81b29a;
+  --accent3: #3d5a80;
+  --accent4: #f2cc8f;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* HEADER */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  background: var(--bg2);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 200;
+  gap: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.hamburger {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  transition: background 0.2s;
+}
+.hamburger:hover { background: var(--bg3); }
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+.header-title {
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.header-title em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 299;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* DRAWER */
+.drawer {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 300px;
+  max-width: 85vw;
+  background: var(--bg2);
+  z-index: 300;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer-header {
+  padding: 28px 24px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(135deg, var(--bg2), var(--bg3));
+}
+.drawer-header h2 {
+  font-family: 'Newsreader', serif;
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.drawer-header p {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
+}
+
+.drawer-nav { padding: 12px 0; flex: 1; }
+
+.nav-section-label {
+  padding: 14px 24px 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent4);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  color: var(--muted);
+}
+.nav-item:hover {
+  background: var(--bg3);
+  color: #fff;
+}
+.nav-item.active {
+  background: rgba(224, 122, 95, 0.1);
+  border-left-color: var(--accent);
+  color: #fff;
+}
+
+.nav-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.nav-item:nth-child(2) .nav-icon { background: rgba(224, 122, 95, 0.15); }
+.nav-item:nth-child(3) .nav-icon { background: rgba(61, 90, 128, 0.25); }
+.nav-item:nth-child(4) .nav-icon { background: rgba(129, 178, 154, 0.2); }
+
+.nav-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.nav-desc {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.drawer-footer {
+  padding: 18px 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* CONTENT AREA */
+.content {
+  position: fixed;
+  top: 56px;
+  left: 0; right: 0; bottom: 0;
+}
+
+.content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #faf8f4;
+}
+
+/* WELCOME PAGE */
+.welcome {
+  position: fixed;
+  top: 56px; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  background: var(--bg);
+}
+.welcome.hidden { display: none; }
+
+.welcome-icon {
+  width: 80px; height: 80px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--accent), var(--accent4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 30px rgba(224,122,95,0.3);
+}
+
+.welcome h1 {
+  font-family: 'Newsreader', serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.welcome p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 360px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.page-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.page-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+.page-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 24px rgba(224,122,95,0.15);
+}
+.page-card:active { transform: scale(0.98); }
+
+.card-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.card-icon.c1 { background: rgba(224,122,95,0.15); }
+.card-icon.c2 { background: rgba(61,90,128,0.25); }
+.card-icon.c3 { background: rgba(129,178,154,0.2); }
+
+.card-text h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.card-text span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* RESPONSIVE */
+@media (min-width: 768px) {
+  .welcome h1 { font-size: 2.2rem; }
+  .page-cards { flex-direction: row; max-width: 700px; }
+  .page-card { flex: 1; flex-direction: column; text-align: center; padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <button class="hamburger" id="menuBtn" onclick="toggleDrawer()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="header-title"><em>NA</em> Study Hub</div>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="toggleDrawer()"></div>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <h2>Numerical Analysis</h2>
+    <p>Midterm Study Hub</p>
+  </div>
+  <div class="drawer-nav">
+    <div class="nav-section-label">Pages</div>
+
+    <div class="nav-item active" onclick="loadPage('welcome')">
+      <div class="nav-icon">&#127968;</div>
+      <div>
+        <div class="nav-label">Home</div>
+        <div class="nav-desc">Welcome page</div>
+      </div>
+    </div>
+
+    <div class="nav-item" onclick="loadPage('study-guide.html')">
+      <div class="nav-icon">&#128218;</div>
+      <div>
+        <div class="nav-label">Complete Study Guide</div>
+        <div class="nav-desc">All topics with examples</div>
+      </div>
+    </div>
+
+    <div class="nav-item" onclick="loadPage('false-position-example.html')">
+      <div class="nav-icon">&#128200;</div>
+      <div>
+        <div class="nav-label">False Position Example</div>
+        <div class="nav-desc">x&#179; &#8722; 2x &#8722; 5 (2 decimals)</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="drawer-footer">
+    Numerical Analysis Prep &middot; 2026
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div class="welcome" id="welcome">
+  <div class="welcome-icon">&#128209;</div>
+  <h1>Numerical Analysis<br>Study Hub</h1>
+  <p>Tap the menu or pick a section below to start studying. Works on mobile!</p>
+  <div class="page-cards">
+    <div class="page-card" onclick="loadPage('study-guide.html')">
+      <div class="card-icon c1">&#128218;</div>
+      <div class="card-text">
+        <h3>Study Guide</h3>
+        <span>All 6 topics + examples</span>
+      </div>
+    </div>
+    <div class="page-card" onclick="loadPage('false-position-example.html')">
+      <div class="card-icon c2">&#128200;</div>
+      <div class="card-text">
+        <h3>False Position</h3>
+        <span>Solved example</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT IFRAME -->
+<div class="content" id="contentArea" style="display:none;">
+  <iframe id="pageFrame" src="about:blank"></iframe>
+</div>
+
+<script>
+const drawer = document.getElementById('drawer');
+const overlay = document.getElementById('overlay');
+const menuBtn = document.getElementById('menuBtn');
+const welcome = document.getElementById('welcome');
+const contentArea = document.getElementById('contentArea');
+const pageFrame = document.getElementById('pageFrame');
+const navItems = document.querySelectorAll('.nav-item');
+
+function toggleDrawer() {
+  drawer.classList.toggle('open');
+  overlay.classList.toggle('active');
+  menuBtn.classList.toggle('active');
+}
+
+function loadPage(page) {
+  // Update active nav
+  navItems.forEach(item => item.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
+  if (page === 'welcome') {
+    welcome.classList.remove('hidden');
+    contentArea.style.display = 'none';
+    pageFrame.src = 'about:blank';
+    document.querySelector('.header-title').innerHTML = '<em>NA</em> Study Hub';
+  } else {
+    welcome.classList.add('hidden');
+    contentArea.style.display = 'block';
+    pageFrame.src = page;
+
+    if (page.includes('study-guide')) {
+      document.querySelector('.header-title').innerHTML = '<em>NA</em> Study Guide';
+    } else if (page.includes('false-position')) {
+      document.querySelector('.header-title').innerHTML = '<em>NA</em> False Position';
+    }
+  }
+
+  // Close drawer
+  drawer.classList.remove('open');
+  overlay.classList.remove('active');
+  menuBtn.classList.remove('active');
+}
+
+// Close drawer on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && drawer.classList.contains('open')) {
+    toggleDrawer();
+  }
+});
+</script>
+
+</body>
+</html>
