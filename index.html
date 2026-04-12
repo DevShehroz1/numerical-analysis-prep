@@ -353,7 +353,15 @@ body {
       </div>
     </div>
 
-    <div class="nav-section-label">Solved Examples</div>
+    <div class="nav-item" onclick="loadPage('se-study-guide.html')">
+      <div class="nav-icon">&#128187;</div>
+      <div>
+        <div class="nav-label">Software Engineering</div>
+        <div class="nav-desc">Week 1-7 complete guide</div>
+      </div>
+    </div>
+
+    <div class="nav-section-label">NA Solved Examples</div>
 
     <div class="nav-item" onclick="loadPage('bisection-example.html')">
       <div class="nav-icon">&#9986;</div>
@@ -396,14 +404,21 @@ body {
 <!-- WELCOME -->
 <div class="welcome" id="welcome">
   <div class="welcome-icon">&#128209;</div>
-  <h1>Numerical Analysis<br>Study Hub</h1>
-  <p>Tap the menu or pick a section below to start studying. Works on mobile!</p>
+  <h1>Midterm<br>Study Hub</h1>
+  <p>Tap the menu or pick a subject below to start studying. Works on mobile!</p>
   <div class="page-cards">
     <div class="page-card" onclick="loadPage('study-guide.html')">
       <div class="card-icon c1">&#128218;</div>
       <div class="card-text">
-        <h3>Full Study Guide</h3>
-        <span>All topics + interactive</span>
+        <h3>NA Study Guide</h3>
+        <span>Numerical Analysis</span>
+      </div>
+    </div>
+    <div class="page-card" onclick="loadPage('se-study-guide.html')">
+      <div class="card-icon c2">&#128187;</div>
+      <div class="card-text">
+        <h3>SE Study Guide</h3>
+        <span>Software Engineering</span>
       </div>
     </div>
     <div class="page-card" onclick="loadPage('bisection-example.html')">
@@ -472,7 +487,9 @@ function loadPage(page) {
     contentArea.style.display = 'block';
     pageFrame.src = page;
 
-    if (page.includes('study-guide')) {
+    if (page.includes('se-study')) {
+      document.querySelector('.header-title').innerHTML = '<em>SE</em> Study Guide';
+    } else if (page.includes('study-guide')) {
       document.querySelector('.header-title').innerHTML = '<em>NA</em> Study Guide';
     } else if (page.includes('bisection')) {
       document.querySelector('.header-title').innerHTML = '<em>NA</em> Bisection';

@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software Engineering - Midterm Study Guide | Engr. Saima</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f4;
+  --bg-card: #ffffff;
+  --bg-sidebar: #1a1a2e;
+  --bg-sidebar-hover: #25254a;
+  --bg-sidebar-active: #33335c;
+  --text: #2d2d2d;
+  --text-muted: #6b6b6b;
+  --text-sidebar: #c4c4d4;
+  --text-sidebar-active: #ffffff;
+  --blue: #1a4d80;
+  --blue-light: #e8eff7;
+  --red: #c0392b;
+  --red-light: #fbeaea;
+  --green: #27ae60;
+  --green-light: #e8f5ee;
+  --yellow: #f39c12;
+  --yellow-light: #fdf6e8;
+  --accent: #e07a5f;
+  --border: #e8e4de;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+  --radius: 12px;
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 280px;
+  min-height: 100vh;
+  background: var(--bg-sidebar);
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-header h1 {
+  font-family: var(--font-display);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.sidebar-header .subtitle {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
+}
+
+.sidebar-header .instructor {
+  color: var(--text-sidebar);
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
+
+.sidebar-nav { padding: 16px 0; flex: 1; }
+
+.nav-week {
+  padding: 8px 24px;
+  color: #f2cc8f;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  color: var(--text-sidebar);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: var(--bg-sidebar-hover);
+  color: white;
+}
+
+.nav-item.active {
+  background: var(--bg-sidebar-active);
+  color: var(--text-sidebar-active);
+  border-left-color: var(--accent);
+}
+
+.nav-item .nav-num {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.08);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.nav-item.active .nav-num {
+  background: var(--accent);
+  color: white;
+}
+
+.progress-section {
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.progress-label {
+  color: var(--text-sidebar);
+  font-size: 0.75rem;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), var(--accent));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+/* MOBILE TOGGLE */
+.mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 16px; left: 16px;
+  z-index: 200;
+  background: var(--bg-sidebar);
+  color: white;
+  border: none;
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+}
+
+/* MAIN CONTENT */
+.main {
+  margin-left: 280px;
+  flex: 1;
+  max-width: 900px;
+  padding: 40px 50px 80px;
+}
+
+/* SECTIONS */
+.section { display: none; animation: fadeIn 0.4s ease; }
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* TYPOGRAPHY */
+h2 {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 500;
+  color: var(--blue);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+h2 .topic-num {
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin: 36px 0 16px;
+  color: var(--red);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+
+h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 24px 0 10px;
+  color: var(--blue);
+}
+
+p { margin-bottom: 14px; font-size: 0.95rem; }
+
+.intro-text {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* CARDS & BOXES */
+.concept-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin: 20px 0;
+  box-shadow: var(--shadow);
+}
+
+.concept-box h4 { margin-top: 0; }
+
+.definition-box {
+  background: var(--blue-light);
+  border: 2px solid var(--blue);
+  border-radius: var(--radius);
+  padding: 20px 28px;
+  margin: 20px 0;
+}
+
+.definition-box .label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.definition-box .def-text {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--blue);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.key-point {
+  background: var(--red-light);
+  border-left: 4px solid var(--red);
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.key-point strong { color: var(--red); }
+
+.warning-box {
+  background: var(--yellow-light);
+  border-left: 4px solid var(--yellow);
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.warning-box strong { color: #d68910; }
+
+.success-box {
+  background: var(--green-light);
+  border-left: 4px solid var(--green);
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.success-box strong { color: var(--green); }
+
+.example-box {
+  background: #f5f0ff;
+  border-left: 4px solid #8e44ad;
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.example-box strong { color: #8e44ad; }
+
+/* STEPS */
+.step {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-content { flex: 1; }
+.step-content strong { color: var(--blue); }
+
+/* LISTS */
+ul, ol { margin: 10px 0 16px 20px; font-size: 0.95rem; }
+li { margin-bottom: 6px; }
+li strong { color: var(--blue); }
+
+/* TABLES */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 20px 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 0.88rem;
+}
+
+thead { background: var(--blue); color: white; }
+
+th {
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+
+tbody tr:nth-child(even) { background: #fafafa; }
+tbody tr:hover { background: var(--blue-light); }
+
+/* TWO-COLUMN COMPARE */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.compare-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  box-shadow: var(--shadow);
+}
+
+.compare-card.left { border-top: 4px solid var(--blue); }
+.compare-card.right { border-top: 4px solid var(--green); }
+
+.compare-card h4 { margin-top: 0; }
+
+/* NAVIGATION BUTTONS */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 2px solid var(--border);
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+}
+
+.nav-btn:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.nav-btn:disabled { opacity: 0.4; cursor: default; transform: none; box-shadow: none; }
+
+/* PRINT */
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: all 0.2s;
+}
+
+.print-btn:hover { background: #15406b; transform: translateY(-1px); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+  .main { margin-left: 0; padding: 70px 20px 60px; }
+  .compare-grid { grid-template-columns: 1fr; }
+  h2 { font-size: 1.7rem; }
+}
+
+@media print {
+  .sidebar, .mobile-toggle, .nav-buttons, .print-btn { display: none !important; }
+  .main { margin-left: 0; max-width: 100%; padding: 20px; }
+  .section { display: block !important; page-break-inside: avoid; margin-bottom: 30px; }
+  .concept-box, .definition-box, .key-point, .warning-box, .success-box, .example-box { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776;</button>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <h1>Software Engineering</h1>
+    <div class="subtitle">Midterm Study Guide</div>
+    <div class="instructor">Engr. Saima &mdash; University of Lahore</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-week">Week 1</div>
+    <a class="nav-item active" onclick="showSection(0)">
+      <span class="nav-num">1</span> Intro to SE
+    </a>
+    <div class="nav-week">Week 3</div>
+    <a class="nav-item" onclick="showSection(1)">
+      <span class="nav-num">2</span> SDLC &amp; Models
+    </a>
+    <div class="nav-week">Week 4</div>
+    <a class="nav-item" onclick="showSection(2)">
+      <span class="nav-num">3</span> Waterfall Model
+    </a>
+    <div class="nav-week">Week 5</div>
+    <a class="nav-item" onclick="showSection(3)">
+      <span class="nav-num">4</span> More SDLC Models
+    </a>
+    <div class="nav-week">Week 6</div>
+    <a class="nav-item" onclick="showSection(4)">
+      <span class="nav-num">5</span> Agile &amp; Scrum
+    </a>
+    <div class="nav-week">Week 7</div>
+    <a class="nav-item" onclick="showSection(5)">
+      <span class="nav-num">6</span> Requirements
+    </a>
+    <div class="nav-week">Exam Prep</div>
+    <a class="nav-item" onclick="showSection(6)">
+      <span class="nav-num">7</span> Assignment Answers
+    </a>
+  </div>
+  <div class="progress-section">
+    <div class="progress-label">
+      <span>Study Progress</span>
+      <span id="progressPercent">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<!-- ============================================== -->
+<!-- SECTION 0: WEEK 1 - INTRO TO SE               -->
+<!-- ============================================== -->
+<div class="section active" id="sec-0">
+  <h2><span class="topic-num">Week 1</span>Introduction to Software Engineering</h2>
+  <p class="intro-text">What software really is, why we need engineering to build it, and how the field started.</p>
+
+  <!-- What is Software -->
+  <h3>What is Software?</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">Software is a collection of programs, data, and instructions that tell a computer what to do and how to do it. Unlike hardware, you cannot touch software &mdash; it is logical, not physical.</div>
+  </div>
+
+  <h4>10 Key Functions of Software</h4>
+  <div class="concept-box">
+    <ol>
+      <li><strong>Data Processing</strong> &mdash; Collecting, organizing, and transforming raw data into useful information (e.g., sorting a list of student marks)</li>
+      <li><strong>Calculations</strong> &mdash; Performing mathematical operations like addition, averages, percentages</li>
+      <li><strong>User Interface (UI)</strong> &mdash; Providing buttons, menus, and screens so humans can interact with the computer</li>
+      <li><strong>File Management</strong> &mdash; Creating, saving, opening, and deleting files on your computer</li>
+      <li><strong>Networking</strong> &mdash; Enabling computers to communicate with each other (internet, email, chat)</li>
+      <li><strong>Security</strong> &mdash; Protecting data through passwords, encryption, firewalls</li>
+      <li><strong>Error Handling</strong> &mdash; Detecting problems and showing helpful error messages instead of crashing</li>
+      <li><strong>Scheduling</strong> &mdash; Automating tasks to run at specific times (backups, updates)</li>
+      <li><strong>Database Management</strong> &mdash; Storing and retrieving large amounts of structured data efficiently</li>
+      <li><strong>Graphics</strong> &mdash; Rendering images, animations, videos, and visual elements on screen</li>
+    </ol>
+  </div>
+
+  <!-- Software Application Levels -->
+  <h3>Software Application Levels</h3>
+  <p>Software exists at different levels, each building on top of the one below:</p>
+
+  <div class="concept-box">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Hardware Logic (Lowest Level)</strong><br>
+        The physical circuits and logic gates inside the CPU. This is where electrical signals become 0s and 1s. Software at this level is firmware burned into chips.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>System Software</strong><br>
+        Programs that manage the hardware &mdash; like Windows, Linux, or macOS (operating systems). Also includes device drivers and utility programs.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Application Software</strong><br>
+        Programs that let you do actual work &mdash; like Microsoft Word, Photoshop, or a web browser. They run on top of system software.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>End-User Software</strong><br>
+        Specialized tools that regular users interact with daily &mdash; like mobile apps, websites, and online banking portals. The easiest to use, designed for non-technical people.
+      </div>
+    </div>
+  </div>
+
+  <!-- Generic vs Customized -->
+  <h3>Generic vs. Customized Software</h3>
+
+  <div class="compare-grid">
+    <div class="compare-card left">
+      <h4>Generic (Off-the-shelf)</h4>
+      <ul>
+        <li>Made for <strong>everyone</strong></li>
+        <li>Same product sold to many customers</li>
+        <li>Developer decides the features</li>
+        <li>Usually cheaper per user</li>
+      </ul>
+      <div class="example-box" style="margin-top:12px">
+        <strong>Examples:</strong> Microsoft Office, Adobe Photoshop, WhatsApp, Google Chrome
+      </div>
+    </div>
+    <div class="compare-card right">
+      <h4>Customized (Bespoke)</h4>
+      <ul>
+        <li>Made for a <strong>specific client</strong></li>
+        <li>One product for one customer</li>
+        <li>Client decides the features</li>
+        <li>More expensive but fits exact needs</li>
+      </ul>
+      <div class="example-box" style="margin-top:12px">
+        <strong>Examples:</strong> Hospital management system for a specific hospital, university portal for UOL, airline booking system
+      </div>
+    </div>
+  </div>
+
+  <!-- Essential Attributes -->
+  <h3>Essential Attributes of Good Software</h3>
+
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Attribute</th><th>What It Means (Simple)</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Maintainability</strong></td><td>Easy to update and fix later</td><td>Adding a new feature without breaking old ones</td></tr>
+          <tr><td><strong>Dependability</strong></td><td>Reliable, safe, and secure &mdash; works without causing damage</td><td>Banking app that never loses your money data</td></tr>
+          <tr><td><strong>Performance</strong></td><td>Fast response time, does not waste memory or processing power</td><td>Google search giving results in under 1 second</td></tr>
+          <tr><td><strong>Acceptability</strong></td><td>Users find it understandable, usable, and compatible with their other systems</td><td>App that works on both Android and iOS</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- What is SE -->
+  <h3>What is Software Engineering?</h3>
+
+  <div class="definition-box">
+    <div class="label">Simple Definition</div>
+    <div class="def-text">Software Engineering is the systematic (organized, step-by-step) approach to developing, operating, and maintaining software using engineering principles.</div>
+  </div>
+
+  <h4>Famous Definitions (Know These for Exams)</h4>
+  <div class="concept-box">
+    <div class="key-point">
+      <strong>Fritz Bauer (1972):</strong> "Software Engineering is the establishment and use of sound engineering principles in order to obtain economically software that is reliable and works efficiently on real machines."
+    </div>
+    <div class="key-point">
+      <strong>Pressman (1992):</strong> "Software Engineering is a layered technology &mdash; it rests on quality as its foundation and includes methods, tools, and process layers."
+    </div>
+    <div class="key-point">
+      <strong>Wang &amp; King (2000):</strong> "Software Engineering is the science and art of specifying, designing, implementing, and maintaining software."
+    </div>
+  </div>
+
+  <h4>SE = Methods + Tools + Procedures</h4>
+  <div class="concept-box">
+    <ul>
+      <li><strong>Methods</strong> &mdash; HOW to do things (design techniques, testing strategies, coding guidelines)</li>
+      <li><strong>Tools</strong> &mdash; WHAT we use (IDEs like VS Code, testing tools, version control like Git)</li>
+      <li><strong>Procedures</strong> &mdash; The ORDER in which we do things (following a plan, step-by-step process)</li>
+    </ul>
+  </div>
+
+  <!-- Why SE Needed -->
+  <h3>Why is Software Engineering Needed?</h3>
+  <div class="concept-box">
+    <ul>
+      <li><strong>Quality</strong> &mdash; Without proper engineering, software has bugs, crashes, and security holes</li>
+      <li><strong>Cost-Effectiveness</strong> &mdash; Fixing a bug after delivery costs 100x more than fixing it during design. Proper planning saves money.</li>
+      <li><strong>Scalability</strong> &mdash; Software needs to grow as users increase. Engineering makes this possible.</li>
+      <li><strong>Security</strong> &mdash; Without engineering practices, software is vulnerable to hackers and data breaches</li>
+    </ul>
+  </div>
+
+  <!-- Software Characteristics -->
+  <h3>Software Characteristics (Brooks, 1987)</h3>
+  <p>Frederick Brooks described why software is uniquely difficult to build:</p>
+
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Characteristic</th><th>Meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Complexity</strong></td><td>Software has millions of parts that all interact. It is one of the most complex things humans build.</td></tr>
+          <tr><td><strong>Conformity</strong></td><td>Software must fit (conform to) the rules of the real world &mdash; laws, business rules, hardware limits, other systems.</td></tr>
+          <tr><td><strong>Changeability</strong></td><td>Software is always being changed. Unlike bridges or buildings, people constantly want new features and updates.</td></tr>
+          <tr><td><strong>Invisibility</strong></td><td>You cannot see or touch software. This makes it hard to visualize, understand, and communicate about.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Software Process -->
+  <h3>Software Process</h3>
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">A Software Process is a set of interrelated activities that leads to the production of a software product.</div>
+  </div>
+
+  <p>Every software process includes these four fundamental activities:</p>
+  <div class="concept-box">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content"><strong>Specification</strong> &mdash; Defining WHAT the software should do (gathering requirements)</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content"><strong>Development</strong> &mdash; Designing and writing the actual software (coding)</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content"><strong>Validation</strong> &mdash; Checking that the software does what the customer wanted (testing)</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content"><strong>Evolution</strong> &mdash; Changing the software over time as needs change (maintenance)</div>
+    </div>
+  </div>
+
+  <!-- Professional Responsibility -->
+  <h3>Professional Responsibility &amp; Ethics</h3>
+  <div class="concept-box">
+    <ul>
+      <li><strong>Intellectual Property (IP) Rights</strong> &mdash; Respect copyrights, patents, and licenses. Do not steal or copy other people's code without permission.</li>
+      <li><strong>Confidentiality</strong> &mdash; Do not share client data or trade secrets.</li>
+      <li><strong>Competence</strong> &mdash; Do not accept work you are not qualified to do.</li>
+      <li><strong>Ethics</strong> &mdash; Software engineers should act in the public interest and not misuse their technical knowledge.</li>
+    </ul>
+  </div>
+
+  <!-- Origin of Software -->
+  <h3>Origin &amp; History of Software</h3>
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Era</th><th>What Happened</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1940s</strong></td><td>Assembly language &mdash; programmers wrote code in machine-level instructions (very hard)</td></tr>
+          <tr><td><strong>1970s</strong></td><td>Structured Programming &mdash; organized code into functions, loops, conditions (C language era)</td></tr>
+          <tr><td><strong>1980s</strong></td><td>Object-Oriented Programming (OOP) &mdash; code organized into objects and classes (C++, Java)</td></tr>
+          <tr><td><strong>1990s</strong></td><td>Web Development &mdash; internet boom, websites, e-commerce</td></tr>
+          <tr><td><strong>2010s+</strong></td><td>Cloud Computing &amp; AI &mdash; software in the cloud, machine learning, mobile apps everywhere</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Software Crisis -->
+  <h3>The Software Crisis (1960s&ndash;1980s)</h3>
+
+  <div class="warning-box">
+    <strong>What was the Software Crisis?</strong><br>
+    As computers became powerful, the demand for software grew enormously. But developers had no proper methods or processes to build large software. This led to: projects going over budget, late delivery, buggy software, and complete failures.
+  </div>
+
+  <h4>Causes of the Crisis</h4>
+  <div class="concept-box">
+    <ul>
+      <li>Growing complexity of software systems</li>
+      <li>Lack of formal methods and standards</li>
+      <li>Projects costing far more than estimated</li>
+      <li>Software delivered late (or never delivered)</li>
+      <li>Poor quality &mdash; full of bugs and errors</li>
+    </ul>
+  </div>
+
+  <h4>Famous Examples of Software Failures</h4>
+  <div class="concept-box">
+    <div class="key-point">
+      <strong>IBM OS/360 (1960s):</strong> One of the largest early software projects. It went massively over budget and was years late. Frederick Brooks wrote the famous book "The Mythical Man-Month" based on lessons learned from this disaster.
+    </div>
+    <div class="key-point">
+      <strong>Ariane 5 Rocket (1996):</strong> A European Space Agency rocket exploded just 37 seconds after launch. The cause was a software bug &mdash; a 64-bit number was converted to a 16-bit number, causing an overflow. Cost: $370 million.
+    </div>
+    <div class="key-point">
+      <strong>Airbus Software Bug (2006):</strong> An Airbus A380 had wiring problems because the German and Spanish design teams used different versions of the same software tool (CATIA). This caused massive delays and cost billions.
+    </div>
+  </div>
+
+  <div class="success-box">
+    <strong>Key Takeaway:</strong> The software crisis is the reason Software Engineering exists as a discipline. It showed that writing code is not enough &mdash; we need proper processes, methods, and quality control.
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" disabled>&larr; Previous</button>
+    <button class="nav-btn" onclick="showSection(1)">Next: SDLC &amp; Models &rarr;</button>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION 1: WEEK 3 - SDLC & MODELS             -->
+<!-- ============================================== -->
+<div class="section" id="sec-1">
+  <h2><span class="topic-num">Week 3</span>SDLC &amp; Software Models</h2>
+  <p class="intro-text">How software is planned and built using structured life cycle models, and why just "coding" is not enough.</p>
+
+  <!-- Big Bang Model -->
+  <h3>Big Bang Model</h3>
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">The Big Bang Model means you put all the money and effort together, code like crazy, and hope something good comes out &mdash; with no formal planning, no design, and no process.</div>
+  </div>
+
+  <div class="warning-box">
+    <strong>Think of it like:</strong> Cooking without a recipe. You throw ingredients together and hope it tastes good. Sometimes it works for a tiny meal, but never for a wedding feast.
+  </div>
+
+  <div class="concept-box">
+    <h4>When to use?</h4>
+    <ul>
+      <li>Only for very small projects (university assignments, personal scripts)</li>
+      <li>When requirements are unknown or do not matter</li>
+      <li>When there is just one or two developers</li>
+    </ul>
+    <h4>Problems:</h4>
+    <ul>
+      <li>Very risky &mdash; no guarantee of success</li>
+      <li>Cannot be used for large or important projects</li>
+      <li>No documentation, no process, no testing plan</li>
+    </ul>
+  </div>
+
+  <!-- Causes of Software Failure -->
+  <h3>Causes of Software Project Failure</h3>
+  <div class="concept-box">
+    <ol>
+      <li><strong>Lack of User Participation</strong> &mdash; Not involving the actual users during development. They know what they need!</li>
+      <li><strong>Changing Requirements</strong> &mdash; The client keeps changing what they want, causing confusion and delays</li>
+      <li><strong>Unrealistic Goals</strong> &mdash; Promising to build a huge system in too little time with too few people</li>
+      <li><strong>Poor Estimates</strong> &mdash; Wrong guesses about how long things will take or how much they will cost</li>
+      <li><strong>Lack of Planning</strong> &mdash; Jumping straight into coding without thinking about design, testing, or deployment</li>
+    </ol>
+  </div>
+
+  <!-- General SE Issues -->
+  <h3>General Issues in Software Engineering</h3>
+  <div class="concept-box">
+    <div class="key-point">
+      <strong>Heterogeneity:</strong> Software must work on different platforms (Windows, Mac, mobile, web). Building software that runs everywhere is hard.
+    </div>
+    <div class="key-point">
+      <strong>Business Change:</strong> Businesses change fast. Software must be able to change quickly too &mdash; new rules, new markets, new competition.
+    </div>
+    <div class="key-point">
+      <strong>Security &amp; Trust:</strong> Users must trust the software with their personal data. Security breaches destroy this trust.
+    </div>
+  </div>
+
+  <!-- Fundamental Principles -->
+  <h3>Fundamental Principles of SE</h3>
+  <div class="concept-box">
+    <ul>
+      <li><strong>Managed &amp; Understood Process</strong> &mdash; Everyone on the team should know and follow the agreed process</li>
+      <li><strong>Dependability</strong> &mdash; Build software that is reliable and does not crash unexpectedly</li>
+      <li><strong>Performance</strong> &mdash; Software must respond quickly and use resources efficiently</li>
+      <li><strong>Requirements Management</strong> &mdash; Clearly understand and document what the customer wants before building</li>
+      <li><strong>Reuse</strong> &mdash; Use existing components and code instead of building everything from scratch</li>
+    </ul>
+  </div>
+
+  <!-- Software Reuse -->
+  <h3>Software Reuse</h3>
+  <div class="success-box">
+    <strong>Why Reuse?</strong> Using pre-built components (libraries, frameworks, APIs) saves time, reduces cost, and improves reliability because those components have already been tested by thousands of people.
+  </div>
+  <div class="example-box">
+    <strong>Example:</strong> Instead of writing your own login system from scratch, you can use Google Sign-In or Firebase Authentication. It is faster, more secure, and already tested.
+  </div>
+
+  <!-- OOP Basics -->
+  <h3>OOP (Object-Oriented Programming) Basics</h3>
+  <p>OOP is a way of organizing code around "objects" (things) rather than just functions.</p>
+
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Concept</th><th>Simple Explanation</th><th>Real-Life Analogy</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Class</strong></td><td>A blueprint / template for creating objects</td><td>A recipe is a class, the dish you cook is an object</td></tr>
+          <tr><td><strong>Object</strong></td><td>An actual instance created from a class</td><td>Your phone is an object of the "Smartphone" class</td></tr>
+          <tr><td><strong>Inheritance</strong></td><td>A child class gets features from a parent class</td><td>You inherit eye color from your parents</td></tr>
+          <tr><td><strong>Polymorphism</strong></td><td>Same action behaves differently for different objects</td><td>"Draw" means different things for circle vs. square</td></tr>
+          <tr><td><strong>Abstraction</strong></td><td>Hiding complex details, showing only what is needed</td><td>You drive a car without knowing how the engine works inside</td></tr>
+          <tr><td><strong>Encapsulation</strong></td><td>Wrapping data and methods together, restricting direct access</td><td>A capsule medicine &mdash; the medicine is inside, you just swallow it</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Build & Fix Model -->
+  <h3>Build &amp; Fix Model</h3>
+  <div class="concept-box">
+    <p>The simplest (and worst) model:</p>
+    <ol>
+      <li>Write code without any formal design or specification</li>
+      <li>Give it to the user</li>
+      <li>User finds bugs &rarr; developer fixes them</li>
+      <li>Repeat until the user is happy (or gives up)</li>
+    </ol>
+  </div>
+  <div class="warning-box">
+    <strong>Problem:</strong> No testing phase, no documentation, no design. The code becomes a tangled mess. This is NOT a professional way to build software. Only used by beginners who do not know better.
+  </div>
+
+  <!-- SDLC Phases -->
+  <h3>SDLC (Software Development Life Cycle)</h3>
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">SDLC is a structured process that defines the tasks and phases required to build high-quality software from start to finish.</div>
+  </div>
+
+  <h4>The 6 Phases of SDLC</h4>
+  <div class="concept-box">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content"><strong>Analysis &amp; Planning</strong> &mdash; Understand what the customer wants. Gather requirements. Plan the timeline, budget, and team.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content"><strong>Design</strong> &mdash; Create the architecture. Decide how the system will be structured, what database to use, how screens will look.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content"><strong>Development</strong> &mdash; Actually write the code. Programmers build the system according to the design.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content"><strong>Testing</strong> &mdash; Check for bugs, errors, and security issues. Make sure the software does what it is supposed to do.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content"><strong>Deployment</strong> &mdash; Deliver the software to the customer. Install it, train the users, go live.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-content"><strong>Maintenance</strong> &mdash; Fix bugs found after delivery, add new features, update for new requirements. This phase lasts the longest.</div>
+    </div>
+  </div>
+
+  <div class="success-box">
+    <strong>Remember:</strong> "If you fail to plan, you plan to fail." &mdash; SDLC ensures every project is properly planned before any code is written.
+  </div>
+
+  <!-- Cyber Security -->
+  <h3>Cyber Security Basics</h3>
+  <h4>The CIA Triad + Privacy</h4>
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Principle</th><th>What It Means</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Confidentiality</strong></td><td>Only authorized people can see the data</td><td>Only you can see your bank balance (password protected)</td></tr>
+          <tr><td><strong>Integrity</strong></td><td>Data cannot be changed without permission</td><td>No one can change your grades in the university system</td></tr>
+          <tr><td><strong>Availability</strong></td><td>The system is always up and running when needed</td><td>The hospital system must be available 24/7 for emergencies</td></tr>
+          <tr><td><strong>Privacy</strong></td><td>Personal information is protected and not shared without consent</td><td>A website must not sell your email to advertisers without asking</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Case Study: Insulin Pump -->
+  <h3>Case Study: Insulin Pump Control System</h3>
+  <div class="concept-box">
+    <p>An insulin pump is a medical device for diabetes patients. It automatically delivers insulin based on blood sugar levels.</p>
+    <h4>How It Works:</h4>
+    <ol>
+      <li>A <strong>blood sugar sensor</strong> reads the patient's current blood sugar level</li>
+      <li>The software <strong>analyzes</strong> the reading and decides how much insulin is needed</li>
+      <li>The <strong>insulin pump</strong> delivers the correct dose automatically</li>
+    </ol>
+    <h4>Why It Matters for SE:</h4>
+    <ul>
+      <li><strong>Safety-critical system</strong> &mdash; if the software gives too much insulin, the patient can die</li>
+      <li>Must be extremely <strong>dependable</strong> and thoroughly tested</li>
+      <li>Requirements must be 100% correct &mdash; no room for error</li>
+      <li>Shows why software engineering is a matter of life and death in some fields</li>
+    </ul>
+  </div>
+
+  <div class="warning-box">
+    <strong>Exam Tip:</strong> This case study shows how ALL four essential attributes (Maintainability, Dependability, Performance, Acceptability) are critical in medical software.
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(0)">&larr; Previous: Intro to SE</button>
+    <button class="nav-btn" onclick="showSection(2)">Next: Waterfall Model &rarr;</button>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION 2: WEEK 4 - WATERFALL MODEL            -->
+<!-- ============================================== -->
+<div class="section" id="sec-2">
+  <h2><span class="topic-num">Week 4</span>The Waterfall Model</h2>
+  <p class="intro-text">The oldest and most well-known model. Water flows down &mdash; you move through each phase one at a time, and you cannot easily go back up.</p>
+
+  <!-- Plan-driven vs Agile overview -->
+  <h3>Plan-Driven vs. Agile (Overview)</h3>
+  <div class="compare-grid">
+    <div class="compare-card left">
+      <h4 style="color:var(--blue)">Plan-Driven</h4>
+      <ul>
+        <li>Everything is planned in advance</li>
+        <li>Detailed documentation before coding</li>
+        <li>Progress measured against the plan</li>
+        <li>Best when requirements are stable</li>
+      </ul>
+      <div class="example-box"><strong>Examples:</strong> Waterfall, V-Model</div>
+    </div>
+    <div class="compare-card right">
+      <h4 style="color:var(--green)">Agile</h4>
+      <ul>
+        <li>Planning is incremental (done as you go)</li>
+        <li>Working software over heavy documentation</li>
+        <li>Responds quickly to changes</li>
+        <li>Best when requirements change often</li>
+      </ul>
+      <div class="example-box"><strong>Examples:</strong> Scrum, XP (Extreme Programming)</div>
+    </div>
+  </div>
+
+  <!-- Process Models Overview -->
+  <h3>Software Process Models Overview</h3>
+  <div class="concept-box">
+    <p>A process model is a simplified description of a software process. The three main types are:</p>
+    <ol>
+      <li><strong>Waterfall Model</strong> &mdash; Linear, phase-by-phase (plan everything first, then build)</li>
+      <li><strong>Incremental Model</strong> &mdash; Build in small pieces, deliver each piece as it is ready</li>
+      <li><strong>Integration &amp; Configuration</strong> &mdash; Assemble software from existing reusable components</li>
+    </ol>
+  </div>
+
+  <!-- Waterfall Detailed -->
+  <h3>Waterfall Model (Detailed)</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">The Waterfall Model is a linear, sequential approach where each phase must be completed before the next one begins &mdash; like a waterfall flowing downward.</div>
+  </div>
+
+  <h4>The 5 Phases</h4>
+  <div class="concept-box">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Requirements Analysis and Definition</strong><br>
+        Talk to the customer. Understand exactly what they need. Write it all down in a requirements document. Everyone (customer + developer) agrees on this document before moving forward.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>System and Software Design</strong><br>
+        Create the blueprint of the system. Decide the architecture (how different parts connect), choose technologies, design the database, plan the user interface layout.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Programming and Unit Testing (Implementation)</strong><br>
+        Write the actual code. Each module/component is coded separately and tested individually (unit testing = testing one piece at a time).
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>Integration and System Testing</strong><br>
+        Combine all the individual modules together and test the complete system. Does the login page work with the dashboard? Does the database connect properly? Fix any integration bugs.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <strong>Operation and Maintenance</strong><br>
+        Deliver to the customer. The system goes live. Now fix any bugs that are found, add minor features, and keep the system running. This is the longest phase (can last years).
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback in Waterfall -->
+  <h3>Feedback in Waterfall</h3>
+  <div class="concept-box">
+    <p>In theory, Waterfall is strictly one-way (top to bottom). But in practice, each phase can <strong>feed back</strong> to the previous phase.</p>
+    <p>For example, during Design you might realize the requirements are incomplete, so you go back to Requirements. During Testing you might find a design flaw, so you go back to Design.</p>
+  </div>
+  <div class="warning-box">
+    <strong>But beware:</strong> Going back is very expensive and time-consuming in Waterfall. That is why requirements must be as complete as possible before you move to Design.
+  </div>
+
+  <!-- Advantages -->
+  <h3>Advantages of Waterfall</h3>
+  <div class="success-box">
+    <ul>
+      <li><strong>Process Visibility</strong> &mdash; Everyone can see exactly which phase the project is in</li>
+      <li><strong>Quality Control</strong> &mdash; Each phase has a review/approval before the next one starts</li>
+      <li><strong>Cost Control</strong> &mdash; Budget can be estimated upfront since all requirements are known</li>
+      <li><strong>Clear Documentation</strong> &mdash; Every phase produces documents, making it easy to understand the system later</li>
+      <li><strong>Easy to Manage</strong> &mdash; Because of its rigid structure, managers can track progress clearly</li>
+    </ul>
+  </div>
+
+  <!-- Disadvantages -->
+  <h3>Disadvantages of Waterfall</h3>
+  <div class="warning-box">
+    <ul>
+      <li><strong>Inflexible</strong> &mdash; Very hard to change requirements once a phase is completed</li>
+      <li><strong>Late Discovery of Problems</strong> &mdash; Customer sees the software only at the end. If it is wrong, it is too late.</li>
+      <li><strong>Cannot Handle Changing Requirements</strong> &mdash; If the customer changes their mind, you might have to restart</li>
+      <li><strong>Only Suitable When Requirements Are Well-Understood</strong> &mdash; If you are not 100% sure what to build, do not use Waterfall</li>
+      <li><strong>No Working Software Until Late</strong> &mdash; The customer waits a long time before seeing anything</li>
+    </ul>
+  </div>
+
+  <div class="key-point">
+    <strong>When to use Waterfall?</strong> Use it only when requirements are clear, fixed, and will not change. Examples: government projects with strict contracts, embedded systems, safety-critical systems where everything must be documented.
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(1)">&larr; Previous: SDLC &amp; Models</button>
+    <button class="nav-btn" onclick="showSection(3)">Next: More SDLC Models &rarr;</button>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION 3: WEEK 5 - MORE SDLC MODELS          -->
+<!-- ============================================== -->
+<div class="section" id="sec-3">
+  <h2><span class="topic-num">Week 5</span>More SDLC Models</h2>
+  <p class="intro-text">Beyond Waterfall &mdash; models that handle change, risk, and uncertainty better.</p>
+
+  <!-- V-Model -->
+  <h3>V-Model (Verification and Validation)</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">The V-Model is an extension of the Waterfall Model where each development phase has a corresponding testing phase. The left side of the "V" is development (going down), and the right side is testing (going up).</div>
+  </div>
+
+  <div class="concept-box">
+    <h4>How the V-Shape Works:</h4>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Development Phase (Left)</th><th>Corresponding Testing Phase (Right)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Requirements Analysis</td><td>Acceptance Testing (does it meet user needs?)</td></tr>
+          <tr><td>System Design</td><td>System Testing (does the whole system work?)</td></tr>
+          <tr><td>Architecture Design</td><td>Integration Testing (do modules work together?)</td></tr>
+          <tr><td>Module Design</td><td>Unit Testing (does each module work alone?)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px">At the bottom of the V is the <strong>Coding</strong> phase.</p>
+  </div>
+
+  <div class="success-box">
+    <strong>Key Difference from Waterfall:</strong> In Waterfall, testing happens at the end. In the V-Model, you plan your tests alongside each development phase &mdash; so testing is baked into the entire process.
+  </div>
+
+  <div class="warning-box">
+    <strong>Limitation:</strong> Like Waterfall, the V-Model is still rigid. If requirements change, it is very difficult to go back and modify earlier phases.
+  </div>
+
+  <!-- Incremental Model -->
+  <h3>Incremental Model</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">The Incremental Model builds the software in small pieces (increments). Each increment adds new functionality to what was delivered before.</div>
+  </div>
+
+  <div class="example-box">
+    <strong>Real-Life Analogy:</strong> Imagine building a house one room at a time. First you build the living room and move in. Then you add a bedroom. Then a kitchen. Each "increment" is a usable room.
+  </div>
+
+  <div class="concept-box">
+    <h4>How It Works:</h4>
+    <ol>
+      <li>Define all requirements upfront (or most of them)</li>
+      <li>Divide the system into small increments</li>
+      <li>Build and deliver the first increment (with the most important features)</li>
+      <li>Get feedback from the customer</li>
+      <li>Build the next increment, adding more features</li>
+      <li>Repeat until all increments are delivered</li>
+    </ol>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card left">
+      <h4 style="color:var(--green)">Benefits</h4>
+      <ul>
+        <li><strong>Reduced risk</strong> &mdash; deliver most important features first</li>
+        <li><strong>Early delivery</strong> &mdash; customer gets a working version quickly</li>
+        <li><strong>Feedback</strong> &mdash; customer can use early increments and suggest changes</li>
+        <li><strong>Easier testing</strong> &mdash; test small pieces instead of the whole system</li>
+      </ul>
+    </div>
+    <div class="compare-card right">
+      <h4 style="color:var(--red)">Problems</h4>
+      <ul>
+        <li><strong>Process not visible</strong> &mdash; hard to track overall progress</li>
+        <li><strong>System structure degrades</strong> &mdash; adding increments can make the code messy over time</li>
+        <li><strong>Difficult to plan</strong> &mdash; how to divide features into increments is tricky</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Iterative Model -->
+  <h3>Iterative Model</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">The Iterative Model builds the system through repeated cycles (iterations). Each iteration improves and refines the previous version.</div>
+  </div>
+
+  <div class="concept-box">
+    <h4>The Cycle:</h4>
+    <p><strong>Develop &rarr; Review &rarr; Improve &rarr; Repeat</strong></p>
+    <p>Each iteration produces a more complete and refined version of the software. You do not add entirely new features each time (that is Incremental). Instead, you improve what you already have.</p>
+  </div>
+
+  <div class="example-box">
+    <strong>Example: Building a Search Engine</strong><br>
+    <ul>
+      <li><strong>Iteration 1:</strong> Basic search &mdash; type a word, get results</li>
+      <li><strong>Iteration 2:</strong> Add filters &mdash; search by date, type, location</li>
+      <li><strong>Iteration 3:</strong> Add AI recommendations &mdash; "Did you mean...?" and smart suggestions</li>
+    </ul>
+    Each iteration makes the search engine smarter and better.
+  </div>
+
+  <div class="key-point">
+    <strong>Incremental vs. Iterative (Know the Difference!):</strong><br>
+    <strong>Incremental</strong> = Add NEW features each time (piece by piece).<br>
+    <strong>Iterative</strong> = IMPROVE existing features each time (refine and enhance).
+  </div>
+
+  <!-- Prototype Model -->
+  <h3>Prototype Model</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">The Prototype Model creates a preliminary (rough) version of the software first to show the customer. The customer gives feedback, and then the real system is built based on that feedback.</div>
+  </div>
+
+  <div class="example-box">
+    <strong>Real-Life Analogy:</strong> Before building a real house, an architect creates a small 3D model (prototype) to show the client. The client says "make the kitchen bigger" or "I want another window." Then the actual house is built with those changes.
+  </div>
+
+  <h4>Phases of the Prototype Model</h4>
+  <div class="concept-box">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content"><strong>Communication</strong> &mdash; Talk to the customer, understand their basic needs</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content"><strong>Quick Design</strong> &mdash; Create a rough design focusing on what the user will see (UI, input/output)</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content"><strong>Build Prototype</strong> &mdash; Quickly build a working model (it does not need to be perfect, just enough to demonstrate)</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content"><strong>Customer Feedback</strong> &mdash; Show the prototype to the customer. They say what they like and what they want changed.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content"><strong>Refine &amp; Repeat</strong> &mdash; Update the prototype based on feedback. Repeat steps 3&ndash;4 until the customer is happy. Then build the final product.</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card left">
+      <h4 style="color:var(--green)">Benefits</h4>
+      <ul>
+        <li><strong>Better usability</strong> &mdash; customer sees and tests early</li>
+        <li><strong>Closer to real needs</strong> &mdash; feedback ensures the right thing is built</li>
+        <li><strong>Reduces misunderstanding</strong> &mdash; customer and developer agree on what to build</li>
+        <li><strong>Good when requirements are unclear</strong></li>
+      </ul>
+    </div>
+    <div class="compare-card right">
+      <h4 style="color:var(--red)">Problems</h4>
+      <ul>
+        <li><strong>Prototype is NOT the final system</strong> &mdash; it is built quickly with shortcuts</li>
+        <li><strong>Throw-away</strong> &mdash; the prototype is usually discarded after development</li>
+        <li><strong>Customer may think the prototype IS the final product</strong> &mdash; "It already works, why do you need more time?"</li>
+        <li><strong>Can lead to endless changes</strong> if feedback loop is not controlled</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(2)">&larr; Previous: Waterfall Model</button>
+    <button class="nav-btn" onclick="showSection(4)">Next: Agile &amp; Scrum &rarr;</button>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION 4: WEEK 6 - AGILE & SCRUM             -->
+<!-- ============================================== -->
+<div class="section" id="sec-4">
+  <h2><span class="topic-num">Week 6</span>Agile &amp; Scrum</h2>
+  <p class="intro-text">The modern approach to software development &mdash; embrace change, deliver fast, keep the customer happy.</p>
+
+  <!-- Why Agile -->
+  <h3>Why Was Agile Created?</h3>
+  <div class="concept-box">
+    <p>In the 1980s and 1990s, software teams used heavy, plan-driven methods (like Waterfall). These methods required months of planning and documentation before any coding started. Many developers were frustrated because:</p>
+    <ul>
+      <li>By the time the software was delivered, the customer's needs had changed</li>
+      <li>Too much paperwork, too little actual working software</li>
+      <li>Projects were slow, expensive, and often failed</li>
+    </ul>
+    <p>So in 2001, 17 software developers met and created the <strong>Agile Manifesto</strong> &mdash; a new philosophy for building software.</p>
+  </div>
+
+  <!-- Agile Manifesto -->
+  <h3>The Agile Manifesto (4 Core Values)</h3>
+  <div class="warning-box">
+    <strong>Memorize these four values &mdash; they are almost guaranteed to appear on the exam.</strong>
+  </div>
+
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>#</th><th>We Value This MORE</th><th>Over This</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td><strong>Individuals &amp; Interactions</strong></td><td>Processes &amp; Tools</td></tr>
+          <tr><td><strong>2</strong></td><td><strong>Working Software</strong></td><td>Comprehensive Documentation</td></tr>
+          <tr><td><strong>3</strong></td><td><strong>Customer Collaboration</strong></td><td>Contract Negotiation</td></tr>
+          <tr><td><strong>4</strong></td><td><strong>Responding to Change</strong></td><td>Following a Plan</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="key-point" style="margin-top:16px">
+      <strong>Important:</strong> The items on the right are still valuable! Agile does not say "no documentation" or "no planning." It says we value the left side MORE.
+    </div>
+  </div>
+
+  <!-- Agile Principles -->
+  <h3>Key Agile Principles</h3>
+  <div class="concept-box">
+    <ul>
+      <li><strong>Customer Satisfaction</strong> &mdash; The highest priority is satisfying the customer through early and continuous delivery of working software</li>
+      <li><strong>Welcome Change</strong> &mdash; Even late in development, welcome changing requirements. Agile uses change as a competitive advantage.</li>
+      <li><strong>Frequent Delivery</strong> &mdash; Deliver working software frequently (every 2&ndash;4 weeks)</li>
+      <li><strong>Daily Collaboration</strong> &mdash; Business people and developers must work together daily throughout the project</li>
+      <li><strong>Motivated Individuals</strong> &mdash; Build projects around motivated people. Give them the support they need and trust them.</li>
+      <li><strong>Face-to-Face Communication</strong> &mdash; The most effective way to share information is talking directly</li>
+      <li><strong>Working Software = Primary Measure</strong> &mdash; The main way to measure progress is working software, not documents or plans</li>
+      <li><strong>Simplicity</strong> &mdash; Maximize the amount of work NOT done. Build only what is needed.</li>
+    </ul>
+  </div>
+
+  <!-- Applicability -->
+  <h3>When to Use Agile?</h3>
+  <div class="compare-grid">
+    <div class="compare-card left">
+      <h4 style="color:var(--green)">Good For</h4>
+      <ul>
+        <li>Small to medium products</li>
+        <li>Custom software systems</li>
+        <li>When customer is available and committed</li>
+        <li>When requirements are expected to change</li>
+        <li>Teams that sit together (co-located)</li>
+      </ul>
+    </div>
+    <div class="compare-card right">
+      <h4 style="color:var(--red)">Problematic For</h4>
+      <ul>
+        <li>Very large systems with many teams</li>
+        <li>When customer is not available for regular feedback</li>
+        <li>Safety-critical systems needing extensive documentation</li>
+        <li>When the team members are not suitable for agile work style</li>
+        <li>Contract and pricing issues (hard to fix a price when scope changes)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Plan-driven vs Agile comparison -->
+  <h3>Plan-Driven vs. Agile Comparison</h3>
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Aspect</th><th>Plan-Driven (Waterfall)</th><th>Agile (Scrum)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Planning</strong></td><td>All upfront, detailed</td><td>Continuous, adaptive</td></tr>
+          <tr><td><strong>Requirements</strong></td><td>Fixed at the start</td><td>Can change anytime</td></tr>
+          <tr><td><strong>Delivery</strong></td><td>One big delivery at the end</td><td>Small frequent deliveries</td></tr>
+          <tr><td><strong>Customer Role</strong></td><td>Involved mostly at start and end</td><td>Involved throughout</td></tr>
+          <tr><td><strong>Documentation</strong></td><td>Heavy, detailed documents</td><td>Light, just enough</td></tr>
+          <tr><td><strong>Change</strong></td><td>Expensive and discouraged</td><td>Welcomed and expected</td></tr>
+          <tr><td><strong>Team Size</strong></td><td>Can be large</td><td>Usually small (5&ndash;9)</td></tr>
+          <tr><td><strong>Risk</strong></td><td>Discovered late</td><td>Discovered early</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SCRUM -->
+  <h3>Scrum Framework</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">Scrum is an Agile framework for managing and completing complex projects. It divides work into short cycles called Sprints.</div>
+  </div>
+
+  <h4>The 3 Phases of Scrum</h4>
+  <div class="concept-box">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content"><strong>Outline Planning</strong> &mdash; Set the overall goals, create the Product Backlog (a list of everything that needs to be built)</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content"><strong>Sprint Cycles</strong> &mdash; Work happens in sprints. Each sprint is 2&ndash;4 weeks long. Pick items from the Product Backlog, build them, deliver them.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content"><strong>Closure</strong> &mdash; Complete documentation, final testing, lessons learned, project wrap-up</div>
+    </div>
+  </div>
+
+  <h4>Key Scrum Concepts</h4>
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Term</th><th>What It Means</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Sprint</strong></td><td>A fixed time period (2&ndash;4 weeks) where the team works on selected tasks</td></tr>
+          <tr><td><strong>Product Backlog</strong></td><td>The master to-do list of ALL features/tasks for the entire product</td></tr>
+          <tr><td><strong>Sprint Backlog</strong></td><td>The tasks selected from the Product Backlog for THIS sprint only</td></tr>
+          <tr><td><strong>Daily Scrum (Standup)</strong></td><td>A 15-minute daily meeting: What did I do yesterday? What will I do today? Any blockers?</td></tr>
+          <tr><td><strong>Sprint Review</strong></td><td>At the end of the sprint, demo the working software to the customer</td></tr>
+          <tr><td><strong>Sprint Retrospective</strong></td><td>Team discusses what went well and what to improve for next sprint</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h4>Scrum Roles</h4>
+  <div class="concept-box">
+    <div class="key-point">
+      <strong>Product Owner:</strong> Represents the customer. Decides WHAT to build and in what order (prioritizes the Product Backlog). Ensures the team builds the right thing.
+    </div>
+    <div class="key-point">
+      <strong>Scrum Master:</strong> The team's coach/facilitator. Removes obstacles, ensures the team follows Scrum practices. NOT a manager &mdash; a servant leader.
+    </div>
+    <div class="key-point">
+      <strong>Development Team:</strong> The people who actually build the software. Self-organizing (they decide HOW to do the work). Usually 5&ndash;9 members.
+    </div>
+  </div>
+
+  <h4>Scrum Benefits</h4>
+  <div class="success-box">
+    <ul>
+      <li><strong>Manageable chunks</strong> &mdash; Large projects broken into small, doable sprints</li>
+      <li><strong>Unstable requirements do not block progress</strong> &mdash; just adjust the backlog</li>
+      <li><strong>Visibility</strong> &mdash; everyone can see what is being worked on through the backlog and daily meetings</li>
+      <li><strong>Customer gets early value</strong> &mdash; working software after every sprint</li>
+      <li><strong>Continuous improvement</strong> &mdash; retrospectives help the team get better over time</li>
+    </ul>
+  </div>
+
+  <!-- Scaling Agile -->
+  <h3>Scaling Agile</h3>
+  <div class="concept-box">
+    <div class="compare-grid">
+      <div class="compare-card left">
+        <h4>Scaling Up (Large Systems)</h4>
+        <p>Using Agile for very big, complex systems. Challenges include coordinating multiple Scrum teams, maintaining architectural integrity, and managing dependencies between teams.</p>
+      </div>
+      <div class="compare-card right">
+        <h4>Scaling Out (Organization-Wide)</h4>
+        <p>Adopting Agile across an entire organization, not just one team. Challenges include cultural change, training everyone, and aligning Agile with existing business processes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case Study -->
+  <h3>Case Study: Customer Loyalty Mobile App</h3>
+  <div class="concept-box">
+    <p>A retail company wants a mobile app where customers earn points for purchases and redeem rewards.</p>
+    <h4>How Scrum Would Be Applied:</h4>
+    <ul>
+      <li><strong>Product Backlog:</strong> User registration, barcode scanning, points tracking, reward catalog, push notifications, payment integration</li>
+      <li><strong>Sprint 1 (2 weeks):</strong> User registration + login</li>
+      <li><strong>Sprint 2:</strong> Barcode scanning + points tracking</li>
+      <li><strong>Sprint 3:</strong> Reward catalog + redemption</li>
+      <li><strong>Sprint 4:</strong> Push notifications + polish</li>
+      <li>After each sprint, the customer reviews the app and gives feedback for the next sprint</li>
+    </ul>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(3)">&larr; Previous: More SDLC Models</button>
+    <button class="nav-btn" onclick="showSection(5)">Next: Requirements &rarr;</button>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION 5: WEEK 7 - REQUIREMENTS              -->
+<!-- ============================================== -->
+<div class="section" id="sec-5">
+  <h2><span class="topic-num">Week 7</span>Software Requirements</h2>
+  <p class="intro-text">Requirements tell us what to build. Get them wrong, and the whole project fails &mdash; no matter how good the code is.</p>
+
+  <!-- What is a Requirement -->
+  <h3>What is a Requirement?</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">A requirement is a description of what a system should do or a constraint on how it should operate. It can range from a high-level general statement to a very detailed technical specification.</div>
+  </div>
+
+  <div class="example-box">
+    <strong>High-level:</strong> "The system should allow online shopping."<br>
+    <strong>Detailed:</strong> "The system shall display product search results within 2 seconds, showing product name, price, image, and rating, sorted by relevance, with a maximum of 20 results per page."
+  </div>
+
+  <!-- User vs System Requirements -->
+  <h3>User Requirements vs. System Requirements</h3>
+
+  <div class="compare-grid">
+    <div class="compare-card left">
+      <h4 style="color:var(--blue)">User Requirements</h4>
+      <ul>
+        <li>Written in <strong>natural language</strong> (plain English/Urdu)</li>
+        <li>For <strong>customers</strong> and <strong>managers</strong></li>
+        <li>High-level &mdash; describe WHAT the system should do</li>
+        <li>Avoid technical jargon</li>
+        <li>Usually written with diagrams for clarity</li>
+      </ul>
+      <div class="example-box" style="margin-top:12px">
+        <strong>Example:</strong> "Users should be able to search for products and add them to a shopping cart."
+      </div>
+    </div>
+    <div class="compare-card right">
+      <h4 style="color:var(--green)">System Requirements</h4>
+      <ul>
+        <li>Written in <strong>precise, structured</strong> language</li>
+        <li>For <strong>developers</strong> and <strong>testers</strong></li>
+        <li>Detailed &mdash; describe exactly HOW the system will work</li>
+        <li>May include technical specifications</li>
+        <li>Used as a contract between client and developer</li>
+      </ul>
+      <div class="example-box" style="margin-top:12px">
+        <strong>Example:</strong> "The search function shall query the product database using SQL, return results in JSON format, and display within 2 seconds for up to 10,000 products."
+      </div>
+    </div>
+  </div>
+
+  <!-- Functional Requirements -->
+  <h3>Functional Requirements</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">Functional Requirements describe what the system SHOULD DO &mdash; the specific services, features, and functions the system must provide.</div>
+  </div>
+
+  <div class="concept-box">
+    <h4>Think of it as: "The system shall..."</h4>
+    <ul>
+      <li>The system shall allow users to <strong>register</strong> with email and password</li>
+      <li>The system shall allow users to <strong>search products</strong> by name, category, or price</li>
+      <li>The system shall allow users to <strong>add items to cart</strong> and modify quantities</li>
+      <li>The system shall <strong>calculate total price</strong> including tax and shipping</li>
+      <li>The system shall <strong>send email confirmation</strong> after each order</li>
+      <li>The system shall allow admins to <strong>add, edit, and delete products</strong></li>
+    </ul>
+  </div>
+
+  <div class="key-point">
+    <strong>Key Point:</strong> If a functional requirement is missing, the system will not do something the user expects. For example, if you forget to include "password reset," users who forget their password will be locked out forever!
+  </div>
+
+  <!-- Non-Functional Requirements -->
+  <h3>Non-Functional Requirements</h3>
+
+  <div class="definition-box">
+    <div class="label">Definition</div>
+    <div class="def-text">Non-Functional Requirements are constraints on the system as a whole. They do not describe WHAT the system does, but HOW WELL it does it &mdash; quality attributes and performance standards.</div>
+  </div>
+
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Type</th><th>What It Means</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Performance / Speed</strong></td><td>How fast the system responds</td><td>Page must load within 2 seconds</td></tr>
+          <tr><td><strong>Reliability</strong></td><td>How often it crashes or fails</td><td>System must have 99.9% uptime</td></tr>
+          <tr><td><strong>Security</strong></td><td>Protection against unauthorized access</td><td>All passwords must be encrypted</td></tr>
+          <tr><td><strong>Usability</strong></td><td>How easy it is to use</td><td>A new user should complete checkout in under 3 minutes</td></tr>
+          <tr><td><strong>Scalability</strong></td><td>Can it handle growth?</td><td>System must support 100,000 users at the same time</td></tr>
+          <tr><td><strong>Portability</strong></td><td>Can it run on different platforms?</td><td>App must work on Android 10+ and iOS 14+</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <strong>Why Non-Functional Requirements Matter:</strong> A system might have all the right features (functional requirements met) but if it is slow, insecure, or crashes every hour (non-functional requirements failed), users will hate it and stop using it.
+  </div>
+
+  <!-- Online Shopping Example -->
+  <h3>Complete Example: Online Shopping App</h3>
+  <div class="concept-box">
+    <div class="compare-grid">
+      <div class="compare-card left">
+        <h4 style="color:var(--blue)">Functional Requirements</h4>
+        <ul>
+          <li>Search products by name/category</li>
+          <li>Add items to shopping cart</li>
+          <li>View order history</li>
+          <li>Make payment via credit card / JazzCash</li>
+          <li>Track order delivery</li>
+          <li>Leave product reviews</li>
+          <li>Admin can manage inventory</li>
+        </ul>
+      </div>
+      <div class="compare-card right">
+        <h4 style="color:var(--green)">Non-Functional Requirements</h4>
+        <ul>
+          <li>Pages load in under 2 seconds</li>
+          <li>Support 50,000 concurrent users</li>
+          <li>99.9% uptime availability</li>
+          <li>Payment data encrypted with SSL</li>
+          <li>Works on Chrome, Firefox, Safari</li>
+          <li>Mobile responsive design</li>
+          <li>System backup every 24 hours</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="success-box">
+    <strong>Quick Memory Trick:</strong><br>
+    <strong>Functional</strong> = "The system SHALL DO ___" (actions, features, services)<br>
+    <strong>Non-Functional</strong> = "The system SHALL BE ___" (fast, secure, reliable, usable)
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(4)">&larr; Previous: Agile &amp; Scrum</button>
+    <button class="nav-btn" onclick="showSection(6)">Next: Assignment Answers &rarr;</button>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION 6: ASSIGNMENT QUESTIONS & ANSWERS      -->
+<!-- ============================================== -->
+<div class="section" id="sec-6">
+  <h2><span class="topic-num">Exam Prep</span>Assignment Questions &amp; Answers</h2>
+  <p class="intro-text">Detailed answers to the commonly asked assignment questions. Study these carefully &mdash; similar questions often appear on the exam.</p>
+
+  <!-- Question A -->
+  <h3>Question A: Why can't we find all errors before delivery? Why so much time on maintenance?</h3>
+
+  <div class="concept-box">
+    <h4>Part 1: Why can't we find all errors before giving software to customers?</h4>
+    <div class="success-box">
+      <ol>
+        <li><strong>Software is incredibly complex.</strong> A real-world application has millions of possible paths and combinations. It is physically impossible to test every single combination.</li>
+        <li><strong>Testing shows the presence of bugs, not their absence.</strong> Even if you test for months, there could still be a bug hiding in a path you never tested.</li>
+        <li><strong>Real-world conditions are unpredictable.</strong> Users use software in ways developers never imagined &mdash; weird inputs, unexpected sequences, unusual devices.</li>
+        <li><strong>Time and cost constraints.</strong> Testing every possible scenario would take infinite time. Companies must balance quality with delivery deadlines.</li>
+        <li><strong>Integration with other systems.</strong> Your software interacts with other software, operating systems, and hardware that can behave unexpectedly.</li>
+        <li><strong>Requirements may be incomplete.</strong> If the requirements were unclear, the developers may have built the wrong thing &mdash; and that "error" cannot be caught by testing.</li>
+      </ol>
+    </div>
+
+    <h4>Part 2: Why do we spend so much time and effort maintaining software?</h4>
+    <div class="success-box">
+      <ol>
+        <li><strong>Bug fixes</strong> &mdash; Users find new bugs that were not caught during testing. Each must be investigated and fixed.</li>
+        <li><strong>Changing requirements</strong> &mdash; Business rules change, new laws are passed, the company grows. The software must be updated to match.</li>
+        <li><strong>Technology changes</strong> &mdash; Operating systems update, browsers release new versions, old libraries become insecure. Software must adapt.</li>
+        <li><strong>Performance improvements</strong> &mdash; As the number of users grows, the software needs optimization.</li>
+        <li><strong>New feature requests</strong> &mdash; Users always want more. "Can you add this feature? Can you change that?"</li>
+        <li><strong>Maintenance is the longest phase of SDLC</strong> &mdash; Development might take months, but maintenance lasts for years or even decades.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Question B -->
+  <h3>Question B: Balancing Act &amp; Law of Diminishing Returns in SE</h3>
+
+  <div class="concept-box">
+    <h4>The Balancing Act</h4>
+    <div class="success-box">
+      <p>Software Engineering is a constant balancing act between competing factors. You cannot maximize everything at once:</p>
+      <ul>
+        <li><strong>Quality vs. Speed</strong> &mdash; Building software with zero bugs takes a very long time. But the client wants delivery fast. You must balance quality with deadline.</li>
+        <li><strong>Features vs. Simplicity</strong> &mdash; Adding more features makes software powerful but also more complex and harder to use. You must decide which features are truly necessary.</li>
+        <li><strong>Cost vs. Quality</strong> &mdash; Higher quality needs more testing, more reviews, better developers &mdash; all of which cost more money. You must balance the budget with the desired quality level.</li>
+        <li><strong>Security vs. Usability</strong> &mdash; Very secure systems (many passwords, verification steps) are harder to use. Very easy systems may not be secure enough.</li>
+        <li><strong>Short-term vs. Long-term</strong> &mdash; Quick shortcuts now (technical debt) create big problems later. Good architecture now costs more time upfront but saves effort later.</li>
+      </ul>
+      <p>A good software engineer finds the right balance for each specific project, considering the customer's priorities, budget, and timeline.</p>
+    </div>
+
+    <h4>Law of Diminishing Returns</h4>
+    <div class="success-box">
+      <p>The Law of Diminishing Returns in SE means: <strong>after a certain point, putting in more effort gives you less and less improvement.</strong></p>
+      <ul>
+        <li><strong>Testing example:</strong> The first 100 hours of testing might find 80% of bugs. The next 100 hours might find 15%. The next 100 hours might find only 4%. You are spending the same effort but finding fewer bugs each time.</li>
+        <li><strong>Team size:</strong> Adding a 6th developer to a 5-person team might speed things up slightly. But adding a 20th developer might actually slow things down because of communication overhead.</li>
+        <li><strong>Optimization:</strong> Making your app go from 10 seconds to 2 seconds is a huge improvement. Making it go from 2 seconds to 1.8 seconds takes similar effort but the user barely notices.</li>
+      </ul>
+      <p><strong>Practical lesson:</strong> Know when to stop perfecting and start delivering. 80% perfect and delivered is better than 100% perfect and never delivered.</p>
+    </div>
+  </div>
+
+  <!-- Question C -->
+  <h3>Question C: Engineering Principles in Software &amp; Characteristics of Well-Engineered Software</h3>
+
+  <div class="concept-box">
+    <h4>Engineering Principles Applied to Software</h4>
+    <div class="success-box">
+      <p>Just like building bridges or designing cars, software development should follow engineering principles:</p>
+      <ol>
+        <li><strong>Systematic Approach</strong> &mdash; Follow a structured process (SDLC), not random coding. Plan before you build.</li>
+        <li><strong>Measurability</strong> &mdash; Define measurable goals (the system should load in under 2 seconds, support 10,000 users). You cannot improve what you cannot measure.</li>
+        <li><strong>Quality Assurance</strong> &mdash; Test at every stage, review code, follow standards. Quality must be built in, not added at the end.</li>
+        <li><strong>Trade-off Analysis</strong> &mdash; Evaluate alternatives and make informed decisions. Choose the right tool and model for each project.</li>
+        <li><strong>Documentation</strong> &mdash; Record requirements, designs, and decisions so others can understand and maintain the system later.</li>
+        <li><strong>Reuse and Modularity</strong> &mdash; Build software in modules (separate pieces) that can be reused in other projects.</li>
+        <li><strong>Risk Management</strong> &mdash; Identify potential problems early and plan how to handle them.</li>
+        <li><strong>Continuous Improvement</strong> &mdash; Learn from each project. Use retrospectives and reviews to get better over time.</li>
+      </ol>
+    </div>
+
+    <h4>Characteristics of Well-Engineered Software</h4>
+    <div class="success-box">
+      <ol>
+        <li><strong>Maintainability</strong> &mdash; The software is written clearly so that future developers can easily understand, fix, and update it. Clean code, good naming, proper documentation.</li>
+        <li><strong>Dependability &amp; Security</strong> &mdash; The software is reliable (does not crash), safe (does not cause harm), and secure (protects data from unauthorized access).</li>
+        <li><strong>Efficiency &amp; Performance</strong> &mdash; The software uses computer resources (memory, CPU, network) wisely and responds quickly to user actions.</li>
+        <li><strong>Acceptability &amp; Usability</strong> &mdash; Users find the software easy to learn and use. It is compatible with their environment and meets their expectations.</li>
+        <li><strong>Scalability</strong> &mdash; The software can grow to handle more users, more data, and more features without a complete rewrite.</li>
+        <li><strong>Robustness</strong> &mdash; The software handles unexpected inputs and situations gracefully (shows error messages instead of crashing).</li>
+        <li><strong>Correctness</strong> &mdash; The software does exactly what the requirements say it should do &mdash; no more, no less.</li>
+        <li><strong>Testability</strong> &mdash; The software is designed so that it can be easily tested, both manually and automatically.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <strong>Exam Strategy:</strong> For essay-type questions, always give a definition first, then explain in simple words, then give an example. This shows the examiner you truly understand the concept, not just memorized it.
+  </div>
+
+  <!-- Quick Reference Summary -->
+  <h3>Quick Reference: All Models at a Glance</h3>
+  <div class="concept-box">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Model</th><th>Key Idea</th><th>Best For</th><th>Main Problem</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Big Bang</strong></td><td>No planning, just code</td><td>Tiny personal projects</td><td>Very risky, no process</td></tr>
+          <tr><td><strong>Build &amp; Fix</strong></td><td>Code then patch</td><td>Not recommended</td><td>Unmaintainable mess</td></tr>
+          <tr><td><strong>Waterfall</strong></td><td>Linear, phase by phase</td><td>Stable, well-known requirements</td><td>Inflexible to change</td></tr>
+          <tr><td><strong>V-Model</strong></td><td>Testing for each phase</td><td>Projects needing rigorous testing</td><td>Still rigid like Waterfall</td></tr>
+          <tr><td><strong>Incremental</strong></td><td>Build in pieces</td><td>When early delivery is needed</td><td>Structure degrades over time</td></tr>
+          <tr><td><strong>Iterative</strong></td><td>Refine in cycles</td><td>When requirements evolve</td><td>May seem never-ending</td></tr>
+          <tr><td><strong>Prototype</strong></td><td>Build rough version first</td><td>Unclear requirements</td><td>Prototype may be mistaken for final product</td></tr>
+          <tr><td><strong>Agile / Scrum</strong></td><td>Sprints, flexibility, collaboration</td><td>Changing requirements, engaged customer</td><td>Hard to scale for large systems</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="success-box" style="text-align:center; font-size:1.05rem; margin-top:28px;">
+    <strong>You have covered all 7 weeks. Good luck on your midterm!</strong><br>
+    Remember: understand the concepts, do not just memorize. If you can explain it in your own simple words, you truly know it.
+  </div>
+
+  <button class="print-btn" onclick="window.print()">Print Complete Guide</button>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(5)">&larr; Previous: Requirements</button>
+    <button class="nav-btn" disabled>End of Guide</button>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<script>
+const sections = document.querySelectorAll('.section');
+const navItems = document.querySelectorAll('.nav-item');
+const progressFill = document.getElementById('progressFill');
+const progressPercent = document.getElementById('progressPercent');
+let visited = new Set([0]);
+
+function showSection(index) {
+  sections.forEach(s => s.classList.remove('active'));
+  navItems.forEach(n => n.classList.remove('active'));
+  sections[index].classList.add('active');
+  navItems[index].classList.add('active');
+  visited.add(index);
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Close mobile sidebar
+  document.querySelector('.sidebar').classList.remove('open');
+}
+
+function updateProgress() {
+  const pct = Math.round((visited.size / sections.length) * 100);
+  progressFill.style.width = pct + '%';
+  progressPercent.textContent = pct + '%';
+}
+
+updateProgress();
+</script>
+</body>
+</html>
