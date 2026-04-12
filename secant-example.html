@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secant Method - Solved Example</title>
+<style>
+  body { font-family: 'Georgia', serif; max-width: 900px; margin: 30px auto; padding: 20px 30px; background: #fafaf7; color: #222; line-height: 1.7; }
+  h1 { color: #1a4d80; border-bottom: 3px solid #1a4d80; padding-bottom: 8px; font-size: 1.5rem; }
+  h2 { color: #1a4d80; margin-top: 28px; border-left: 5px solid #1a4d80; padding-left: 12px; font-size: 1.2rem; }
+  h3 { color: #c0392b; margin-top: 22px; font-size: 1.05rem; }
+  .box { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 14px 20px; margin: 14px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .formula { background: #eaf3fb; border-left: 4px solid #1a4d80; padding: 12px 16px; font-size: 1.1em; margin: 12px 0; }
+  .answer { background: #e7f7e7; border: 2px solid #28a745; padding: 12px 18px; border-radius: 6px; font-weight: bold; font-size: 1.1em; margin: 14px 0; }
+  .warn { background: #fff8e1; border-left: 4px solid #f5b300; padding: 10px 16px; margin: 12px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; background: #fff; font-size: 0.9em; }
+  th, td { border: 1px solid #888; padding: 8px 10px; text-align: center; }
+  th { background: #1a4d80; color: #fff; }
+  tr:nth-child(even) td { background: #f4f4f4; }
+  .step { background: #fff; border-left: 4px solid #c0392b; padding: 12px 16px; margin: 10px 0; line-height: 2.2; }
+  .step b { color: #c0392b; }
+  .small { font-size: 0.85em; color: #666; }
+  .frac { display: inline-block; text-align: center; vertical-align: middle; }
+  .frac-num { display: block; border-bottom: 1px solid #222; padding: 0 4px 2px; }
+  .frac-den { display: block; padding: 2px 4px 0; }
+</style>
+</head>
+<body>
+
+<h1>Secant Method &mdash; Solved Example</h1>
+
+<div class="box">
+<b>Question:</b> Find a real root of<br><br>
+<div class="formula">
+  f(x) = x<sup>3</sup> &minus; x &minus; 1 = 0
+</div>
+using the <b>Secant Method</b> with x<sub>0</sub> = 1 and x<sub>1</sub> = 2.<br>
+<b>Stopping criterion:</b> |x<sub>n+1</sub> &minus; x<sub>n</sub>| &le; 0.001
+</div>
+
+<h2>Step 1 &mdash; Formula</h2>
+<div class="formula">
+  x<sub>n+1</sub> = x<sub>n</sub> &minus; f(x<sub>n</sub>) &times;
+  <span class="frac">
+    <span class="frac-num">(x<sub>n</sub> &minus; x<sub>n&minus;1</sub>)</span>
+    <span class="frac-den">f(x<sub>n</sub>) &minus; f(x<sub>n&minus;1</sub>)</span>
+  </span>
+</div>
+
+<p><b>Key:</b> No derivative needed! Uses two previous points instead.</p>
+
+<h2>Step 2 &mdash; Starting Values</h2>
+<div class="step">
+  x<sub>0</sub> = 1 &nbsp;&nbsp;&nbsp;&rarr;&nbsp;&nbsp;&nbsp; f(1) = (1)<sup>3</sup> &minus; 1 &minus; 1 = <b>&minus;1</b><br><br>
+  x<sub>1</sub> = 2 &nbsp;&nbsp;&nbsp;&rarr;&nbsp;&nbsp;&nbsp; f(2) = (2)<sup>3</sup> &minus; 2 &minus; 1 = 8 &minus; 3 = <b>+5</b>
+</div>
+
+<h2>Step 3 &mdash; Iterations</h2>
+
+<h3>Iteration 1: Compute x<sub>2</sub></h3>
+<div class="step">
+  x<sub>0</sub> = 1, &nbsp; x<sub>1</sub> = 2, &nbsp; f(x<sub>0</sub>) = &minus;1, &nbsp; f(x<sub>1</sub>) = 5<br><br>
+
+  x<sub>2</sub> = x<sub>1</sub> &minus; f(x<sub>1</sub>) &times;
+  <span class="frac">
+    <span class="frac-num">(x<sub>1</sub> &minus; x<sub>0</sub>)</span>
+    <span class="frac-den">f(x<sub>1</sub>) &minus; f(x<sub>0</sub>)</span>
+  </span><br><br>
+
+  x<sub>2</sub> = 2 &minus; 5 &times;
+  <span class="frac">
+    <span class="frac-num">(2 &minus; 1)</span>
+    <span class="frac-den">5 &minus; (&minus;1)</span>
+  </span>
+  = 2 &minus; 5 &times;
+  <span class="frac">
+    <span class="frac-num">1</span>
+    <span class="frac-den">6</span>
+  </span>
+  = 2 &minus; 0.83333 = <b>1.16667</b><br><br>
+
+  f(1.16667) = (1.16667)<sup>3</sup> &minus; 1.16667 &minus; 1 = 1.5880 &minus; 2.1667 = <b>&minus;0.5787</b><br><br>
+
+  |x<sub>2</sub> &minus; x<sub>1</sub>| = |1.16667 &minus; 2| = 0.83333 &gt; 0.001 &rarr; <b>continue</b>
+</div>
+
+<h3>Iteration 2: Compute x<sub>3</sub></h3>
+<div class="step">
+  x<sub>1</sub> = 2, &nbsp; x<sub>2</sub> = 1.16667, &nbsp; f(x<sub>1</sub>) = 5, &nbsp; f(x<sub>2</sub>) = &minus;0.5787<br><br>
+
+  x<sub>3</sub> = 1.16667 &minus; (&minus;0.5787) &times;
+  <span class="frac">
+    <span class="frac-num">(1.16667 &minus; 2)</span>
+    <span class="frac-den">(&minus;0.5787) &minus; 5</span>
+  </span><br><br>
+
+  x<sub>3</sub> = 1.16667 &minus; (&minus;0.5787) &times;
+  <span class="frac">
+    <span class="frac-num">(&minus;0.83333)</span>
+    <span class="frac-den">&minus;5.5787</span>
+  </span><br><br>
+
+  x<sub>3</sub> = 1.16667 &minus; (&minus;0.5787)(0.14937)<br>
+  x<sub>3</sub> = 1.16667 + 0.08646 = <b>1.25311</b><br><br>
+
+  f(1.25311) = (1.25311)<sup>3</sup> &minus; 1.25311 &minus; 1 = <b>&minus;0.28537</b><br><br>
+
+  |x<sub>3</sub> &minus; x<sub>2</sub>| = 0.08644 &gt; 0.001 &rarr; <b>continue</b>
+</div>
+
+<h3>Iteration 3: Compute x<sub>4</sub></h3>
+<div class="step">
+  x<sub>2</sub> = 1.16667, &nbsp; x<sub>3</sub> = 1.25311, &nbsp; f(x<sub>2</sub>) = &minus;0.5787, &nbsp; f(x<sub>3</sub>) = &minus;0.28537<br><br>
+
+  x<sub>4</sub> = 1.25311 &minus; (&minus;0.28537) &times;
+  <span class="frac">
+    <span class="frac-num">(1.25311 &minus; 1.16667)</span>
+    <span class="frac-den">(&minus;0.28537) &minus; (&minus;0.5787)</span>
+  </span><br><br>
+
+  x<sub>4</sub> = 1.25311 &minus; (&minus;0.28537) &times;
+  <span class="frac">
+    <span class="frac-num">0.08644</span>
+    <span class="frac-den">0.29333</span>
+  </span><br><br>
+
+  x<sub>4</sub> = 1.25311 + 0.08412 = <b>1.33721</b><br><br>
+
+  f(1.33721) = (1.33721)<sup>3</sup> &minus; 1.33721 &minus; 1 = <b>0.05390</b><br><br>
+
+  |x<sub>4</sub> &minus; x<sub>3</sub>| = 0.08410 &gt; 0.001 &rarr; <b>continue</b>
+</div>
+
+<h3>Iteration 4: Compute x<sub>5</sub></h3>
+<div class="step">
+  x<sub>3</sub> = 1.25311, &nbsp; x<sub>4</sub> = 1.33721, &nbsp; f(x<sub>3</sub>) = &minus;0.28537, &nbsp; f(x<sub>4</sub>) = 0.05390<br><br>
+
+  x<sub>5</sub> = 1.33721 &minus; (0.05390) &times;
+  <span class="frac">
+    <span class="frac-num">(1.33721 &minus; 1.25311)</span>
+    <span class="frac-den">0.05390 &minus; (&minus;0.28537)</span>
+  </span><br><br>
+
+  x<sub>5</sub> = 1.33721 &minus; 0.05390 &times;
+  <span class="frac">
+    <span class="frac-num">0.08410</span>
+    <span class="frac-den">0.33927</span>
+  </span><br><br>
+
+  x<sub>5</sub> = 1.33721 &minus; 0.01337 = <b>1.32385</b><br><br>
+
+  f(1.32385) = <b>&minus;0.0037</b><br><br>
+
+  |x<sub>5</sub> &minus; x<sub>4</sub>| = 0.01336 &gt; 0.001 &rarr; <b>continue</b>
+</div>
+
+<h3>Iteration 5: Compute x<sub>6</sub></h3>
+<div class="step">
+  x<sub>4</sub> = 1.33721, &nbsp; x<sub>5</sub> = 1.32385, &nbsp; f(x<sub>4</sub>) = 0.05390, &nbsp; f(x<sub>5</sub>) = &minus;0.0037<br><br>
+
+  x<sub>6</sub> = 1.32385 &minus; (&minus;0.0037) &times;
+  <span class="frac">
+    <span class="frac-num">(1.32385 &minus; 1.33721)</span>
+    <span class="frac-den">(&minus;0.0037) &minus; (0.05390)</span>
+  </span><br><br>
+
+  x<sub>6</sub> = 1.32385 &minus; (&minus;0.0037) &times;
+  <span class="frac">
+    <span class="frac-num">&minus;0.01336</span>
+    <span class="frac-den">&minus;0.05760</span>
+  </span><br><br>
+
+  x<sub>6</sub> = 1.32385 &minus; 0.00086 = <b>1.32471</b><br><br>
+
+  |x<sub>6</sub> &minus; x<sub>5</sub>| = 0.00086 &lt; 0.001 &rarr; <b>STOP!</b>
+</div>
+
+<h2>Step 4 &mdash; Summary Table</h2>
+
+<table>
+<tr><th>n</th><th>x<sub>n&minus;1</sub></th><th>x<sub>n</sub></th><th>f(x<sub>n</sub>)</th><th>x<sub>n+1</sub></th><th>|x<sub>n+1</sub> &minus; x<sub>n</sub>|</th></tr>
+<tr><td>1</td><td>1.00000</td><td>2.00000</td><td>5.00000</td><td>1.16667</td><td>0.83333</td></tr>
+<tr><td>2</td><td>2.00000</td><td>1.16667</td><td>&minus;0.5787</td><td>1.25311</td><td>0.08644</td></tr>
+<tr><td>3</td><td>1.16667</td><td>1.25311</td><td>&minus;0.2854</td><td>1.33721</td><td>0.08410</td></tr>
+<tr><td>4</td><td>1.25311</td><td>1.33721</td><td>0.05390</td><td>1.32385</td><td>0.01336</td></tr>
+<tr><td>5</td><td>1.33721</td><td>1.32385</td><td>&minus;0.0037</td><td>1.32471</td><td>0.00086</td></tr>
+</table>
+
+<div class="answer">
+The real root of x<sup>3</sup> &minus; x &minus; 1 = 0 is approximately <b>x &asymp; 1.325</b><br>
+(Same answer as Newton-Raphson, but NO derivative needed!)
+</div>
+
+<h2>Easy Words</h2>
+<div class="box">
+<ul style="line-height: 2.2;">
+  <li><b>Pick</b> two starting guesses x<sub>0</sub> and x<sub>1</sub></li>
+  <li><b>Apply</b> formula using last two x values and their f values</li>
+  <li><b>Shift:</b> drop the oldest x, keep the newest two</li>
+  <li><b>Stop</b> when |x<sub>new</sub> &minus; x<sub>old</sub>| &le; 0.001</li>
+  <li><b>Advantage:</b> No derivative needed (unlike Newton-Raphson)</li>
+</ul>
+</div>
+
+<p class="small">&mdash; Numerical Analysis study material &mdash;</p>
+
+</body>
+</html>

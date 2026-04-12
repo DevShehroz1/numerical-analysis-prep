@@ -349,15 +349,41 @@ body {
       <div class="nav-icon">&#128218;</div>
       <div>
         <div class="nav-label">Complete Study Guide</div>
-        <div class="nav-desc">All topics with examples</div>
+        <div class="nav-desc">All topics + interactive</div>
+      </div>
+    </div>
+
+    <div class="nav-section-label">Solved Examples</div>
+
+    <div class="nav-item" onclick="loadPage('bisection-example.html')">
+      <div class="nav-icon">&#9986;</div>
+      <div>
+        <div class="nav-label">Bisection Method</div>
+        <div class="nav-desc">x&#179; &#8722; x &#8722; 1 (step by step)</div>
       </div>
     </div>
 
     <div class="nav-item" onclick="loadPage('false-position-example.html')">
       <div class="nav-icon">&#128200;</div>
       <div>
-        <div class="nav-label">False Position Example</div>
+        <div class="nav-label">False Position Method</div>
         <div class="nav-desc">x&#179; &#8722; 2x &#8722; 5 (2 decimals)</div>
+      </div>
+    </div>
+
+    <div class="nav-item" onclick="loadPage('newton-raphson-example.html')">
+      <div class="nav-icon">&#9889;</div>
+      <div>
+        <div class="nav-label">Newton-Raphson Method</div>
+        <div class="nav-desc">x&#179; &#8722; x &#8722; 1 (4 iterations)</div>
+      </div>
+    </div>
+
+    <div class="nav-item" onclick="loadPage('secant-example.html')">
+      <div class="nav-icon">&#128208;</div>
+      <div>
+        <div class="nav-label">Secant Method</div>
+        <div class="nav-desc">x&#179; &#8722; x &#8722; 1 (no derivative)</div>
       </div>
     </div>
 
@@ -376,14 +402,35 @@ body {
     <div class="page-card" onclick="loadPage('study-guide.html')">
       <div class="card-icon c1">&#128218;</div>
       <div class="card-text">
-        <h3>Study Guide</h3>
-        <span>All 6 topics + examples</span>
+        <h3>Full Study Guide</h3>
+        <span>All topics + interactive</span>
+      </div>
+    </div>
+    <div class="page-card" onclick="loadPage('bisection-example.html')">
+      <div class="card-icon c3">&#9986;</div>
+      <div class="card-text">
+        <h3>Bisection</h3>
+        <span>Solved example</span>
       </div>
     </div>
     <div class="page-card" onclick="loadPage('false-position-example.html')">
       <div class="card-icon c2">&#128200;</div>
       <div class="card-text">
         <h3>False Position</h3>
+        <span>Solved example</span>
+      </div>
+    </div>
+    <div class="page-card" onclick="loadPage('newton-raphson-example.html')">
+      <div class="card-icon c1">&#9889;</div>
+      <div class="card-text">
+        <h3>Newton-Raphson</h3>
+        <span>Solved example</span>
+      </div>
+    </div>
+    <div class="page-card" onclick="loadPage('secant-example.html')">
+      <div class="card-icon c3">&#128208;</div>
+      <div class="card-text">
+        <h3>Secant</h3>
         <span>Solved example</span>
       </div>
     </div>
@@ -427,8 +474,14 @@ function loadPage(page) {
 
     if (page.includes('study-guide')) {
       document.querySelector('.header-title').innerHTML = '<em>NA</em> Study Guide';
+    } else if (page.includes('bisection')) {
+      document.querySelector('.header-title').innerHTML = '<em>NA</em> Bisection';
     } else if (page.includes('false-position')) {
       document.querySelector('.header-title').innerHTML = '<em>NA</em> False Position';
+    } else if (page.includes('newton')) {
+      document.querySelector('.header-title').innerHTML = '<em>NA</em> Newton-Raphson';
+    } else if (page.includes('secant')) {
+      document.querySelector('.header-title').innerHTML = '<em>NA</em> Secant';
     }
   }
 

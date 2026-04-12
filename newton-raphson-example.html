@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newton-Raphson Method - Solved Example</title>
+<style>
+  body { font-family: 'Georgia', serif; max-width: 900px; margin: 30px auto; padding: 20px 30px; background: #fafaf7; color: #222; line-height: 1.7; }
+  h1 { color: #1a4d80; border-bottom: 3px solid #1a4d80; padding-bottom: 8px; font-size: 1.5rem; }
+  h2 { color: #1a4d80; margin-top: 28px; border-left: 5px solid #1a4d80; padding-left: 12px; font-size: 1.2rem; }
+  h3 { color: #c0392b; margin-top: 22px; font-size: 1.05rem; }
+  .box { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 14px 20px; margin: 14px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .formula { background: #eaf3fb; border-left: 4px solid #1a4d80; padding: 12px 16px; font-size: 1.15em; margin: 12px 0; }
+  .answer { background: #e7f7e7; border: 2px solid #28a745; padding: 12px 18px; border-radius: 6px; font-weight: bold; font-size: 1.1em; margin: 14px 0; }
+  .warn { background: #fff8e1; border-left: 4px solid #f5b300; padding: 10px 16px; margin: 12px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; background: #fff; font-size: 0.9em; }
+  th, td { border: 1px solid #888; padding: 8px 10px; text-align: center; }
+  th { background: #1a4d80; color: #fff; }
+  tr:nth-child(even) td { background: #f4f4f4; }
+  .step { background: #fff; border-left: 4px solid #c0392b; padding: 12px 16px; margin: 10px 0; line-height: 2.2; }
+  .step b { color: #c0392b; }
+  .small { font-size: 0.85em; color: #666; }
+  .frac { display: inline-block; text-align: center; vertical-align: middle; }
+  .frac-num { display: block; border-bottom: 1px solid #222; padding: 0 4px 2px; }
+  .frac-den { display: block; padding: 2px 4px 0; }
+</style>
+</head>
+<body>
+
+<h1>Newton-Raphson Method &mdash; Solved Example</h1>
+
+<div class="box">
+<b>Question:</b> Find a real root of<br><br>
+<div class="formula">
+  f(x) = x<sup>3</sup> &minus; x &minus; 1 = 0
+</div>
+using the <b>Newton-Raphson Method</b>.<br>
+<b>Stopping criterion:</b> |x<sub>n+1</sub> &minus; x<sub>n</sub>| &le; 0.001
+</div>
+
+<h2>Step 1 &mdash; Formula</h2>
+<div class="formula">
+  x<sub>n+1</sub> = x<sub>n</sub> &minus;
+  <span class="frac">
+    <span class="frac-num">f(x<sub>n</sub>)</span>
+    <span class="frac-den">f&prime;(x<sub>n</sub>)</span>
+  </span>
+</div>
+
+<h2>Step 2 &mdash; Find f(x) and f&prime;(x)</h2>
+<div class="step">
+  f(x) = x<sup>3</sup> &minus; x &minus; 1<br><br>
+  f&prime;(x) = 3x<sup>2</sup> &minus; 1 &nbsp;&nbsp;&nbsp;(derivative: bring the power down, reduce by 1)
+</div>
+
+<h2>Step 3 &mdash; Choose Initial Guess x<sub>0</sub></h2>
+
+<table>
+<tr><th>x</th><th>f(x)</th><th>Close to zero?</th></tr>
+<tr><td>0</td><td>0 &minus; 0 &minus; 1 = &minus;1</td><td>yes</td></tr>
+<tr><td>1</td><td>1 &minus; 1 &minus; 1 = &minus;1</td><td>yes</td></tr>
+<tr><td>2</td><td>8 &minus; 2 &minus; 1 = +5</td><td>no</td></tr>
+</table>
+
+<div class="warn">
+f(1) = &minus;1 is closest to zero &rarr; choose <b>x<sub>0</sub> = 1</b>
+</div>
+
+<h2>Step 4 &mdash; Iterations</h2>
+
+<h3>Iteration 1: Compute x<sub>1</sub></h3>
+<div class="step">
+  x<sub>0</sub> = 1<br><br>
+
+  f(x<sub>0</sub>) = f(1) = (1)<sup>3</sup> &minus; 1 &minus; 1 = 1 &minus; 1 &minus; 1 = <b>&minus;1</b><br><br>
+
+  f&prime;(x<sub>0</sub>) = f&prime;(1) = 3(1)<sup>2</sup> &minus; 1 = 3 &minus; 1 = <b>2</b><br><br>
+
+  x<sub>1</sub> = x<sub>0</sub> &minus;
+  <span class="frac">
+    <span class="frac-num">f(x<sub>0</sub>)</span>
+    <span class="frac-den">f&prime;(x<sub>0</sub>)</span>
+  </span>
+  = 1 &minus;
+  <span class="frac">
+    <span class="frac-num">(&minus;1)</span>
+    <span class="frac-den">2</span>
+  </span>
+  = 1 + 0.5 = <b>1.5</b><br><br>
+
+  |x<sub>1</sub> &minus; x<sub>0</sub>| = |1.5 &minus; 1| = 0.5 &gt; 0.001 &rarr; <b>continue</b>
+</div>
+
+<h3>Iteration 2: Compute x<sub>2</sub></h3>
+<div class="step">
+  x<sub>1</sub> = 1.5<br><br>
+
+  f(1.5) = (1.5)<sup>3</sup> &minus; 1.5 &minus; 1 = 3.375 &minus; 2.5 = <b>0.875</b><br><br>
+
+  f&prime;(1.5) = 3(1.5)<sup>2</sup> &minus; 1 = 3(2.25) &minus; 1 = 6.75 &minus; 1 = <b>5.75</b><br><br>
+
+  x<sub>2</sub> = 1.5 &minus;
+  <span class="frac">
+    <span class="frac-num">0.875</span>
+    <span class="frac-den">5.75</span>
+  </span>
+  = 1.5 &minus; 0.15217 = <b>1.34783</b><br><br>
+
+  |x<sub>2</sub> &minus; x<sub>1</sub>| = |1.34783 &minus; 1.5| = 0.15217 &gt; 0.001 &rarr; <b>continue</b>
+</div>
+
+<h3>Iteration 3: Compute x<sub>3</sub></h3>
+<div class="step">
+  x<sub>2</sub> = 1.34783<br><br>
+
+  f(1.34783) = (1.34783)<sup>3</sup> &minus; 1.34783 &minus; 1<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;= 2.44802 &minus; 2.34783 = <b>0.1007</b><br><br>
+
+  f&prime;(1.34783) = 3(1.34783)<sup>2</sup> &minus; 1 = 3(1.81665) &minus; 1 = 5.44994 &minus; 1 = <b>4.44994</b><br><br>
+
+  x<sub>3</sub> = 1.34783 &minus;
+  <span class="frac">
+    <span class="frac-num">0.1007</span>
+    <span class="frac-den">4.44994</span>
+  </span>
+  = 1.34783 &minus; 0.02263 = <b>1.32520</b><br><br>
+
+  |x<sub>3</sub> &minus; x<sub>2</sub>| = |1.32520 &minus; 1.34783| = 0.02263 &gt; 0.001 &rarr; <b>continue</b>
+</div>
+
+<h3>Iteration 4: Compute x<sub>4</sub></h3>
+<div class="step">
+  x<sub>3</sub> = 1.32520<br><br>
+
+  f(1.32520) = (1.32520)<sup>3</sup> &minus; 1.32520 &minus; 1 = <b>0.00306</b><br><br>
+
+  f&prime;(1.32520) = 3(1.32520)<sup>2</sup> &minus; 1 = 3(1.75614) &minus; 1 = 5.26847 &minus; 1 = <b>4.26847</b><br><br>
+
+  x<sub>4</sub> = 1.32520 &minus;
+  <span class="frac">
+    <span class="frac-num">0.00306</span>
+    <span class="frac-den">4.26847</span>
+  </span>
+  = 1.32520 &minus; 0.00072 = <b>1.32472</b><br><br>
+
+  |x<sub>4</sub> &minus; x<sub>3</sub>| = |1.32472 &minus; 1.32520| = 0.00048 &lt; 0.001 &rarr; <b>STOP!</b>
+</div>
+
+<h2>Step 5 &mdash; Summary Table</h2>
+
+<table>
+<tr><th>n</th><th>x<sub>n</sub></th><th>f(x<sub>n</sub>)</th><th>f&prime;(x<sub>n</sub>)</th><th>x<sub>n+1</sub></th><th>|x<sub>n+1</sub> &minus; x<sub>n</sub>|</th></tr>
+<tr><td>0</td><td>1.00000</td><td>&minus;1.00000</td><td>2.00000</td><td>1.50000</td><td>0.50000</td></tr>
+<tr><td>1</td><td>1.50000</td><td>0.87500</td><td>5.75000</td><td>1.34783</td><td>0.15217</td></tr>
+<tr><td>2</td><td>1.34783</td><td>0.10070</td><td>4.44994</td><td>1.32520</td><td>0.02263</td></tr>
+<tr><td>3</td><td>1.32520</td><td>0.00306</td><td>4.26847</td><td>1.32472</td><td>0.00048</td></tr>
+</table>
+
+<div class="answer">
+The real root of x<sup>3</sup> &minus; x &minus; 1 = 0 is approximately <b>x &asymp; 1.325</b><br>
+(Only 4 iterations! Bisection needed 8+)
+</div>
+
+<h2>Easy Words</h2>
+<div class="box">
+<ul style="line-height: 2.2;">
+  <li><b>Find</b> the derivative f&prime;(x) first</li>
+  <li><b>Pick</b> a starting guess x<sub>0</sub> (the one closest to zero)</li>
+  <li><b>Apply</b> formula: x<sub>new</sub> = x<sub>old</sub> &minus; f(x) / f&prime;(x)</li>
+  <li><b>Stop</b> when |x<sub>new</sub> &minus; x<sub>old</sub>| &le; 0.001</li>
+</ul>
+</div>
+
+<p class="small">&mdash; Numerical Analysis study material &mdash;</p>
+
+</body>
+</html>
