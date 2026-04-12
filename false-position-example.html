@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>False Position Method - Solved Example (2 decimals)</title>
+<style>
+  body {
+    font-family: 'Georgia', serif;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px 40px;
+    background: #fafaf7;
+    color: #222;
+    line-height: 1.6;
+  }
+  h1 {
+    color: #1a4d80;
+    border-bottom: 3px solid #1a4d80;
+    padding-bottom: 8px;
+  }
+  h2 {
+    color: #1a4d80;
+    margin-top: 28px;
+    border-left: 5px solid #1a4d80;
+    padding-left: 12px;
+  }
+  h3 {
+    color: #c0392b;
+    margin-top: 22px;
+  }
+  .box {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 14px 20px;
+    margin: 14px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .formula {
+    background: #eaf3fb;
+    border-left: 4px solid #1a4d80;
+    padding: 10px 16px;
+    font-size: 1.1em;
+    margin: 12px 0;
+    font-family: 'Courier New', monospace;
+  }
+  .answer {
+    background: #e7f7e7;
+    border: 2px solid #28a745;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.15em;
+    margin: 14px 0;
+  }
+  .warn {
+    background: #fff8e1;
+    border-left: 4px solid #f5b300;
+    padding: 10px 16px;
+    margin: 12px 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14px 0;
+    background: #fff;
+    font-size: 0.95em;
+  }
+  th, td {
+    border: 1px solid #888;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  th {
+    background: #1a4d80;
+    color: #fff;
+  }
+  tr:nth-child(even) td { background: #f4f4f4; }
+  .step {
+    background: #fff;
+    border-left: 4px solid #c0392b;
+    padding: 10px 16px;
+    margin: 10px 0;
+  }
+  code { background:#eee; padding:2px 5px; border-radius:3px; }
+  .small { font-size: 0.85em; color: #666; }
+</style>
+</head>
+<body>
+
+<h1>False Position Method — Solved Example (up to 2 decimal places)</h1>
+
+<div class="box">
+<b>Question:</b> Find a real root of
+<div class="formula">f(x) = x³ − 2x − 5 = 0</div>
+using the <b>False Position Method</b>, correct to <b>2 decimal places</b>.
+</div>
+
+<h2>Step 1 — Formula</h2>
+<div class="formula">
+x₁ = ( a · f(b) − b · f(a) ) / ( f(b) − f(a) )
+</div>
+<p><b>Rule:</b> f(a) and f(b) must have opposite signs.</p>
+
+<h2>Step 2 — Find Initial Interval [a, b]</h2>
+
+<table>
+<tr><th>x</th><th>f(x) = x³ − 2x − 5</th><th>Sign</th></tr>
+<tr><td>2</td><td>8 − 4 − 5 = −1</td><td>negative</td></tr>
+<tr><td>3</td><td>27 − 6 − 5 = +16</td><td>positive ✓</td></tr>
+</table>
+
+<div class="warn">
+Sign changes between 2 and 3, so root lies in <b>[2, 3]</b>.
+</div>
+
+<p>Start with: <b>a = 2, b = 3, f(a) = −1, f(b) = 16</b></p>
+
+<h2>Step 3 — Iterations</h2>
+
+<h3>Iteration 1</h3>
+<div class="step">
+a = 2, &nbsp; b = 3, &nbsp; f(a) = −1, &nbsp; f(b) = 16
+<br><br>
+x₁ = (2 × 16 − 3 × (−1)) / (16 − (−1))<br>
+x₁ = (32 + 3) / 17 = 35 / 17 = <b>2.06</b>
+<br><br>
+f(2.06) = (2.06)³ − 2(2.06) − 5<br>
+&nbsp;&nbsp;&nbsp;&nbsp;= 8.7418 − 4.12 − 5 = <b>−0.378</b>
+<br><br>
+Negative → replace <b>a</b> with 2.06.
+</div>
+
+<h3>Iteration 2</h3>
+<div class="step">
+a = 2.06, &nbsp; b = 3, &nbsp; f(a) = −0.378, &nbsp; f(b) = 16
+<br><br>
+x₂ = (2.06 × 16 − 3 × (−0.378)) / (16 + 0.378)<br>
+x₂ = (32.96 + 1.134) / 16.378 = 34.094 / 16.378 = <b>2.08</b>
+<br><br>
+f(2.08) = (2.08)³ − 2(2.08) − 5<br>
+&nbsp;&nbsp;&nbsp;&nbsp;= 8.9989 − 4.16 − 5 = <b>−0.161</b>
+<br><br>
+Negative → replace <b>a</b> with 2.08.
+</div>
+
+<h3>Iteration 3</h3>
+<div class="step">
+a = 2.08, &nbsp; b = 3, &nbsp; f(a) = −0.161, &nbsp; f(b) = 16
+<br><br>
+x₃ = (2.08 × 16 − 3 × (−0.161)) / (16 + 0.161)<br>
+x₃ = (33.28 + 0.483) / 16.161 = 33.763 / 16.161 = <b>2.09</b>
+<br><br>
+f(2.09) = (2.09)³ − 2(2.09) − 5<br>
+&nbsp;&nbsp;&nbsp;&nbsp;= 9.1294 − 4.18 − 5 = <b>−0.051</b>
+<br><br>
+Negative → replace <b>a</b> with 2.09.
+</div>
+
+<h3>Iteration 4</h3>
+<div class="step">
+a = 2.09, &nbsp; b = 3, &nbsp; f(a) = −0.051, &nbsp; f(b) = 16
+<br><br>
+x₄ = (2.09 × 16 − 3 × (−0.051)) / 16.051<br>
+x₄ = (33.44 + 0.153) / 16.051 = 33.593 / 16.051 = <b>2.09</b>
+<br><br>
+The value is <b>same</b> as previous (2.09).
+</div>
+
+<h2>Step 4 — Summary Table</h2>
+
+<table>
+<tr><th>n</th><th>a</th><th>b</th><th>f(a)</th><th>f(b)</th><th>xₙ</th><th>f(xₙ)</th></tr>
+<tr><td>1</td><td>2.00</td><td>3</td><td>−1.000</td><td>16</td><td>2.06</td><td>−0.378</td></tr>
+<tr><td>2</td><td>2.06</td><td>3</td><td>−0.378</td><td>16</td><td>2.08</td><td>−0.161</td></tr>
+<tr><td>3</td><td>2.08</td><td>3</td><td>−0.161</td><td>16</td><td>2.09</td><td>−0.051</td></tr>
+<tr><td>4</td><td>2.09</td><td>3</td><td>−0.051</td><td>16</td><td>2.09</td><td>—</td></tr>
+</table>
+
+<h2>Step 5 — Stop</h2>
+<p>x₃ = 2.09 and x₄ = 2.09 → answer is stable to 2 decimal places. <b>STOP.</b></p>
+
+<div class="answer">
+✓ The real root of x³ − 2x − 5 = 0 is approximately <b>x ≈ 2.09</b>
+</div>
+
+<h2>Easy Words</h2>
+<ul>
+  <li><b>Pick</b> two values where f changes sign.</li>
+  <li><b>Apply</b> formula → get new x.</li>
+  <li><b>Replace</b> the side that has the same sign as the new f(x).</li>
+  <li><b>Stop</b> when the digits you need stop changing.</li>
+</ul>
+
+<p class="small">— Numerical Analysis study material —</p>
+
+</body>
+</html>

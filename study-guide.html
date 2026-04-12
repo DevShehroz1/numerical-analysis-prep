@@ -1,0 +1,2526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerical Analysis - Midterm Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f4;
+  --bg-card: #ffffff;
+  --bg-sidebar: #1a1a2e;
+  --bg-sidebar-hover: #25254a;
+  --bg-sidebar-active: #33335c;
+  --text: #2d2d2d;
+  --text-muted: #6b6b6b;
+  --text-sidebar: #c4c4d4;
+  --text-sidebar-active: #ffffff;
+  --accent: #e07a5f;
+  --accent-light: #fdf0ec;
+  --accent2: #3d5a80;
+  --accent2-light: #e8eff7;
+  --accent3: #81b29a;
+  --accent3-light: #e8f5ee;
+  --accent4: #f2cc8f;
+  --accent4-light: #fdf6e8;
+  --border: #e8e4de;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+  --radius: 12px;
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 280px;
+  min-height: 100vh;
+  background: var(--bg-sidebar);
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-header h1 {
+  font-family: var(--font-display);
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.sidebar-header .subtitle {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
+}
+
+.sidebar-nav { padding: 16px 0; flex: 1; }
+
+.nav-day {
+  padding: 8px 24px;
+  color: var(--accent4);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  color: var(--text-sidebar);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: var(--bg-sidebar-hover);
+  color: white;
+}
+
+.nav-item.active {
+  background: var(--bg-sidebar-active);
+  color: var(--text-sidebar-active);
+  border-left-color: var(--accent);
+}
+
+.nav-item .nav-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.08);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.nav-item.active .nav-num {
+  background: var(--accent);
+  color: white;
+}
+
+.nav-item.completed .nav-num {
+  background: var(--accent3);
+  color: white;
+}
+
+.nav-item.completed .nav-num::after {
+  content: '✓';
+}
+
+.nav-item.completed .nav-num span { display: none; }
+
+.progress-section {
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.progress-label {
+  color: var(--text-sidebar);
+  font-size: 0.75rem;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent3), var(--accent));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+/* MAIN CONTENT */
+.main {
+  margin-left: 280px;
+  flex: 1;
+  max-width: 900px;
+  padding: 40px 50px 80px;
+}
+
+/* SECTIONS */
+.section {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* TYPOGRAPHY */
+h2 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+h2 .topic-num {
+  color: var(--accent);
+  font-size: 1rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 36px 0 16px;
+  color: var(--text);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+
+h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 24px 0 10px;
+  color: var(--accent2);
+}
+
+p { margin-bottom: 14px; font-size: 0.95rem; }
+
+.intro-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* CARDS & BOXES */
+.concept-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin: 20px 0;
+  box-shadow: var(--shadow);
+}
+
+.formula-box {
+  background: var(--accent2-light);
+  border: 2px solid var(--accent2);
+  border-radius: var(--radius);
+  padding: 20px 28px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.formula-box .label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent2);
+  margin-bottom: 8px;
+}
+
+.formula-box .formula {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  color: var(--accent2);
+  font-weight: 500;
+}
+
+.key-point {
+  background: var(--accent-light);
+  border-left: 4px solid var(--accent);
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.key-point strong { color: var(--accent); }
+
+.warning-box {
+  background: var(--accent4-light);
+  border-left: 4px solid var(--accent4);
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.success-box {
+  background: var(--accent3-light);
+  border-left: 4px solid var(--accent3);
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+/* STEPS */
+.step {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-content { flex: 1; }
+
+/* TABLES */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 20px 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 0.85rem;
+}
+
+thead {
+  background: var(--accent2);
+  color: white;
+}
+
+th {
+  padding: 12px 14px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 10px 14px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+tbody tr:nth-child(even) { background: #fafafa; }
+tbody tr:hover { background: var(--accent2-light); }
+
+/* INTERACTIVE PRACTICE */
+.practice-box {
+  background: linear-gradient(135deg, #1a1a2e, #25254a);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin: 28px 0;
+  color: white;
+}
+
+.practice-box h4 {
+  color: var(--accent4);
+  margin-top: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.practice-box .question {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin: 12px 0 20px;
+  line-height: 1.5;
+}
+
+.practice-input-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.practice-input-row label {
+  font-size: 0.85rem;
+  color: #c4c4d4;
+  min-width: 100px;
+}
+
+.practice-input-row input {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: white;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  width: 150px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.practice-input-row input:focus {
+  border-color: var(--accent);
+}
+
+.practice-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 12px;
+}
+
+.practice-btn:hover { background: #c96a52; transform: translateY(-1px); }
+
+.practice-result {
+  margin-top: 16px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  display: none;
+}
+
+.practice-result.show { display: block; }
+.practice-result.correct { background: rgba(129,178,154,0.2); color: #a8e6c3; }
+.practice-result.info { background: rgba(255,255,255,0.08); color: #e0e0e0; }
+
+/* NAVIGATION BUTTONS */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 2px solid var(--border);
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  border: 2px solid var(--border);
+  background: white;
+  color: var(--text);
+}
+
+.nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.nav-btn.primary {
+  background: var(--accent2);
+  color: white;
+  border-color: var(--accent2);
+}
+
+.nav-btn.primary:hover {
+  background: #2d4a6e;
+  border-color: #2d4a6e;
+}
+
+.mark-complete-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 24px;
+  background: var(--accent3);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.mark-complete-btn:hover { background: #6a9c83; transform: translateY(-1px); }
+.mark-complete-btn.done { background: #999; cursor: default; }
+
+/* COLLAPSIBLE EXAMPLE */
+.example-toggle {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.example-toggle-header {
+  padding: 16px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  color: var(--accent2);
+  transition: background 0.2s;
+}
+
+.example-toggle-header:hover { background: var(--accent2-light); }
+
+.example-toggle-header .arrow {
+  transition: transform 0.3s;
+  font-size: 0.8rem;
+}
+
+.example-toggle.open .arrow { transform: rotate(180deg); }
+
+.example-toggle-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.example-toggle.open .example-toggle-content {
+  max-height: 5000px;
+}
+
+.example-toggle-inner {
+  padding: 0 24px 24px;
+}
+
+/* COMPARISON TABLE */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.compare-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.compare-card h5 {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: var(--accent2);
+}
+
+.compare-card ul {
+  list-style: none;
+  font-size: 0.85rem;
+}
+
+.compare-card ul li { padding: 3px 0; }
+.compare-card ul li::before { content: '→ '; color: var(--accent); font-weight: bold; }
+
+/* MOBILE */
+.mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--bg-sidebar);
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; padding: 60px 20px 80px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+/* Matrix display */
+.matrix {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 12px 8px;
+  position: relative;
+  padding: 8px 16px;
+}
+
+.matrix::before, .matrix::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent2);
+  border-radius: 2px;
+}
+
+.matrix::before { left: 0; }
+.matrix::after { right: 0; }
+
+.matrix-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.matrix-row span {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  min-width: 40px;
+  text-align: center;
+  padding: 4px 0;
+}
+
+.matrix-row span.pivot { color: var(--accent); font-weight: 700; }
+.matrix-row span.changed { color: var(--accent3); font-weight: 600; }
+
+/* Augmented matrix separator */
+.matrix.augmented .matrix-row span:nth-last-child(1) {
+  border-left: 2px solid var(--accent2);
+  padding-left: 12px;
+}
+
+/* LEARN BY DOING - Step-by-step iteration cards */
+.iter-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  margin: 24px 0;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.iter-card-header {
+  background: var(--accent2);
+  color: white;
+  padding: 14px 24px;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iter-card-header .iter-badge {
+  background: rgba(255,255,255,0.25);
+  padding: 2px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.iter-card-body {
+  padding: 24px;
+}
+
+.calc-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 10px 0;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.calc-line.input-vals {
+  background: #eef4fb;
+  border-left: 4px solid var(--accent2);
+}
+
+.calc-line.compute {
+  background: #fff8ee;
+  border-left: 4px solid var(--accent4);
+}
+
+.calc-line.result {
+  background: #edf7f0;
+  border-left: 4px solid var(--accent3);
+}
+
+.calc-line.decision {
+  background: var(--accent-light);
+  border-left: 4px solid var(--accent);
+}
+
+.calc-line .calc-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+
+.calc-line code {
+  font-family: var(--font-mono);
+  background: rgba(0,0,0,0.06);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+}
+
+.calc-line .highlight {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.calc-line .highlight-blue {
+  color: var(--accent2);
+  font-weight: 700;
+}
+
+.calc-line .highlight-green {
+  color: #2d8659;
+  font-weight: 700;
+}
+
+.arrow-down {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--accent2);
+  margin: 8px 0;
+  opacity: 0.5;
+}
+
+.iter-summary {
+  background: linear-gradient(135deg, var(--accent2), #2d4a6e);
+  color: white;
+  padding: 16px 24px;
+  border-radius: var(--radius);
+  margin: 16px 0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.iter-summary-item {
+  text-align: center;
+}
+
+.iter-summary-item .label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+.iter-summary-item .value {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.flow-arrow {
+  display: block;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--accent);
+  margin: 4px 0;
+  line-height: 1;
+}
+</style>
+</head>
+<body>
+
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <h1>Numerical Analysis</h1>
+    <div class="subtitle">Midterm Study Guide</div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-day">Day 1 — Bracketing Methods</div>
+    <a class="nav-item active" onclick="showSection(0)">
+      <div class="nav-num"><span>1</span></div>
+      Bisection Method
+    </a>
+    <a class="nav-item" onclick="showSection(1)">
+      <div class="nav-num"><span>2</span></div>
+      False Position Method
+    </a>
+
+    <div class="nav-day">Day 2 — Open Methods</div>
+    <a class="nav-item" onclick="showSection(2)">
+      <div class="nav-num"><span>3</span></div>
+      Newton-Raphson Method
+    </a>
+    <a class="nav-item" onclick="showSection(3)">
+      <div class="nav-num"><span>4</span></div>
+      Secant Method
+    </a>
+
+    <div class="nav-day">Day 2 — Linear Systems</div>
+    <a class="nav-item" onclick="showSection(4)">
+      <div class="nav-num"><span>5</span></div>
+      Gauss Elimination
+    </a>
+    <a class="nav-item" onclick="showSection(5)">
+      <div class="nav-num"><span>6</span></div>
+      Gauss-Jordan Elimination
+    </a>
+
+    <div class="nav-day" style="margin-top:16px; color:var(--accent);">Learn by Doing</div>
+    <a class="nav-item" onclick="showSection(6)">
+      <div class="nav-num" style="background:var(--accent);color:white"><span>?</span></div>
+      Bisection Step-by-Step
+    </a>
+    <a class="nav-item" onclick="showSection(7)">
+      <div class="nav-num" style="background:var(--accent);color:white"><span>?</span></div>
+      False Position Practice
+    </a>
+    <a class="nav-item" onclick="showSection(8)">
+      <div class="nav-num" style="background:var(--accent);color:white"><span>?</span></div>
+      Newton-Raphson Practice
+    </a>
+    <a class="nav-item" onclick="showSection(9)">
+      <div class="nav-num" style="background:var(--accent);color:white"><span>?</span></div>
+      Secant Practice
+    </a>
+    <a class="nav-item" onclick="showSection(10)">
+      <div class="nav-num" style="background:var(--accent);color:white"><span>?</span></div>
+      Gauss & Jordan Practice
+    </a>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-label">
+      <span>Progress</span>
+      <span id="progress-text">0 / 6</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ============ SECTION 0: BISECTION ============ -->
+<div class="section active" id="sec-0">
+  <h2><span class="topic-num">Topic 1</span>Bisection Method</h2>
+  <p class="intro-text">The simplest and most reliable way to find where a function equals zero — just keep cutting the interval in half.</p>
+
+  <h3>Why Do We Need This?</h3>
+  <p>Some equations are easy: <code>2x + 4 = 0</code> gives x = −2. But many real-world equations have no simple formula:</p>
+  <div class="concept-box">
+    <p><strong>Example equations you can't solve by hand:</strong></p>
+    <p style="font-family:var(--font-mono); color:var(--accent2);">
+      x³ − x − 1 = 0 &nbsp;|&nbsp; eˣ − x = 0 &nbsp;|&nbsp; ln(x) + x − 2 = 0
+    </p>
+    <p>These need <strong>numerical methods</strong> — algorithms that get closer and closer to the answer through repeated calculations (iterations).</p>
+  </div>
+
+  <h3>The Core Idea</h3>
+  <p>Imagine you're playing a number guessing game. Someone picks a number between 1 and 100. You guess 50. They say "higher." You guess 75. They say "lower." You guess 62... and so on. Each guess cuts your range in half.</p>
+
+  <div class="key-point">
+    <strong>The Intermediate Value Theorem:</strong> If f(a) is negative and f(b) is positive (or vice versa), and f is continuous, then there MUST be a root (zero) somewhere between a and b.
+  </div>
+
+  <p>Mathematically: if <strong>f(a) × f(b) &lt; 0</strong>, a root exists in [a, b].</p>
+
+  <h3>The Formula</h3>
+  <div class="formula-box">
+    <div class="label">Bisection Formula</div>
+    <div class="formula">c = (a + b) / 2</div>
+  </div>
+  <p>That's it — just the midpoint!</p>
+
+  <h3>The Algorithm — Step by Step</h3>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content"><strong>Choose a and b</strong> such that f(a) × f(b) &lt; 0 (opposite signs). Try plugging in integers: 0, 1, 2, 3... until you find a sign change.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content"><strong>Compute midpoint:</strong> c = (a + b) / 2</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content"><strong>Evaluate f(c)</strong> and decide:
+      <br>• If f(a) × f(c) &lt; 0 → root is in <strong>[a, c]</strong> → set b = c
+      <br>• If f(a) × f(c) &gt; 0 → root is in <strong>[c, b]</strong> → set a = c
+      <br>• If f(c) = 0 → c IS the root! Stop.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content"><strong>Repeat</strong> until you meet the stopping criterion: |c_new − c_old| &lt; ε or after n iterations.</div>
+  </div>
+
+  <div class="warning-box">
+    <strong>Minimum iterations formula:</strong><br>
+    n ≥ log((b − a) / ε) / log(2)<br>
+    <em>This tells you how many iterations you need for a given accuracy ε.</em>
+  </div>
+
+  <h3>Worked Example 1</h3>
+  <div class="example-toggle open">
+    <div class="example-toggle-header" onclick="this.parentElement.classList.toggle('open')">
+      <span>f(x) = x³ − x − 1 = 0 &nbsp;(correct to 3 decimal places)</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="example-toggle-content"><div class="example-toggle-inner">
+      <h4>Step 1: Find the interval</h4>
+      <p>Try integers:</p>
+      <ul style="margin-left:20px; margin-bottom:16px;">
+        <li>f(0) = 0 − 0 − 1 = <strong>−1</strong> (negative)</li>
+        <li>f(1) = 1 − 1 − 1 = <strong>−1</strong> (negative)</li>
+        <li>f(2) = 8 − 2 − 1 = <strong>+5</strong> (positive) ✓</li>
+      </ul>
+      <div class="success-box">Sign change between x=1 and x=2 → <strong>a=1, b=2</strong></div>
+
+      <h4>Step 2: Iterations</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Iter</th><th>a</th><th>b</th><th>c = (a+b)/2</th><th>f(c)</th><th>New Interval</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>1.000</td><td>2.000</td><td><strong>1.500</strong></td><td>+0.875</td><td>[1, 1.5]</td></tr>
+            <tr><td>2</td><td>1.000</td><td>1.500</td><td><strong>1.250</strong></td><td>−0.297</td><td>[1.25, 1.5]</td></tr>
+            <tr><td>3</td><td>1.250</td><td>1.500</td><td><strong>1.375</strong></td><td>+0.224</td><td>[1.25, 1.375]</td></tr>
+            <tr><td>4</td><td>1.250</td><td>1.375</td><td><strong>1.3125</strong></td><td>−0.051</td><td>[1.3125, 1.375]</td></tr>
+            <tr><td>5</td><td>1.3125</td><td>1.375</td><td><strong>1.3438</strong></td><td>+0.082</td><td>[1.3125, 1.3438]</td></tr>
+            <tr><td>6</td><td>1.3125</td><td>1.3438</td><td><strong>1.3281</strong></td><td>+0.014</td><td>[1.3125, 1.3281]</td></tr>
+            <tr><td>7</td><td>1.3125</td><td>1.3281</td><td><strong>1.3203</strong></td><td>−0.018</td><td>[1.3203, 1.3281]</td></tr>
+            <tr><td>8</td><td>1.3203</td><td>1.3281</td><td><strong>1.3242</strong></td><td>−0.002</td><td>[1.3242, 1.3281]</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="success-box"><strong>Answer: x ≈ 1.324</strong> (correct to 3 decimal places)</div>
+
+      <h4>How Iteration 1 works in detail:</h4>
+      <div class="concept-box">
+        <p>a = 1, b = 2</p>
+        <p>c = (1 + 2)/2 = <strong>1.5</strong></p>
+        <p>f(1.5) = (1.5)³ − 1.5 − 1 = 3.375 − 1.5 − 1 = <strong>+0.875</strong></p>
+        <p>Check: f(a) × f(c) = (−1)(+0.875) = −0.875 &lt; 0</p>
+        <p>Root is between a and c → new interval <strong>[1, 1.5]</strong></p>
+        <p>So set <strong>b = 1.5</strong> (a stays 1)</p>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="example-toggle">
+    <div class="example-toggle-header" onclick="this.parentElement.classList.toggle('open')">
+      <span>f(x) = e⁻ˣ − x = 0 &nbsp;(with stopping criterion |xₙ − xₙ₋₁| &lt; 0.0005)</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="example-toggle-content"><div class="example-toggle-inner">
+      <h4>Step 1: Find interval</h4>
+      <p>f(0) = e⁰ − 0 = <strong>+1</strong> &nbsp;|&nbsp; f(1) = e⁻¹ − 1 = 0.3679 − 1 = <strong>−0.6321</strong></p>
+      <div class="success-box">Root in <strong>[0, 1]</strong></div>
+
+      <h4>Step 2: Iterations</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Iter</th><th>a</th><th>b</th><th>c</th><th>f(c)</th><th>|cₙ−cₙ₋₁|</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>0.000</td><td>1.000</td><td>0.5000</td><td>+0.1065</td><td>—</td></tr>
+            <tr><td>2</td><td>0.500</td><td>1.000</td><td>0.7500</td><td>−0.2776</td><td>0.2500</td></tr>
+            <tr><td>3</td><td>0.500</td><td>0.750</td><td>0.6250</td><td>−0.0897</td><td>0.1250</td></tr>
+            <tr><td>4</td><td>0.500</td><td>0.625</td><td>0.5625</td><td>+0.0073</td><td>0.0625</td></tr>
+            <tr><td>...</td><td colspan="5">continues until...</td></tr>
+            <tr><td>11</td><td>0.5664</td><td>0.5674</td><td>0.5669</td><td>+0.0004</td><td><strong>0.000488 &lt; 0.0005 ✓</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="success-box"><strong>Answer: x ≈ 0.567</strong></div>
+    </div></div>
+  </div>
+
+  <h3>Practice — Try It Yourself!</h3>
+  <div class="practice-box">
+    <h4>Interactive Calculator</h4>
+    <p class="question">Find the root of f(x) = x³ − x − 1 using Bisection. Enter a=1, b=2, and I'll compute iterations for you.</p>
+    <div class="practice-input-row">
+      <label>a (lower):</label>
+      <input type="number" id="bis-a" value="1" step="0.1">
+    </div>
+    <div class="practice-input-row">
+      <label>b (upper):</label>
+      <input type="number" id="bis-b" value="2" step="0.1">
+    </div>
+    <div class="practice-input-row">
+      <label>Iterations:</label>
+      <input type="number" id="bis-n" value="5" min="1" max="20">
+    </div>
+    <button class="practice-btn" onclick="runBisection()">Compute Bisection</button>
+    <div class="practice-result info" id="bis-result"></div>
+  </div>
+
+  <h3>Key Exam Points</h3>
+  <div class="concept-box">
+    <ul style="list-style:none;">
+      <li>✅ <strong>Condition:</strong> f(a) × f(b) &lt; 0 (MUST have opposite signs)</li>
+      <li>✅ <strong>Formula:</strong> c = (a + b) / 2</li>
+      <li>✅ <strong>Same sign as f(a)?</strong> → replace a with c</li>
+      <li>✅ <strong>Same sign as f(b)?</strong> → replace b with c</li>
+      <li>✅ <strong>Always converges</strong> (guaranteed if conditions met)</li>
+      <li>✅ <strong>Slow but reliable</strong></li>
+    </ul>
+  </div>
+
+  <button class="mark-complete-btn" onclick="markComplete(0)">Mark as Complete ✓</button>
+
+  <div class="nav-buttons">
+    <div></div>
+    <button class="nav-btn primary" onclick="showSection(1)">Next: False Position →</button>
+  </div>
+</div>
+
+<!-- ============ SECTION 1: FALSE POSITION ============ -->
+<div class="section" id="sec-1">
+  <h2><span class="topic-num">Topic 2</span>False Position Method</h2>
+  <p class="intro-text">Also called Regula Falsi — a smarter version of Bisection that uses a straight line instead of just the midpoint.</p>
+
+  <h3>How Is It Different From Bisection?</h3>
+  <div class="compare-grid">
+    <div class="compare-card">
+      <h5>Bisection Method</h5>
+      <ul>
+        <li>Always picks the MIDPOINT</li>
+        <li>Ignores how close f(a) or f(b) are to zero</li>
+        <li>Simple but slow</li>
+      </ul>
+    </div>
+    <div class="compare-card">
+      <h5>False Position Method</h5>
+      <ul>
+        <li>Draws a LINE between (a, f(a)) and (b, f(b))</li>
+        <li>Picks where the line crosses x-axis</li>
+        <li>Usually faster convergence</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="key-point">
+    <strong>Key Insight:</strong> If f(a) is very close to zero but f(b) is far from zero, the root is probably closer to a. False Position takes this into account; Bisection doesn't.
+  </div>
+
+  <h3>The Formula</h3>
+  <div class="formula-box">
+    <div class="label">False Position Formula</div>
+    <div class="formula">x_r = b − f(b) × (a − b) / (f(a) − f(b))</div>
+  </div>
+  <p>Alternative form (equivalent):</p>
+  <div class="formula-box">
+    <div class="label">Alternative Form</div>
+    <div class="formula">x_r = (a × f(b) − b × f(a)) / (f(b) − f(a))</div>
+  </div>
+
+  <h3>The Algorithm</h3>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content"><strong>Choose a and b</strong> such that f(a) × f(b) &lt; 0 (same as Bisection)</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content"><strong>Compute x_r</strong> using the formula above (NOT midpoint!)</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content"><strong>Check signs</strong> — same logic as Bisection:
+      <br>• If f(a) × f(x_r) &lt; 0 → root in [a, x_r] → set b = x_r
+      <br>• If f(a) × f(x_r) &gt; 0 → root in [x_r, b] → set a = x_r</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content"><strong>Repeat</strong> until stopping criterion is met.</div>
+  </div>
+
+  <h3>Worked Example</h3>
+  <div class="example-toggle open">
+    <div class="example-toggle-header" onclick="this.parentElement.classList.toggle('open')">
+      <span>f(x) = x³ − x − 2 = 0 &nbsp;(tolerance ε = 0.001)</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="example-toggle-content"><div class="example-toggle-inner">
+      <h4>Step 1: Find interval</h4>
+      <p>f(1) = 1 − 1 − 2 = <strong>−2</strong> &nbsp;|&nbsp; f(2) = 8 − 2 − 2 = <strong>+4</strong></p>
+      <div class="success-box">Root in [1, 2]</div>
+
+      <h4>Step 2: Iteration 1 — in detail</h4>
+      <div class="concept-box">
+        <p>a = 1, b = 2, f(a) = −2, f(b) = +4</p>
+        <p>x_r = b − f(b)×(a−b) / (f(a)−f(b))</p>
+        <p>x_r = 2 − 4×(1−2) / (−2−4)</p>
+        <p>x_r = 2 − 4×(−1) / (−6)</p>
+        <p>x_r = 2 − (−4)/(−6) = 2 − 0.6667 = <strong>1.33333</strong></p>
+        <p>f(1.33333) = (1.33333)³ − 1.33333 − 2 = <strong>−0.96298</strong></p>
+        <p>f(a) × f(x_r) = (−2)(−0.96298) = +1.926 &gt; 0 → root in [1.33333, 2]</p>
+        <p>Set a = 1.33333</p>
+      </div>
+
+      <h4>Full iteration table:</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Iter</th><th>a</th><th>b</th><th>x_r</th><th>f(x_r)</th><th>|x_r − prev|</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>1.0000</td><td>2.0000</td><td><strong>1.33333</strong></td><td>−0.96298</td><td>—</td></tr>
+            <tr><td>2</td><td>1.33333</td><td>2.0000</td><td><strong>1.46269</strong></td><td>−0.33332</td><td>0.12936</td></tr>
+            <tr><td>3</td><td>1.46269</td><td>2.0000</td><td><strong>1.50402</strong></td><td>−0.10181</td><td>0.04133</td></tr>
+            <tr><td>4</td><td>1.50402</td><td>2.0000</td><td><strong>1.51633</strong></td><td>−0.02990</td><td>0.01231</td></tr>
+            <tr><td>5</td><td>1.51633</td><td>2.0000</td><td><strong>1.51992</strong></td><td>−0.00867</td><td>0.00359</td></tr>
+            <tr><td>6</td><td>1.51992</td><td>2.0000</td><td><strong>1.52096</strong></td><td>−0.00249</td><td>0.00104</td></tr>
+            <tr><td>7</td><td>1.52096</td><td>2.0000</td><td><strong>1.52126</strong></td><td>−0.00072</td><td>0.0003 ✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="success-box"><strong>Answer: x ≈ 1.521</strong> (correct to 3 decimal places)</div>
+    </div></div>
+  </div>
+
+  <h3>Practice — Try It Yourself!</h3>
+  <div class="practice-box">
+    <h4>Interactive Calculator</h4>
+    <p class="question">Compute False Position iterations for any function of the form x³ + bx + c = 0</p>
+    <div class="practice-input-row">
+      <label>a (lower):</label>
+      <input type="number" id="fp-a" value="1" step="0.1">
+    </div>
+    <div class="practice-input-row">
+      <label>b (upper):</label>
+      <input type="number" id="fp-b" value="2" step="0.1">
+    </div>
+    <div class="practice-input-row">
+      <label>Coefficient of x:</label>
+      <input type="number" id="fp-coeff" value="-1" step="0.1">
+    </div>
+    <div class="practice-input-row">
+      <label>Constant:</label>
+      <input type="number" id="fp-const" value="-2" step="0.1">
+    </div>
+    <button class="practice-btn" onclick="runFalsePosition()">Compute False Position</button>
+    <div class="practice-result info" id="fp-result"></div>
+  </div>
+
+  <h3>Exam Tips</h3>
+  <div class="concept-box">
+    <ul style="list-style:none;">
+      <li>✅ Same conditions as Bisection: f(a) × f(b) &lt; 0</li>
+      <li>✅ Uses the <strong>straight-line formula</strong> instead of midpoint</li>
+      <li>✅ Usually <strong>faster</strong> than Bisection</li>
+      <li>✅ The only difference from Bisection is the formula for x_r</li>
+      <li>⚠️ Can get "stuck" — one endpoint may never move</li>
+    </ul>
+  </div>
+
+  <button class="mark-complete-btn" onclick="markComplete(1)">Mark as Complete ✓</button>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(0)">← Bisection</button>
+    <button class="nav-btn primary" onclick="showSection(2)">Next: Newton-Raphson →</button>
+  </div>
+</div>
+
+<!-- ============ SECTION 2: NEWTON-RAPHSON ============ -->
+<div class="section" id="sec-2">
+  <h2><span class="topic-num">Topic 3</span>Newton-Raphson Method</h2>
+  <p class="intro-text">The fastest root-finding method — uses the tangent line at a point to zoom in on the root. Requires the derivative f'(x).</p>
+
+  <h3>The Big Difference</h3>
+  <div class="compare-grid">
+    <div class="compare-card">
+      <h5>Bisection & False Position</h5>
+      <ul>
+        <li>Need TWO starting points (a and b)</li>
+        <li>Called "bracketing" methods</li>
+        <li>Slow but guaranteed to work</li>
+      </ul>
+    </div>
+    <div class="compare-card">
+      <h5>Newton-Raphson</h5>
+      <ul>
+        <li>Need only ONE starting point (x₀)</li>
+        <li>Called an "open" method</li>
+        <li>Very fast but can fail sometimes</li>
+        <li><strong>Needs the derivative f'(x)</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The Idea</h3>
+  <p>At any point x₀, draw the <strong>tangent line</strong> to the curve. Where that tangent line hits the x-axis is your next guess x₁. Repeat.</p>
+
+  <h3>The Formula</h3>
+  <div class="formula-box">
+    <div class="label">Newton-Raphson Formula</div>
+    <div class="formula">x_{n+1} = xₙ − f(xₙ) / f'(xₙ)</div>
+  </div>
+
+  <div class="key-point">
+    <strong>You MUST know the derivative!</strong><br>
+    For f(x) = x³ − x − 1 → f'(x) = 3x² − 1<br>
+    For f(x) = eˣ − x → f'(x) = eˣ − 1<br>
+    For f(x) = x³ − 2x − 5 → f'(x) = 3x² − 2
+  </div>
+
+  <h3>The Algorithm</h3>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content"><strong>Choose initial guess x₀</strong> — pick a value near the root (check f(0), f(1), f(2)... and pick the one closest to zero)</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content"><strong>Compute f(x₀) and f'(x₀)</strong></div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content"><strong>Apply formula:</strong> x₁ = x₀ − f(x₀)/f'(x₀)</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content"><strong>Repeat</strong> until |xₙ₊₁ − xₙ| &lt; ε</div>
+  </div>
+
+  <h3>Worked Example</h3>
+  <div class="example-toggle open">
+    <div class="example-toggle-header" onclick="this.parentElement.classList.toggle('open')">
+      <span>f(x) = x³ − x − 1 = 0, f'(x) = 3x² − 1, stopping: |xₙ₊₁ − xₙ| &lt; 0.001</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="example-toggle-content"><div class="example-toggle-inner">
+      <h4>Step 1: Choose x₀</h4>
+      <p>f(0) = −1, f(1) = −1, f(2) = +5</p>
+      <p>f(1) = −1 is nearest to zero → <strong>x₀ = 1</strong></p>
+
+      <h4>Iteration 1: Compute x₁</h4>
+      <div class="concept-box">
+        <p>f(x₀) = f(1) = 1 − 1 − 1 = <strong>−1</strong></p>
+        <p>f'(x₀) = f'(1) = 3(1)² − 1 = <strong>2</strong></p>
+        <p>x₁ = x₀ − f(x₀)/f'(x₀) = 1 − (−1)/2 = 1 + 0.5 = <strong>1.5</strong></p>
+        <p>|x₁ − x₀| = |1.5 − 1| = 0.5 &gt; 0.001 → continue</p>
+      </div>
+
+      <h4>Iteration 2: Compute x₂</h4>
+      <div class="concept-box">
+        <p>f(1.5) = (1.5)³ − 1.5 − 1 = 3.375 − 2.5 = <strong>0.875</strong></p>
+        <p>f'(1.5) = 3(1.5)² − 1 = 6.75 − 1 = <strong>5.75</strong></p>
+        <p>x₂ = 1.5 − 0.875/5.75 = 1.5 − 0.15217 = <strong>1.34783</strong></p>
+        <p>|x₂ − x₁| = 0.15217 &gt; 0.001 → continue</p>
+      </div>
+
+      <h4>Iteration 3: Compute x₃</h4>
+      <div class="concept-box">
+        <p>f(1.34783) = (1.34783)³ − 1.34783 − 1 = <strong>0.1007</strong></p>
+        <p>f'(1.34783) = 3(1.34783)² − 1 = <strong>4.44994</strong></p>
+        <p>x₃ = 1.34783 − 0.1007/4.44994 = <strong>1.32520</strong></p>
+        <p>|x₃ − x₂| = 0.02263 &gt; 0.001 → continue</p>
+      </div>
+
+      <h4>Iteration 4: Compute x₄</h4>
+      <div class="concept-box">
+        <p>f(1.32520) = <strong>0.00306</strong></p>
+        <p>f'(1.32520) = <strong>4.26847</strong></p>
+        <p>x₄ = 1.32520 − 0.00306/4.26847 = <strong>1.32472</strong></p>
+        <p>|x₄ − x₃| = 0.00048 &lt; 0.001 ✓ <strong>STOP!</strong></p>
+      </div>
+
+      <div class="success-box"><strong>Answer: x ≈ 1.325</strong> (only 4 iterations! Bisection needed 8+)</div>
+    </div></div>
+  </div>
+
+  <h3>Practice</h3>
+  <div class="practice-box">
+    <h4>Newton-Raphson Calculator</h4>
+    <p class="question">For f(x) = x³ − x − 1, enter your starting guess:</p>
+    <div class="practice-input-row">
+      <label>x₀:</label>
+      <input type="number" id="nr-x0" value="1" step="0.1">
+    </div>
+    <div class="practice-input-row">
+      <label>Iterations:</label>
+      <input type="number" id="nr-n" value="5" min="1" max="15">
+    </div>
+    <button class="practice-btn" onclick="runNewtonRaphson()">Compute Newton-Raphson</button>
+    <div class="practice-result info" id="nr-result"></div>
+  </div>
+
+  <h3>Exam Tips</h3>
+  <div class="concept-box">
+    <ul style="list-style:none;">
+      <li>✅ Formula: xₙ₊₁ = xₙ − f(xₙ)/f'(xₙ)</li>
+      <li>✅ <strong>Must compute the derivative</strong></li>
+      <li>✅ Choose x₀ near the root</li>
+      <li>✅ Converges VERY fast (quadratic convergence)</li>
+      <li>⚠️ Fails if f'(xₙ) = 0 (division by zero)</li>
+    </ul>
+  </div>
+
+  <button class="mark-complete-btn" onclick="markComplete(2)">Mark as Complete ✓</button>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(1)">← False Position</button>
+    <button class="nav-btn primary" onclick="showSection(3)">Next: Secant Method →</button>
+  </div>
+</div>
+
+<!-- ============ SECTION 3: SECANT ============ -->
+<div class="section" id="sec-3">
+  <h2><span class="topic-num">Topic 4</span>Secant Method</h2>
+  <p class="intro-text">Like Newton-Raphson but WITHOUT needing the derivative — it approximates the derivative using two previous points.</p>
+
+  <h3>Why Secant?</h3>
+  <div class="key-point">
+    <strong>Problem with Newton-Raphson:</strong> You need f'(x), which can be hard or impossible to compute for complicated functions.<br>
+    <strong>Solution:</strong> The Secant Method approximates f'(x) using two points — no derivative needed!
+  </div>
+
+  <h3>The Formula</h3>
+  <div class="formula-box">
+    <div class="label">Secant Method Formula</div>
+    <div class="formula">x_{n+1} = xₙ − f(xₙ) × (xₙ − x_{n-1}) / (f(xₙ) − f(x_{n-1}))</div>
+  </div>
+
+  <div class="warning-box">
+    <strong>Needs TWO initial guesses:</strong> x₀ and x₁ (but they do NOT need to bracket the root like Bisection/False Position)
+  </div>
+
+  <h3>The Algorithm</h3>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content"><strong>Choose x₀ and x₁</strong> — two initial guesses near the root</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content"><strong>Compute:</strong> x₂ = x₁ − f(x₁) × (x₁ − x₀) / (f(x₁) − f(x₀))</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content"><strong>Shift:</strong> x₀ becomes old x₁, x₁ becomes x₂</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content"><strong>Repeat</strong> until |xₙ₊₁ − xₙ| &lt; ε</div>
+  </div>
+
+  <h3>Worked Example</h3>
+  <div class="example-toggle open">
+    <div class="example-toggle-header" onclick="this.parentElement.classList.toggle('open')">
+      <span>f(x) = x³ − x − 1 = 0, x₀ = 1, x₁ = 2, stopping: |xₙ₊₁ − xₙ| &lt; 0.001</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="example-toggle-content"><div class="example-toggle-inner">
+      <h4>Setup</h4>
+      <p>f(1) = −1, &nbsp; f(2) = 5</p>
+
+      <h4>Iteration 1: Compute x₂</h4>
+      <div class="concept-box">
+        <p>x₂ = x₁ − f(x₁) × (x₁ − x₀) / (f(x₁) − f(x₀))</p>
+        <p>x₂ = 2 − 5 × (2 − 1) / (5 − (−1))</p>
+        <p>x₂ = 2 − 5/6 = <strong>1.1667</strong></p>
+        <p>f(1.1667) = (1.1667)³ − 1.1667 − 1 = <strong>−0.5797</strong></p>
+        <p>|x₂ − x₁| = 0.8333 &gt; 0.001</p>
+      </div>
+
+      <h4>Iteration 2: Compute x₃</h4>
+      <div class="concept-box">
+        <p>Now x₀ = 2, x₁ = 1.1667</p>
+        <p>x₃ = 1.1667 − (−0.5797)(1.1667 − 2) / (−0.5797 − 5)</p>
+        <p>x₃ = 1.1667 − (−0.5797)(−0.8333) / (−5.5797)</p>
+        <p>x₃ = 1.1667 + 0.0866 = <strong>1.2533</strong></p>
+      </div>
+
+      <h4>Continuing iterations:</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Iter</th><th>xₙ₋₁</th><th>xₙ</th><th>x_{n+1}</th><th>f(x_{n+1})</th><th>|diff|</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>1.0000</td><td>2.0000</td><td><strong>1.1667</strong></td><td>−0.5797</td><td>0.8333</td></tr>
+            <tr><td>2</td><td>2.0000</td><td>1.1667</td><td><strong>1.2533</strong></td><td>−0.2853</td><td>0.0866</td></tr>
+            <tr><td>3</td><td>1.1667</td><td>1.2533</td><td><strong>1.3372</strong></td><td>0.0539</td><td>0.0839</td></tr>
+            <tr><td>4</td><td>1.2533</td><td>1.3372</td><td><strong>1.3237</strong></td><td>−0.0020</td><td>0.0135</td></tr>
+            <tr><td>5</td><td>1.3372</td><td>1.3237</td><td><strong>1.3242</strong></td><td>0.0005</td><td>0.00085 ✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="success-box"><strong>Answer: x ≈ 1.324</strong></div>
+    </div></div>
+  </div>
+
+  <h3>Comparing All Root-Finding Methods</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Feature</th><th>Bisection</th><th>False Position</th><th>Newton-Raphson</th><th>Secant</th></tr></thead>
+      <tbody>
+        <tr><td style="font-family:var(--font-body);font-weight:600;text-align:left;padding-left:16px">Initial guesses</td><td>2 (a, b)</td><td>2 (a, b)</td><td>1 (x₀)</td><td>2 (x₀, x₁)</td></tr>
+        <tr><td style="font-family:var(--font-body);font-weight:600;text-align:left;padding-left:16px">Needs f(a)·f(b)&lt;0?</td><td>YES</td><td>YES</td><td>NO</td><td>NO</td></tr>
+        <tr><td style="font-family:var(--font-body);font-weight:600;text-align:left;padding-left:16px">Needs derivative?</td><td>NO</td><td>NO</td><td>YES</td><td>NO</td></tr>
+        <tr><td style="font-family:var(--font-body);font-weight:600;text-align:left;padding-left:16px">Speed</td><td>Slow</td><td>Medium</td><td>Fastest</td><td>Fast</td></tr>
+        <tr><td style="font-family:var(--font-body);font-weight:600;text-align:left;padding-left:16px">Always converges?</td><td>YES</td><td>YES</td><td>NOT always</td><td>NOT always</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="mark-complete-btn" onclick="markComplete(3)">Mark as Complete ✓</button>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(2)">← Newton-Raphson</button>
+    <button class="nav-btn primary" onclick="showSection(4)">Next: Gauss Elimination →</button>
+  </div>
+</div>
+
+<!-- ============ SECTION 4: GAUSS ELIMINATION ============ -->
+<div class="section" id="sec-4">
+  <h2><span class="topic-num">Topic 5</span>Gauss Elimination Method</h2>
+  <p class="intro-text">Solving systems of linear equations — convert the matrix to upper triangular form, then solve backwards.</p>
+
+  <h3>What Problem Does This Solve?</h3>
+  <p>Given a system of equations like:</p>
+  <div class="concept-box" style="font-family:var(--font-mono); font-size:1rem; line-height:2;">
+    2x + y − z = 8<br>
+    −3x − y + 2z = −11<br>
+    −2x + y + 2z = −3
+  </div>
+  <p>We want to find x, y, and z. Gauss Elimination converts this to a <strong>triangular system</strong> that's easy to solve.</p>
+
+  <h3>The Idea</h3>
+  <div class="key-point">
+    <strong>Two phases:</strong><br>
+    1. <strong>Forward Elimination:</strong> Turn the system into upper triangular form (zeros below diagonal)<br>
+    2. <strong>Back Substitution:</strong> Solve from the bottom row up
+  </div>
+
+  <h3>Step-by-Step Process</h3>
+  <h4>Phase 1: Write the Augmented Matrix</h4>
+  <p>Write the coefficients and constants as a matrix:</p>
+  <div class="concept-box" style="text-align:center">
+    <div class="matrix augmented">
+      <div class="matrix-row"><span>2</span><span>1</span><span>−1</span><span>8</span></div>
+      <div class="matrix-row"><span>−3</span><span>−1</span><span>2</span><span>−11</span></div>
+      <div class="matrix-row"><span>−2</span><span>1</span><span>2</span><span>−3</span></div>
+    </div>
+  </div>
+
+  <h4>Phase 2: Forward Elimination</h4>
+  <p><strong>Goal:</strong> Make zeros below the diagonal using row operations.</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Eliminate x from rows 2 and 3:</strong><br>
+      The pivot is a₁₁ = 2 (top-left element)<br><br>
+      <strong>R₂ = R₂ + (3/2)R₁:</strong><br>
+      Row 2: [−3+(3/2)(2), −1+(3/2)(1), 2+(3/2)(−1), −11+(3/2)(8)]<br>
+      = [0, 0.5, 0.5, 1]<br><br>
+      <strong>R₃ = R₃ + (1)R₁:</strong><br>
+      Row 3: [−2+2, 1+1, 2−1, −3+8]<br>
+      = [0, 2, 1, 5]
+    </div>
+  </div>
+
+  <div class="concept-box" style="text-align:center">
+    <p>After Step 1:</p>
+    <div class="matrix augmented">
+      <div class="matrix-row"><span class="pivot">2</span><span>1</span><span>−1</span><span>8</span></div>
+      <div class="matrix-row"><span class="changed">0</span><span>0.5</span><span>0.5</span><span>1</span></div>
+      <div class="matrix-row"><span class="changed">0</span><span>2</span><span>1</span><span>5</span></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Eliminate y from row 3:</strong><br>
+      Pivot is a₂₂ = 0.5<br><br>
+      <strong>R₃ = R₃ − (2/0.5)R₂ = R₃ − 4R₂:</strong><br>
+      Row 3: [0, 2−4(0.5), 1−4(0.5), 5−4(1)]<br>
+      = [0, 0, −1, 1]
+    </div>
+  </div>
+
+  <div class="concept-box" style="text-align:center">
+    <p>Upper triangular form achieved!</p>
+    <div class="matrix augmented">
+      <div class="matrix-row"><span class="pivot">2</span><span>1</span><span>−1</span><span>8</span></div>
+      <div class="matrix-row"><span>0</span><span class="pivot">0.5</span><span>0.5</span><span>1</span></div>
+      <div class="matrix-row"><span>0</span><span>0</span><span class="pivot">−1</span><span>1</span></div>
+    </div>
+  </div>
+
+  <h4>Phase 3: Back Substitution</h4>
+  <div class="concept-box">
+    <p><strong>From Row 3:</strong> −z = 1 → <strong>z = −1</strong></p>
+    <p><strong>From Row 2:</strong> 0.5y + 0.5(−1) = 1 → 0.5y = 1.5 → <strong>y = 3</strong></p>
+    <p><strong>From Row 1:</strong> 2x + 3 − (−1) = 8 → 2x + 4 = 8 → <strong>x = 2</strong></p>
+  </div>
+  <div class="success-box"><strong>Solution: x = 2, y = 3, z = −1</strong></div>
+
+  <h3>Row Operations Allowed</h3>
+  <div class="concept-box">
+    <ul style="list-style:none;">
+      <li>✅ Swap two rows</li>
+      <li>✅ Multiply a row by a non-zero constant</li>
+      <li>✅ Add a multiple of one row to another row</li>
+    </ul>
+  </div>
+
+  <h3>Practice</h3>
+  <div class="practice-box">
+    <h4>Quick Quiz</h4>
+    <p class="question">Solve using Gauss Elimination:<br>x + y + z = 6<br>2x + 3y + z = 14<br>x + y + 2z = 9</p>
+    <div class="practice-input-row">
+      <label>x =</label>
+      <input type="number" id="ge-x" step="0.1">
+      <label>y =</label>
+      <input type="number" id="ge-y" step="0.1">
+      <label>z =</label>
+      <input type="number" id="ge-z" step="0.1">
+    </div>
+    <button class="practice-btn" onclick="checkGauss()">Check Answer</button>
+    <div class="practice-result" id="ge-result"></div>
+  </div>
+
+  <button class="mark-complete-btn" onclick="markComplete(4)">Mark as Complete ✓</button>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(3)">← Secant Method</button>
+    <button class="nav-btn primary" onclick="showSection(5)">Next: Gauss-Jordan →</button>
+  </div>
+</div>
+
+<!-- ============ SECTION 5: GAUSS-JORDAN ============ -->
+<div class="section" id="sec-5">
+  <h2><span class="topic-num">Topic 6</span>Gauss-Jordan Elimination</h2>
+  <p class="intro-text">An extension of Gauss Elimination — reduce all the way to the identity matrix so you can read off the answers directly. No back substitution needed!</p>
+
+  <h3>How Is It Different From Gauss?</h3>
+  <div class="compare-grid">
+    <div class="compare-card">
+      <h5>Gauss Elimination</h5>
+      <ul>
+        <li>Makes zeros BELOW diagonal only</li>
+        <li>Gets upper triangular form</li>
+        <li>Needs back substitution</li>
+        <li>Faster to compute</li>
+      </ul>
+    </div>
+    <div class="compare-card">
+      <h5>Gauss-Jordan</h5>
+      <ul>
+        <li>Makes zeros ABOVE and BELOW diagonal</li>
+        <li>Gets reduced row echelon form (identity)</li>
+        <li>Read answers directly — no back sub!</li>
+        <li>More row operations needed</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The Goal</h3>
+  <div class="formula-box">
+    <div class="label">Target Form</div>
+    <div class="formula" style="font-size:1.1rem">[1 0 0 | answer₁] &nbsp; [0 1 0 | answer₂] &nbsp; [0 0 1 | answer₃]</div>
+  </div>
+
+  <h3>Worked Example</h3>
+  <div class="example-toggle open">
+    <div class="example-toggle-header" onclick="this.parentElement.classList.toggle('open')">
+      <span>Solve: 2x + y − z = 8, −3x − y + 2z = −11, −2x + y + 2z = −3</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="example-toggle-content"><div class="example-toggle-inner">
+
+      <h4>Step 1: Write augmented matrix (same start as Gauss)</h4>
+      <div class="concept-box" style="text-align:center">
+        <div class="matrix augmented">
+          <div class="matrix-row"><span>2</span><span>1</span><span>−1</span><span>8</span></div>
+          <div class="matrix-row"><span>−3</span><span>−1</span><span>2</span><span>−11</span></div>
+          <div class="matrix-row"><span>−2</span><span>1</span><span>2</span><span>−3</span></div>
+        </div>
+      </div>
+
+      <h4>Step 2: Make pivot a₁₁ = 1 (divide R₁ by 2)</h4>
+      <p>R₁ = R₁ / 2</p>
+      <div class="concept-box" style="text-align:center">
+        <div class="matrix augmented">
+          <div class="matrix-row"><span class="pivot">1</span><span>0.5</span><span>−0.5</span><span>4</span></div>
+          <div class="matrix-row"><span>−3</span><span>−1</span><span>2</span><span>−11</span></div>
+          <div class="matrix-row"><span>−2</span><span>1</span><span>2</span><span>−3</span></div>
+        </div>
+      </div>
+
+      <h4>Step 3: Eliminate column 1 (make zeros in column 1 except row 1)</h4>
+      <p>R₂ = R₂ + 3R₁, &nbsp; R₃ = R₃ + 2R₁</p>
+      <div class="concept-box" style="text-align:center">
+        <div class="matrix augmented">
+          <div class="matrix-row"><span class="pivot">1</span><span>0.5</span><span>−0.5</span><span>4</span></div>
+          <div class="matrix-row"><span class="changed">0</span><span>0.5</span><span>0.5</span><span>1</span></div>
+          <div class="matrix-row"><span class="changed">0</span><span>2</span><span>1</span><span>5</span></div>
+        </div>
+      </div>
+
+      <h4>Step 4: Make pivot a₂₂ = 1 (divide R₂ by 0.5)</h4>
+      <p>R₂ = R₂ / 0.5</p>
+      <div class="concept-box" style="text-align:center">
+        <div class="matrix augmented">
+          <div class="matrix-row"><span class="pivot">1</span><span>0.5</span><span>−0.5</span><span>4</span></div>
+          <div class="matrix-row"><span>0</span><span class="pivot">1</span><span>1</span><span>2</span></div>
+          <div class="matrix-row"><span>0</span><span>2</span><span>1</span><span>5</span></div>
+        </div>
+      </div>
+
+      <h4>Step 5: Eliminate column 2 (zeros above AND below pivot)</h4>
+      <p>R₁ = R₁ − 0.5R₂, &nbsp; R₃ = R₃ − 2R₂</p>
+      <div class="concept-box" style="text-align:center">
+        <div class="matrix augmented">
+          <div class="matrix-row"><span class="pivot">1</span><span class="changed">0</span><span>−1</span><span>3</span></div>
+          <div class="matrix-row"><span>0</span><span class="pivot">1</span><span>1</span><span>2</span></div>
+          <div class="matrix-row"><span>0</span><span class="changed">0</span><span>−1</span><span>1</span></div>
+        </div>
+      </div>
+
+      <h4>Step 6: Make pivot a₃₃ = 1 (divide R₃ by −1)</h4>
+      <div class="concept-box" style="text-align:center">
+        <div class="matrix augmented">
+          <div class="matrix-row"><span class="pivot">1</span><span>0</span><span>−1</span><span>3</span></div>
+          <div class="matrix-row"><span>0</span><span class="pivot">1</span><span>1</span><span>2</span></div>
+          <div class="matrix-row"><span>0</span><span>0</span><span class="pivot">1</span><span>−1</span></div>
+        </div>
+      </div>
+
+      <h4>Step 7: Eliminate column 3 (zeros above pivot)</h4>
+      <p>R₁ = R₁ + R₃, &nbsp; R₂ = R₂ − R₃</p>
+      <div class="concept-box" style="text-align:center">
+        <p><strong>Final Reduced Row Echelon Form:</strong></p>
+        <div class="matrix augmented">
+          <div class="matrix-row"><span class="pivot">1</span><span>0</span><span class="changed">0</span><span class="changed">2</span></div>
+          <div class="matrix-row"><span>0</span><span class="pivot">1</span><span class="changed">0</span><span class="changed">3</span></div>
+          <div class="matrix-row"><span>0</span><span>0</span><span class="pivot">1</span><span>−1</span></div>
+        </div>
+      </div>
+
+      <div class="success-box"><strong>Read directly: x = 2, y = 3, z = −1</strong><br>No back substitution needed!</div>
+    </div></div>
+  </div>
+
+  <h3>When to Use Which?</h3>
+  <div class="concept-box">
+    <p><strong>Exam tip:</strong> If the question says "Gauss Elimination" → stop at upper triangular, do back substitution.</p>
+    <p><strong>If it says "Gauss-Jordan"</strong> → continue to identity matrix (reduced row echelon form).</p>
+    <p><strong>Both give the same answer!</strong> Gauss-Jordan just does more work upfront to avoid back substitution.</p>
+  </div>
+
+  <h3>Practice</h3>
+  <div class="practice-box">
+    <h4>Quick Quiz</h4>
+    <p class="question">Solve using Gauss-Jordan:<br>x + 2y = 5<br>3x + y = 5</p>
+    <div class="practice-input-row">
+      <label>x =</label>
+      <input type="number" id="gj-x" step="0.1">
+      <label>y =</label>
+      <input type="number" id="gj-y" step="0.1">
+    </div>
+    <button class="practice-btn" onclick="checkGaussJordan()">Check Answer</button>
+    <div class="practice-result" id="gj-result"></div>
+  </div>
+
+  <h3>Master Summary: All 6 Methods</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Method</th><th>Problem Type</th><th>Key Formula</th><th>Speed</th></tr></thead>
+      <tbody>
+        <tr><td style="font-family:var(--font-body);font-weight:600">Bisection</td><td>f(x)=0</td><td>c = (a+b)/2</td><td>Slow</td></tr>
+        <tr><td style="font-family:var(--font-body);font-weight:600">False Position</td><td>f(x)=0</td><td>x_r = [af(b)−bf(a)]/[f(b)−f(a)]</td><td>Medium</td></tr>
+        <tr><td style="font-family:var(--font-body);font-weight:600">Newton-Raphson</td><td>f(x)=0</td><td>x = x − f(x)/f'(x)</td><td>Fastest</td></tr>
+        <tr><td style="font-family:var(--font-body);font-weight:600">Secant</td><td>f(x)=0</td><td>x = xₙ − f(xₙ)(xₙ−xₙ₋₁)/(f(xₙ)−f(xₙ₋₁))</td><td>Fast</td></tr>
+        <tr><td style="font-family:var(--font-body);font-weight:600">Gauss Elim.</td><td>Ax = b</td><td>Row ops → upper triangular + back sub</td><td>—</td></tr>
+        <tr><td style="font-family:var(--font-body);font-weight:600">Gauss-Jordan</td><td>Ax = b</td><td>Row ops → identity matrix (RREF)</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="mark-complete-btn" onclick="markComplete(5)">Mark as Complete ✓</button>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(4)">← Gauss Elimination</button>
+    <div></div>
+  </div>
+</div>
+
+<!-- ============ SECTION 6: LEARN BY DOING - BISECTION ============ -->
+<div class="section" id="sec-6">
+  <h2><span class="topic-num">Learn by Doing</span>Bisection: Every Number Explained</h2>
+  <p class="intro-text">Let's solve f(x) = x³ − x − 1 = 0 and I'll show you EXACTLY where every single number in the table comes from.</p>
+
+  <h3>Before We Start: What Do We Know?</h3>
+  <div class="concept-box">
+    <p><strong>Our function:</strong> f(x) = x³ − x − 1</p>
+    <p><strong>How to use it:</strong> plug in any x, compute x³ − x − 1</p>
+    <p>Example: f(1.5) = (1.5)³ − 1.5 − 1 = 3.375 − 1.5 − 1 = <strong>0.875</strong></p>
+    <p>We already found that f(1) = −1 (negative) and f(2) = +5 (positive)</p>
+    <p>So we start with <strong>a = 1</strong> and <strong>b = 2</strong></p>
+  </div>
+
+  <!-- ITERATION 1 -->
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 1</span>
+      Starting with a = 1, b = 2
+    </div>
+    <div class="iter-card-body">
+
+      <div class="calc-line input-vals">
+        <span class="calc-icon">📥</span>
+        <div><strong>We start with:</strong> a = <code>1.000</code>, b = <code>2.000</code><br>
+        <em>These are our initial guesses where the sign changes.</em></div>
+      </div>
+
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>Compute midpoint c:</strong><br>
+        c = (a + b) / 2 = (1 + 2) / 2 = 3 / 2 = <span class="highlight-blue">1.500</span><br>
+        <em>Just the average of a and b!</em></div>
+      </div>
+
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>Compute f(c) = f(1.5):</strong><br>
+        f(1.5) = (1.5)³ − 1.5 − 1<br>
+        = (1.5 × 1.5 × 1.5) − 1.5 − 1<br>
+        = 3.375 − 1.5 − 1<br>
+        = <span class="highlight-blue">+0.875</span><br>
+        <em>Positive! So f(c) > 0</em></div>
+      </div>
+
+      <div class="calc-line decision">
+        <span class="calc-icon">🤔</span>
+        <div><strong>Where is the root?</strong><br>
+        f(a) = f(1) = <span class="highlight">−1</span> (negative)<br>
+        f(c) = f(1.5) = <span class="highlight">+0.875</span> (positive)<br>
+        f(a) × f(c) = (−1) × (+0.875) = <strong>−0.875 &lt; 0</strong><br>
+        <em>Opposite signs! Root is between a and c.</em></div>
+      </div>
+
+      <div class="calc-line result">
+        <span class="calc-icon">✅</span>
+        <div><strong>New interval: [a, c] = [1, 1.5]</strong><br>
+        For next iteration: <strong>a stays 1</strong>, <strong>b becomes 1.5</strong> (replaces old b=2)<br>
+        <em>We threw away the right half [1.5, 2] because the root isn't there.</em></div>
+      </div>
+
+      <div class="iter-summary">
+        <div class="iter-summary-item"><div class="label">a</div><div class="value">1.000</div></div>
+        <div class="iter-summary-item"><div class="label">b</div><div class="value">2.000</div></div>
+        <div class="iter-summary-item"><div class="label">c</div><div class="value">1.500</div></div>
+        <div class="iter-summary-item"><div class="label">f(c)</div><div class="value">+0.875</div></div>
+        <div class="iter-summary-item"><div class="label">Next</div><div class="value">[1, 1.5]</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow">⬇</div>
+
+  <!-- ITERATION 2 -->
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 2</span>
+      Now a = 1, b = 1.5 (b changed from last step!)
+    </div>
+    <div class="iter-card-body">
+
+      <div class="calc-line input-vals">
+        <span class="calc-icon">📥</span>
+        <div><strong>From Iteration 1, our new interval is:</strong> a = <code>1.000</code>, b = <code>1.500</code><br>
+        <em>b was 2 before, now it's 1.5 because the root is in [1, 1.5]</em></div>
+      </div>
+
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>Compute midpoint c:</strong><br>
+        c = (a + b) / 2 = (1 + 1.5) / 2 = 2.5 / 2 = <span class="highlight-blue">1.250</span></div>
+      </div>
+
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>Compute f(c) = f(1.25):</strong><br>
+        f(1.25) = (1.25)³ − 1.25 − 1<br>
+        = (1.25 × 1.25 × 1.25) − 1.25 − 1<br>
+        = 1.953125 − 1.25 − 1<br>
+        = <span class="highlight-blue">−0.297</span><br>
+        <em>Negative!</em></div>
+      </div>
+
+      <div class="calc-line decision">
+        <span class="calc-icon">🤔</span>
+        <div><strong>Where is the root?</strong><br>
+        f(a) = f(1) = <span class="highlight">−1</span> (negative)<br>
+        f(c) = f(1.25) = <span class="highlight">−0.297</span> (also negative!)<br>
+        f(a) × f(c) = (−1) × (−0.297) = <strong>+0.297 &gt; 0</strong><br>
+        <em>SAME signs! Root is NOT between a and c. It's between c and b.</em></div>
+      </div>
+
+      <div class="calc-line result">
+        <span class="calc-icon">✅</span>
+        <div><strong>New interval: [c, b] = [1.25, 1.5]</strong><br>
+        For next iteration: <strong>a becomes 1.25</strong> (replaces old a=1), <strong>b stays 1.5</strong><br>
+        <em>We threw away the left half [1, 1.25] this time.</em></div>
+      </div>
+
+      <div class="iter-summary">
+        <div class="iter-summary-item"><div class="label">a</div><div class="value">1.000</div></div>
+        <div class="iter-summary-item"><div class="label">b</div><div class="value">1.500</div></div>
+        <div class="iter-summary-item"><div class="label">c</div><div class="value">1.250</div></div>
+        <div class="iter-summary-item"><div class="label">f(c)</div><div class="value">−0.297</div></div>
+        <div class="iter-summary-item"><div class="label">Next</div><div class="value">[1.25, 1.5]</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow">⬇</div>
+
+  <!-- ITERATION 3 -->
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 3</span>
+      Now a = 1.25, b = 1.5
+    </div>
+    <div class="iter-card-body">
+
+      <div class="calc-line input-vals">
+        <span class="calc-icon">📥</span>
+        <div><strong>From Iteration 2:</strong> a = <code>1.250</code>, b = <code>1.500</code></div>
+      </div>
+
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>c = (1.25 + 1.5) / 2 = 2.75 / 2 = <span class="highlight-blue">1.375</span></strong></div>
+      </div>
+
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>f(1.375) = (1.375)³ − 1.375 − 1</strong><br>
+        = 2.599609 − 1.375 − 1 = <span class="highlight-blue">+0.224</span> (positive)</div>
+      </div>
+
+      <div class="calc-line decision">
+        <span class="calc-icon">🤔</span>
+        <div>f(a) = f(1.25) = −0.297 (negative), f(c) = +0.224 (positive)<br>
+        f(a) × f(c) = (−)(+) = <strong>negative &lt; 0</strong> → Root between a and c<br>
+        <strong>New interval: [1.25, 1.375]</strong> → a stays 1.25, b becomes 1.375</div>
+      </div>
+
+      <div class="iter-summary">
+        <div class="iter-summary-item"><div class="label">a</div><div class="value">1.250</div></div>
+        <div class="iter-summary-item"><div class="label">b</div><div class="value">1.500</div></div>
+        <div class="iter-summary-item"><div class="label">c</div><div class="value">1.375</div></div>
+        <div class="iter-summary-item"><div class="label">f(c)</div><div class="value">+0.224</div></div>
+        <div class="iter-summary-item"><div class="label">Next</div><div class="value">[1.25, 1.375]</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow">⬇</div>
+
+  <!-- ITERATION 4 -->
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 4</span>
+      Now a = 1.25, b = 1.375
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line input-vals">
+        <span class="calc-icon">📥</span>
+        <div>a = <code>1.250</code>, b = <code>1.375</code></div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div>c = (1.25 + 1.375) / 2 = <span class="highlight-blue">1.3125</span></div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div>f(1.3125) = (1.3125)³ − 1.3125 − 1 = 2.260986 − 1.3125 − 1 = <span class="highlight-blue">−0.051</span> (negative)</div>
+      </div>
+      <div class="calc-line decision">
+        <span class="calc-icon">🤔</span>
+        <div>f(a)=−0.297 (neg), f(c)=−0.051 (neg) → Same sign! f(a)×f(c) > 0<br>
+        Root between c and b → <strong>[1.3125, 1.375]</strong> → a becomes 1.3125, b stays 1.375</div>
+      </div>
+      <div class="iter-summary">
+        <div class="iter-summary-item"><div class="label">a</div><div class="value">1.250</div></div>
+        <div class="iter-summary-item"><div class="label">b</div><div class="value">1.375</div></div>
+        <div class="iter-summary-item"><div class="label">c</div><div class="value">1.3125</div></div>
+        <div class="iter-summary-item"><div class="label">f(c)</div><div class="value">−0.051</div></div>
+        <div class="iter-summary-item"><div class="label">Next</div><div class="value">[1.3125, 1.375]</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow">⬇</div>
+
+  <!-- ITERATION 5-8 condensed -->
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 5</span>
+      a = 1.3125, b = 1.375
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute"><span class="calc-icon">🔢</span><div>c = (1.3125 + 1.375)/2 = <strong>1.3438</strong> | f(c) = <strong>+0.082</strong> (pos)</div></div>
+      <div class="calc-line decision"><span class="calc-icon">🤔</span><div>f(a)=−0.051(neg) × f(c)=+0.082(pos) = negative → Root in [a,c] = <strong>[1.3125, 1.3438]</strong></div></div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 6</span>
+      a = 1.3125, b = 1.3438
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute"><span class="calc-icon">🔢</span><div>c = (1.3125 + 1.3438)/2 = <strong>1.3281</strong> | f(c) = <strong>+0.014</strong> (pos)</div></div>
+      <div class="calc-line decision"><span class="calc-icon">🤔</span><div>f(a)=−0.051(neg) × f(c)=+0.014(pos) = negative → Root in <strong>[1.3125, 1.3281]</strong></div></div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 7</span>
+      a = 1.3125, b = 1.3281
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute"><span class="calc-icon">🔢</span><div>c = (1.3125 + 1.3281)/2 = <strong>1.3203</strong> | f(c) = <strong>−0.018</strong> (neg)</div></div>
+      <div class="calc-line decision"><span class="calc-icon">🤔</span><div>f(a)=−0.051(neg) × f(c)=−0.018(neg) = positive → Same sign! Root in <strong>[1.3203, 1.3281]</strong></div></div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 8</span>
+      a = 1.3203, b = 1.3281
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute"><span class="calc-icon">🔢</span><div>c = (1.3203 + 1.3281)/2 = <strong>1.3242</strong> | f(c) = <strong>−0.002</strong> (very close to 0!)</div></div>
+      <div class="calc-line result"><span class="calc-icon">🎯</span><div>Interval is now [1.3242, 1.3281] — only 0.004 wide!<br><strong>Root ≈ 1.324 (correct to 3 decimal places)</strong></div></div>
+    </div>
+  </div>
+
+  <h3>The Decision Rule — Summary</h3>
+  <div class="concept-box" style="background: linear-gradient(135deg, #fdf0ec, #fff8ee); border-color: var(--accent);">
+    <p style="font-size:1.05rem; line-height:2;">
+      <strong>After computing c and f(c), ask ONE question:</strong><br><br>
+      Does f(a) × f(c) give a <strong>NEGATIVE</strong> number?<br>
+      → <span class="highlight-green" style="color:var(--accent3)">YES (negative)</span>: root is between a and c → <strong>b = c</strong> (throw away right half)<br>
+      → <span style="color:var(--accent); font-weight:700">NO (positive)</span>: root is between c and b → <strong>a = c</strong> (throw away left half)<br><br>
+      <em>Negative × Negative = Positive (same side, no root between them)</em><br>
+      <em>Negative × Positive = Negative (different sides, root IS between them)</em>
+    </p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(0)">← Back to Theory</button>
+    <button class="nav-btn primary" onclick="showSection(7)">Next: False Position Practice →</button>
+  </div>
+</div>
+
+<!-- ============ SECTION 7: LEARN BY DOING - FALSE POSITION ============ -->
+<div class="section" id="sec-7">
+  <h2><span class="topic-num">Learn by Doing</span>False Position: Step by Step</h2>
+  <p class="intro-text">Solve f(x) = x³ − x − 2 = 0 with the False Position method. Every calculation shown.</p>
+
+  <div class="concept-box">
+    <p><strong>Our function:</strong> f(x) = x³ − x − 2</p>
+    <p><strong>Key difference from Bisection:</strong> Instead of midpoint, we draw a line and find where it crosses zero.</p>
+    <p><strong>Formula:</strong> x_r = b − f(b) × (a − b) / (f(a) − f(b))</p>
+    <p>f(1) = 1 − 1 − 2 = <strong>−2</strong>, f(2) = 8 − 2 − 2 = <strong>+4</strong> → Start with a=1, b=2</p>
+  </div>
+
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 1</span>
+      a = 1, b = 2, f(a) = −2, f(b) = +4
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>Compute x_r (NOT midpoint!):</strong><br>
+        x_r = b − f(b) × (a − b) / (f(a) − f(b))<br>
+        x_r = 2 − (+4) × (1 − 2) / (−2 − 4)<br>
+        x_r = 2 − (4)(−1) / (−6)<br>
+        x_r = 2 − (−4)/(−6)<br>
+        x_r = 2 − 0.6667 = <span class="highlight-blue">1.3333</span><br>
+        <em>Notice: this is NOT 1.5 (the midpoint). It's pulled closer to a because f(a) is closer to zero.</em></div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div>f(1.3333) = (1.3333)³ − 1.3333 − 2 = 2.3704 − 1.3333 − 2 = <span class="highlight-blue">−0.9630</span></div>
+      </div>
+      <div class="calc-line decision">
+        <span class="calc-icon">🤔</span>
+        <div>f(a) × f(x_r) = (−2)(−0.963) = +1.926 > 0 → Same sign!<br>
+        Root in [x_r, b] = <strong>[1.3333, 2]</strong> → a becomes 1.3333</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow">⬇</div>
+
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 2</span>
+      a = 1.3333, b = 2, f(a) = −0.963, f(b) = +4
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div>x_r = 2 − 4 × (1.3333 − 2) / (−0.963 − 4)<br>
+        = 2 − 4 × (−0.6667) / (−4.963)<br>
+        = 2 − (−2.6667)/(−4.963)<br>
+        = 2 − 0.5373 = <span class="highlight-blue">1.4627</span></div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div>f(1.4627) = (1.4627)³ − 1.4627 − 2 = <span class="highlight-blue">−0.3333</span></div>
+      </div>
+      <div class="calc-line decision">
+        <span class="calc-icon">🤔</span>
+        <div>f(a) × f(x_r) = (−0.963)(−0.333) = positive → Same sign!<br>
+        Root in [x_r, b] → <strong>a becomes 1.4627</strong>, b stays 2</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow">⬇</div>
+
+  <div class="concept-box">
+    <p>Pattern continues... after 7 iterations: <strong>x ≈ 1.521</strong></p>
+    <p style="margin-top:8px"><strong>Key observation:</strong> Notice how b=2 never changed! In False Position, sometimes one endpoint gets "stuck." This is a known drawback compared to Bisection.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(6)">← Bisection Practice</button>
+    <button class="nav-btn primary" onclick="showSection(8)">Next: Newton-Raphson Practice →</button>
+  </div>
+</div>
+
+<!-- ============ SECTION 8: LEARN BY DOING - NEWTON-RAPHSON ============ -->
+<div class="section" id="sec-8">
+  <h2><span class="topic-num">Learn by Doing</span>Newton-Raphson: Step by Step</h2>
+  <p class="intro-text">Solve f(x) = x³ − x − 1 = 0 using Newton-Raphson. Watch how fast it converges!</p>
+
+  <div class="concept-box">
+    <p><strong>f(x) = x³ − x − 1</strong> → <strong>f'(x) = 3x² − 1</strong> (derivative: bring power down, reduce by 1)</p>
+    <p><strong>Formula:</strong> x_{n+1} = xₙ − f(xₙ) / f'(xₙ)</p>
+    <p><strong>Starting guess:</strong> x₀ = 1 (because f(1)=−1 is closest to 0)</p>
+  </div>
+
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 1</span>
+      x₀ = 1
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>f(x₀) = f(1)</strong> = (1)³ − 1 − 1 = 1 − 1 − 1 = <span class="highlight-blue">−1</span></div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>f'(x₀) = f'(1)</strong> = 3(1)² − 1 = 3 − 1 = <span class="highlight-blue">2</span></div>
+      </div>
+      <div class="calc-line result">
+        <span class="calc-icon">📐</span>
+        <div><strong>x₁ = x₀ − f(x₀)/f'(x₀)</strong><br>
+        = 1 − (−1)/2<br>
+        = 1 − (−0.5)<br>
+        = 1 + 0.5 = <span class="highlight-green">1.5</span><br>
+        <em>|x₁ − x₀| = |1.5 − 1| = 0.5 > 0.001 → continue</em></div>
+      </div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 2</span>
+      x₁ = 1.5
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>f(1.5)</strong> = (1.5)³ − 1.5 − 1 = 3.375 − 2.5 = <span class="highlight-blue">0.875</span></div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>f'(1.5)</strong> = 3(1.5)² − 1 = 3(2.25) − 1 = 6.75 − 1 = <span class="highlight-blue">5.75</span></div>
+      </div>
+      <div class="calc-line result">
+        <span class="calc-icon">📐</span>
+        <div><strong>x₂ = 1.5 − 0.875/5.75 = 1.5 − 0.15217 = <span class="highlight-green">1.34783</span></strong><br>
+        <em>|x₂ − x₁| = 0.15217 > 0.001 → continue</em></div>
+      </div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 3</span>
+      x₂ = 1.34783
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>f(1.34783)</strong> = (1.34783)³ − 1.34783 − 1 = 2.44802 − 2.34783 = <span class="highlight-blue">0.1007</span></div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>f'(1.34783)</strong> = 3(1.34783)² − 1 = 3(1.81665) − 1 = <span class="highlight-blue">4.44994</span></div>
+      </div>
+      <div class="calc-line result">
+        <span class="calc-icon">📐</span>
+        <div><strong>x₃ = 1.34783 − 0.1007/4.44994 = 1.34783 − 0.02263 = <span class="highlight-green">1.32520</span></strong><br>
+        <em>|x₃ − x₂| = 0.02263 > 0.001 → continue</em></div>
+      </div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+
+  <div class="iter-card">
+    <div class="iter-card-header">
+      <span class="iter-badge">ITER 4</span>
+      x₃ = 1.32520
+    </div>
+    <div class="iter-card-body">
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div>f(1.3252) = <span class="highlight-blue">0.00306</span> | f'(1.3252) = <span class="highlight-blue">4.26847</span></div>
+      </div>
+      <div class="calc-line result">
+        <span class="calc-icon">🎯</span>
+        <div><strong>x₄ = 1.3252 − 0.00306/4.26847 = <span class="highlight-green">1.32472</span></strong><br>
+        |x₄ − x₃| = 0.00048 &lt; 0.001 ✅ <strong>CONVERGED!</strong><br><br>
+        <strong>Root ≈ 1.325</strong> — Only 4 iterations! (Bisection needed 8+)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(7)">← False Position Practice</button>
+    <button class="nav-btn primary" onclick="showSection(9)">Next: Secant Practice →</button>
+  </div>
+</div>
+
+<!-- ============ SECTION 9: LEARN BY DOING - SECANT ============ -->
+<div class="section" id="sec-9">
+  <h2><span class="topic-num">Learn by Doing</span>Secant Method: Step by Step</h2>
+  <p class="intro-text">Solve f(x) = x³ − x − 1 = 0 using the Secant Method. No derivative needed!</p>
+
+  <div class="concept-box">
+    <p><strong>Formula:</strong> x_{n+1} = xₙ − f(xₙ) × (xₙ − x_{n-1}) / (f(xₙ) − f(x_{n-1}))</p>
+    <p><strong>Starting:</strong> x₀ = 1, x₁ = 2</p>
+    <p>f(1) = −1, f(2) = 5</p>
+  </div>
+
+  <div class="iter-card">
+    <div class="iter-card-header"><span class="iter-badge">ITER 1</span> x₀ = 1, x₁ = 2</div>
+    <div class="iter-card-body">
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div>x₂ = x₁ − f(x₁) × (x₁ − x₀) / (f(x₁) − f(x₀))<br>
+        = 2 − 5 × (2 − 1) / (5 − (−1))<br>
+        = 2 − 5 × 1 / 6<br>
+        = 2 − 0.8333 = <span class="highlight-green">1.1667</span></div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div>f(1.1667) = (1.1667)³ − 1.1667 − 1 = <span class="highlight-blue">−0.5797</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+
+  <div class="iter-card">
+    <div class="iter-card-header"><span class="iter-badge">ITER 2</span> x₁ = 2, x₂ = 1.1667</div>
+    <div class="iter-card-body">
+      <div class="calc-line input-vals">
+        <span class="calc-icon">📥</span>
+        <div><strong>Important:</strong> Now xₙ₋₁ = x₁ = 2 and xₙ = x₂ = 1.1667<br>
+        f(2) = 5, f(1.1667) = −0.5797</div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div>x₃ = 1.1667 − (−0.5797) × (1.1667 − 2) / (−0.5797 − 5)<br>
+        = 1.1667 − (−0.5797)(−0.8333) / (−5.5797)<br>
+        = 1.1667 − 0.4831 / (−5.5797)<br>
+        = 1.1667 + 0.0866 = <span class="highlight-green">1.2533</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+
+  <div class="concept-box">
+    <p><strong>The pattern:</strong> Each iteration uses the <em>two most recent</em> x values. After 5-6 iterations: <strong>x ≈ 1.3247</strong></p>
+    <p style="margin-top:8px"><strong>Key difference from Newton:</strong> Newton needs f'(x) (derivative). Secant approximates it using two points — no calculus needed, just slightly slower.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(8)">← Newton Practice</button>
+    <button class="nav-btn primary" onclick="showSection(10)">Next: Gauss Practice →</button>
+  </div>
+</div>
+
+<!-- ============ SECTION 10: LEARN BY DOING - GAUSS ============ -->
+<div class="section" id="sec-10">
+  <h2><span class="topic-num">Learn by Doing</span>Gauss & Gauss-Jordan Practice</h2>
+  <p class="intro-text">Solve a system of equations step by step, seeing every row operation.</p>
+
+  <h3>Problem: Solve this system</h3>
+  <div class="concept-box" style="font-family:var(--font-mono); font-size:1rem; line-height:2.2; text-align:center;">
+    x + y + z = 6<br>
+    2x + 3y + z = 14<br>
+    x + y + 2z = 9
+  </div>
+
+  <div class="iter-card">
+    <div class="iter-card-header"><span class="iter-badge">STEP 1</span> Write the augmented matrix</div>
+    <div class="iter-card-body">
+      <div class="calc-line input-vals">
+        <span class="calc-icon">📝</span>
+        <div>Write coefficients of x, y, z and the constants on the right:<br><br>
+        <span style="font-family:var(--font-mono);font-size:1.05rem;">
+        [ 1 &nbsp; 1 &nbsp; 1 &nbsp;| &nbsp;6 &nbsp;] &nbsp; ← from x + y + z = 6<br>
+        [ 2 &nbsp; 3 &nbsp; 1 &nbsp;| &nbsp;14 ] &nbsp; ← from 2x + 3y + z = 14<br>
+        [ 1 &nbsp; 1 &nbsp; 2 &nbsp;| &nbsp;9 &nbsp;] &nbsp; ← from x + y + 2z = 9
+        </span></div>
+      </div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+
+  <div class="iter-card">
+    <div class="iter-card-header"><span class="iter-badge">STEP 2</span> Eliminate x from Row 2 and Row 3</div>
+    <div class="iter-card-body">
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>R₂ = R₂ − 2×R₁</strong> (to make the "2" in R2 become 0)<br>
+        [2−2(1), 3−2(1), 1−2(1), 14−2(6)] = [<span class="highlight-green">0</span>, 1, −1, 2]</div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>R₃ = R₃ − 1×R₁</strong> (to make the "1" in R3 become 0)<br>
+        [1−1, 1−1, 2−1, 9−6] = [<span class="highlight-green">0</span>, 0, 1, 3]</div>
+      </div>
+      <div class="calc-line result">
+        <span class="calc-icon">📋</span>
+        <div style="font-family:var(--font-mono);">
+        [ 1 &nbsp; 1 &nbsp; 1 &nbsp;| &nbsp;6 ]<br>
+        [ <span style="color:var(--accent3);font-weight:700">0</span> &nbsp; 1 &nbsp;−1 &nbsp;| &nbsp;2 ]<br>
+        [ <span style="color:var(--accent3);font-weight:700">0</span> &nbsp; 0 &nbsp; 1 &nbsp;| &nbsp;3 ]<br><br>
+        <em>This is already upper triangular! (Lucky — sometimes you need more steps)</em>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flow-arrow">⬇</div>
+
+  <div class="iter-card">
+    <div class="iter-card-header"><span class="iter-badge">STEP 3</span> Back Substitution (Gauss Elimination stops here)</div>
+    <div class="iter-card-body">
+      <div class="calc-line result">
+        <span class="calc-icon">3️⃣</span>
+        <div><strong>From Row 3:</strong> 1×z = 3 → <span class="highlight-green">z = 3</span></div>
+      </div>
+      <div class="calc-line result">
+        <span class="calc-icon">2️⃣</span>
+        <div><strong>From Row 2:</strong> y − z = 2 → y − 3 = 2 → <span class="highlight-green">y = 5</span></div>
+      </div>
+      <div class="calc-line result">
+        <span class="calc-icon">1️⃣</span>
+        <div><strong>From Row 1:</strong> x + y + z = 6 → x + 5 + 3 = 6 → <span class="highlight-green">x = −2</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:40px">For Gauss-Jordan: Continue to Identity Matrix</h3>
+  <div class="concept-box">
+    <p>After reaching upper triangular, Gauss-Jordan continues to eliminate entries ABOVE the diagonal too, making each pivot = 1 and everything else = 0.</p>
+  </div>
+
+  <div class="iter-card">
+    <div class="iter-card-header"><span class="iter-badge">STEP 4</span> Eliminate above diagonal</div>
+    <div class="iter-card-body">
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>R₂ = R₂ + R₃</strong> (eliminate z from Row 2)<br>
+        [0, 1, −1+1, 2+3] = [0, 1, <span class="highlight-green">0</span>, 5]</div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>R₁ = R₁ − R₃</strong> (eliminate z from Row 1)<br>
+        [1, 1, 1−1, 6−3] = [1, 1, <span class="highlight-green">0</span>, 3]</div>
+      </div>
+      <div class="calc-line compute">
+        <span class="calc-icon">🔢</span>
+        <div><strong>R₁ = R₁ − R₂</strong> (eliminate y from Row 1)<br>
+        [1, 1−1, 0, 3−5] = [1, <span class="highlight-green">0</span>, 0, −2]</div>
+      </div>
+      <div class="calc-line result">
+        <span class="calc-icon">🎯</span>
+        <div style="font-family:var(--font-mono); font-size:1.05rem;">
+        [ 1 &nbsp; 0 &nbsp; 0 &nbsp;| &nbsp;<strong>−2</strong> ] → x = −2<br>
+        [ 0 &nbsp; 1 &nbsp; 0 &nbsp;| &nbsp;<strong>5</strong> &nbsp;] → y = 5<br>
+        [ 0 &nbsp; 0 &nbsp; 1 &nbsp;| &nbsp;<strong>3</strong> &nbsp;] → z = 3<br><br>
+        Read answers directly from the last column!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="success-box"><strong>Both methods give: x = −2, y = 5, z = 3</strong></div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection(9)">← Secant Practice</button>
+    <button class="nav-btn primary" onclick="showSection(0)">Back to Topic 1 →</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+// Navigation
+const sections = document.querySelectorAll('.section');
+const navItems = document.querySelectorAll('.nav-item');
+let completed = new Set(JSON.parse(localStorage.getItem('na-completed') || '[]'));
+
+function showSection(idx) {
+  sections.forEach(s => s.classList.remove('active'));
+  navItems.forEach(n => n.classList.remove('active'));
+  sections[idx].classList.add('active');
+  navItems[idx].classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  document.querySelector('.sidebar').classList.remove('open');
+}
+
+function markComplete(idx) {
+  completed.add(idx);
+  localStorage.setItem('na-completed', JSON.stringify([...completed]));
+  updateProgress();
+  const btn = sections[idx].querySelector('.mark-complete-btn');
+  btn.textContent = 'Completed ✓';
+  btn.classList.add('done');
+}
+
+function updateProgress() {
+  navItems.forEach((item, i) => {
+    if (completed.has(i)) item.classList.add('completed');
+  });
+  document.getElementById('progress-text').textContent = completed.size + ' / 6';
+  document.getElementById('progress-fill').style.width = (completed.size / 6 * 100) + '%';
+}
+updateProgress();
+
+// Bisection Calculator
+function runBisection() {
+  let a = parseFloat(document.getElementById('bis-a').value);
+  let b = parseFloat(document.getElementById('bis-b').value);
+  const n = parseInt(document.getElementById('bis-n').value);
+  const f = x => x*x*x - x - 1;
+
+  let fa = f(a), fb = f(b);
+  if (fa * fb > 0) {
+    showResult('bis-result', 'Error: f(a) and f(b) must have opposite signs!', 'correct');
+    return;
+  }
+
+  let html = '<strong>f(x) = x³ − x − 1</strong>\n\n';
+  html += 'Iter | a        | b        | c        | f(c)\n';
+  html += '─────┼──────────┼──────────┼──────────┼──────────\n';
+
+  for (let i = 1; i <= n; i++) {
+    let c = (a + b) / 2;
+    let fc = f(c);
+    html += `  ${i}  | ${a.toFixed(5)} | ${b.toFixed(5)} | ${c.toFixed(5)} | ${fc >= 0 ? '+' : ''}${fc.toFixed(5)}\n`;
+    if (fa * fc < 0) { b = c; fb = fc; }
+    else { a = c; fa = fc; }
+  }
+  let c = (a+b)/2;
+  html += `\n<strong>Root ≈ ${c.toFixed(5)}</strong>`;
+  showResult('bis-result', html, 'info');
+}
+
+// False Position Calculator
+function runFalsePosition() {
+  let a = parseFloat(document.getElementById('fp-a').value);
+  let b = parseFloat(document.getElementById('fp-b').value);
+  const coeff = parseFloat(document.getElementById('fp-coeff').value);
+  const con = parseFloat(document.getElementById('fp-const').value);
+  const f = x => x*x*x + coeff*x + con;
+
+  let fa = f(a), fb = f(b);
+  if (fa * fb > 0) {
+    showResult('fp-result', 'Error: f(a) and f(b) must have opposite signs!', 'correct');
+    return;
+  }
+
+  let html = `<strong>f(x) = x³ + (${coeff})x + (${con})</strong>\n\n`;
+  html += 'Iter | a        | b        | x_r      | f(x_r)\n';
+  html += '─────┼──────────┼──────────┼──────────┼──────────\n';
+
+  let prev = null;
+  for (let i = 1; i <= 8; i++) {
+    fa = f(a); fb = f(b);
+    let xr = (a * fb - b * fa) / (fb - fa);
+    let fxr = f(xr);
+    let diff = prev !== null ? Math.abs(xr - prev) : '-';
+    html += `  ${i}  | ${a.toFixed(5)} | ${b.toFixed(5)} | ${xr.toFixed(5)} | ${fxr >= 0 ? '+' : ''}${fxr.toFixed(5)}\n`;
+    if (fa * fxr < 0) { b = xr; }
+    else { a = xr; }
+    prev = xr;
+    if (typeof diff === 'number' && diff < 0.001) {
+      html += `\n<strong>Root ≈ ${xr.toFixed(5)} (converged at iter ${i})</strong>`;
+      showResult('fp-result', html, 'info');
+      return;
+    }
+  }
+  html += `\n<strong>Root ≈ ${prev.toFixed(5)}</strong>`;
+  showResult('fp-result', html, 'info');
+}
+
+// Newton-Raphson Calculator
+function runNewtonRaphson() {
+  let x = parseFloat(document.getElementById('nr-x0').value);
+  const n = parseInt(document.getElementById('nr-n').value);
+  const f = x => x*x*x - x - 1;
+  const fp = x => 3*x*x - 1;
+
+  let html = '<strong>f(x) = x³ − x − 1, f\'(x) = 3x² − 1</strong>\n\n';
+  html += 'Iter | xₙ       | f(xₙ)     | f\'(xₙ)   | x_{n+1}\n';
+  html += '─────┼──────────┼───────────┼──────────┼──────────\n';
+
+  for (let i = 1; i <= n; i++) {
+    let fx = f(x);
+    let fpx = fp(x);
+    let xnew = x - fx / fpx;
+    html += `  ${i}  | ${x.toFixed(5)} | ${fx >= 0 ? '+' : ''}${fx.toFixed(5)} | ${fpx.toFixed(4)} | ${xnew.toFixed(5)}\n`;
+    if (Math.abs(xnew - x) < 0.0001) {
+      html += `\n<strong>Root ≈ ${xnew.toFixed(5)} (converged!)</strong>`;
+      showResult('nr-result', html, 'info');
+      return;
+    }
+    x = xnew;
+  }
+  html += `\n<strong>Root ≈ ${x.toFixed(5)}</strong>`;
+  showResult('nr-result', html, 'info');
+}
+
+// Gauss Elimination Quiz
+function checkGauss() {
+  const x = parseFloat(document.getElementById('ge-x').value);
+  const y = parseFloat(document.getElementById('ge-y').value);
+  const z = parseFloat(document.getElementById('ge-z').value);
+  // x+y+z=6, 2x+3y+z=14, x+y+2z=9 -> x=1, y=3, z=3 wait let me check
+  // From eq3-eq1: z = 3. From eq2-2*eq1: y-z=2 -> y=5? No.
+  // x+y+z=6, 2x+3y+z=14, x+y+2z=9
+  // eq3-eq1: z=3, eq2-2*eq1: y-z=2 -> y=5, x=6-5-3=-2? Check: 2(-2)+3(5)+3=14? -4+15+3=14 yes!
+  // But let me recheck: eq1: -2+5+3=6 yes. eq3: -2+5+6=9 yes.
+  // Actually wait. x+y+z=6. If z=3, y=5... x=-2. Hmm that works but is a bit odd. Let me just accept.
+  if (Math.abs(x - (-2)) < 0.2 && Math.abs(y - 5) < 0.2 && Math.abs(z - 3) < 0.2) {
+    showResult('ge-result', '✓ Correct! x = −2, y = 5, z = 3\n\nGreat job solving the system!', 'correct');
+  } else {
+    showResult('ge-result', '✗ Not quite. Hint: Start by subtracting R1 from R3 to get z = 3, then work backwards.\n\nCorrect answer: x = −2, y = 5, z = 3', 'info');
+  }
+}
+
+// Gauss-Jordan Quiz
+function checkGaussJordan() {
+  const x = parseFloat(document.getElementById('gj-x').value);
+  const y = parseFloat(document.getElementById('gj-y').value);
+  // x+2y=5, 3x+y=5 -> from eq2: y=5-3x, sub: x+2(5-3x)=5 -> x+10-6x=5 -> -5x=-5 -> x=1, y=2
+  if (Math.abs(x - 1) < 0.2 && Math.abs(y - 2) < 0.2) {
+    showResult('gj-result', '✓ Correct! x = 1, y = 2\n\nYou got it!', 'correct');
+  } else {
+    showResult('gj-result', '✗ Not quite.\n\n[1  2 | 5]    R2=R2-3R1→  [1  2 |  5]    R2/(-5)→  [1  2 | 5]    R1=R1-2R2→  [1  0 | 1]\n[3  1 | 5]                  [0 -5 | -10]              [0  1 | 2]                  [0  1 | 2]\n\nAnswer: x = 1, y = 2', 'info');
+  }
+}
+
+function showResult(id, text, cls) {
+  const el = document.getElementById(id);
+  el.innerHTML = '<pre style="white-space:pre-wrap;margin:0;font-family:var(--font-mono);font-size:0.85rem;">' + text + '</pre>';
+  el.className = 'practice-result show ' + cls;
+}
+</script>
+</body>
+</html>
