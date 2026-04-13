@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SE Case Studies - Solved (Q3)</title>
+<style>
+  body { font-family: 'Georgia', serif; max-width: 950px; margin: 30px auto; padding: 20px 30px; background: #fafaf7; color: #222; line-height: 1.7; }
+  h1 { color: #1a4d80; border-bottom: 3px solid #1a4d80; padding-bottom: 8px; font-size: 1.5rem; }
+  h2 { color: #1a4d80; margin-top: 34px; border-left: 5px solid #1a4d80; padding-left: 12px; font-size: 1.25rem; }
+  h3 { color: #c0392b; margin-top: 22px; font-size: 1.05rem; }
+  h4 { color: #8e44ad; margin-top: 16px; font-size: 0.98rem; }
+  .box { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 14px 20px; margin: 14px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .problem { background: #eaf3fb; border-left: 4px solid #1a4d80; padding: 14px 18px; margin: 14px 0; font-style: italic; }
+  .warn { background: #fff8e1; border-left: 4px solid #f5b300; padding: 10px 16px; margin: 12px 0; }
+  .answer { background: #e7f7e7; border: 2px solid #28a745; padding: 12px 18px; border-radius: 6px; margin: 14px 0; }
+  .fr { background: #e8f5ee; border-left: 4px solid #28a745; padding: 12px 16px; margin: 10px 0; }
+  .nfr { background: #fdecea; border-left: 4px solid #e74c3c; padding: 12px 16px; margin: 10px 0; }
+  .scrum-plan { background: #f0e8ff; border-left: 4px solid #8e44ad; padding: 12px 16px; margin: 10px 0; }
+  .tip { background: #fff4e6; border-left: 4px solid #e67e22; padding: 10px 16px; margin: 10px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; background: #fff; font-size: 0.85em; }
+  th, td { border: 1px solid #888; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #1a4d80; color: #fff; }
+  tr:nth-child(even) td { background: #f4f4f4; }
+  .toc { background: #fff; border: 1px solid #ccc; padding: 14px 20px; border-radius: 6px; }
+  .toc a { color: #1a4d80; text-decoration: none; display: block; padding: 4px 0; }
+  .toc a:hover { text-decoration: underline; }
+  ul li, ol li { margin-bottom: 4px; }
+  .small { font-size: 0.85em; color: #666; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: bold; color: #fff; }
+  .badge.high { background: #c0392b; }
+  .badge.med { background: #e67e22; }
+  .badge.low { background: #28a745; }
+  .badge.done { background: #28a745; }
+  .badge.wip { background: #e67e22; }
+  .badge.todo { background: #7f8c8d; }
+</style>
+</head>
+<body>
+
+<h1>SE Case Studies &mdash; Solved (Q3)</h1>
+
+<div class="box">
+<b>Q3 is ALWAYS a Case Study.</b> You'll be given a scenario (e.g., loyalty app, medical system) and asked to:
+<ul>
+<li>Write <b>Functional</b> and <b>Non-functional</b> requirements</li>
+<li>Plan using <b>Scrum</b> with sprints, assignees, priority, status</li>
+<li>Explain the architecture or process</li>
+</ul>
+This page has 5 fully solved case studies you can use as templates.
+</div>
+
+<div class="toc">
+<b>Jump to Section:</b>
+<a href="#tips">&raquo; General Tips for Case Studies</a>
+<a href="#fr-template">&raquo; Functional Requirements Template</a>
+<a href="#nfr-template">&raquo; Non-Functional Requirements Template</a>
+<a href="#cs1">Case Study 1: Customer Loyalty App (from course!)</a>
+<a href="#cs2">Case Study 2: Insulin Pump Control System</a>
+<a href="#cs3">Case Study 3: Mental Health Patient System (MHC-PMS)</a>
+<a href="#cs4">Case Study 4: Online Shopping App</a>
+<a href="#cs5">Case Study 5: University Attendance System</a>
+<a href="#strategy">&raquo; Exam Strategy for Q3</a>
+</div>
+
+<!-- ============ TIPS ============ -->
+<h2 id="tips">General Tips for Answering Case Studies</h2>
+
+<div class="tip">
+<ol>
+<li><b>Read the scenario twice</b> &mdash; understand what the system should do and who uses it</li>
+<li><b>List all stakeholders</b> (users, admins, owners)</li>
+<li><b>Pick the right model</b> &mdash; Scrum is safe for most modern apps</li>
+<li><b>Write 8-12 functional requirements</b> as numbered statements starting with "The system shall..."</li>
+<li><b>Write 6-10 non-functional requirements</b> grouped by category</li>
+<li><b>Draw a Scrum plan table</b> with 4-6 sprints showing assignees, priority, status</li>
+<li><b>Add a brief architecture description</b> (frontend, backend, database)</li>
+</ol>
+</div>
+
+<!-- ============ FR TEMPLATE ============ -->
+<h2 id="fr-template">Functional Requirements &mdash; Template</h2>
+
+<div class="box">
+<b>How to phrase them:</b> "The system <b>shall</b> [verb] [object] [condition/detail]"<br><br>
+Examples:
+<ul>
+<li>The system shall allow users to create an account using email and password.</li>
+<li>The system shall send an OTP to verify the user's phone number.</li>
+<li>The system shall calculate total price including tax and discount.</li>
+<li>The system shall generate a PDF invoice after successful payment.</li>
+<li>The system shall send an email confirmation within 30 seconds.</li>
+</ul>
+</div>
+
+<div class="warn">
+<b>Common Functional Requirement Verbs:</b> allow, provide, display, calculate, generate, send, validate, store, retrieve, update, delete, notify, authenticate, process, track, export, import
+</div>
+
+<!-- ============ NFR TEMPLATE ============ -->
+<h2 id="nfr-template">Non-Functional Requirements &mdash; Template</h2>
+
+<div class="box">
+<b>Categorize them like this:</b>
+</div>
+
+<table>
+<tr><th>Category</th><th>What it Measures</th><th>Example</th></tr>
+<tr><td><b>Performance</b></td><td>Response time, throughput</td><td>Pages shall load in &lt; 2 seconds</td></tr>
+<tr><td><b>Reliability</b></td><td>Uptime, MTBF</td><td>System shall have 99.9% uptime</td></tr>
+<tr><td><b>Usability</b></td><td>Ease of use</td><td>New users shall complete registration in under 3 minutes</td></tr>
+<tr><td><b>Security</b></td><td>Auth, encryption, privacy</td><td>All passwords shall be hashed with bcrypt</td></tr>
+<tr><td><b>Scalability</b></td><td>Concurrent users, data volume</td><td>System shall support 50,000 concurrent users</td></tr>
+<tr><td><b>Maintainability</b></td><td>Ease of updates</td><td>Code shall follow SOLID principles</td></tr>
+<tr><td><b>Portability</b></td><td>Platforms supported</td><td>App shall run on iOS 14+ and Android 10+</td></tr>
+</table>
+
+<!-- ============ CASE STUDY 1 ============ -->
+<h2 id="cs1">Case Study 1: Customer Loyalty Mobile App (From Course Material)</h2>
+
+<div class="problem">
+<b>Problem Statement:</b><br>
+A retail business seeks to implement a Customer Loyalty Mobile App to improve repeat purchases and customer engagement. The app should allow users to create accounts, earn loyalty points through purchases, redeem rewards, receive personalized promotions, and participate in a referral program to earn bonus points. The app must also maintain complete tracking of all user activities including points earned, redeemed, referred friends, and promotions viewed or claimed.<br><br>
+As a software engineer, develop the app using the Scrum framework, working in multiple sprints to deliver incremental features. Each iteration should clearly outline the responsible person, status, and priority.
+</div>
+
+<h3>Chosen Model: Scrum</h3>
+<div class="box">
+<b>Why Scrum?</b>
+<ul>
+<li>Mobile app development benefits from incremental delivery</li>
+<li>Customer (retail business) needs rapid feedback on each feature</li>
+<li>Requirements may evolve (promotions, reward types can change)</li>
+<li>Team is small, self-organizing</li>
+<li>Working software delivered every 2 weeks</li>
+</ul>
+</div>
+
+<h3>Functional Requirements</h3>
+<div class="fr">
+<ol>
+<li>The system shall allow users to create accounts using email, phone number, or social login.</li>
+<li>The system shall authenticate users via password + OTP verification.</li>
+<li>The system shall display the user's current loyalty points on the home screen.</li>
+<li>The system shall add points to the user's account automatically when a purchase is made.</li>
+<li>The system shall allow users to redeem points for available rewards.</li>
+<li>The system shall display personalized promotions based on user purchase history.</li>
+<li>The system shall provide a referral program where users earn bonus points by inviting friends.</li>
+<li>The system shall track all user activities: points earned, points redeemed, referrals made, promotions viewed or claimed.</li>
+<li>The system shall send notifications about new promotions and reward availability.</li>
+<li>The system shall allow users to view their transaction history with dates and point changes.</li>
+<li>The system shall enable users to update their profile information.</li>
+<li>The system shall provide a customer support chat option.</li>
+</ol>
+</div>
+
+<h3>Non-Functional Requirements</h3>
+<div class="nfr">
+
+<h4>Performance</h4>
+<ul>
+<li>App screens shall load in under 2 seconds on a 4G connection.</li>
+<li>Points update after a purchase shall reflect within 10 seconds.</li>
+</ul>
+
+<h4>Reliability</h4>
+<ul>
+<li>System shall have 99.5% uptime.</li>
+<li>All transactions shall be logged for recovery in case of failure.</li>
+</ul>
+
+<h4>Usability</h4>
+<ul>
+<li>New users shall complete registration in under 3 minutes.</li>
+<li>App shall support English and Urdu languages.</li>
+</ul>
+
+<h4>Security</h4>
+<ul>
+<li>All user passwords shall be hashed using bcrypt.</li>
+<li>User data shall be encrypted at rest and in transit (HTTPS/TLS).</li>
+<li>Only authenticated users shall access their loyalty account.</li>
+<li>Points transactions shall be tamper-proof (audit log).</li>
+</ul>
+
+<h4>Scalability</h4>
+<ul>
+<li>System shall support up to 100,000 active users.</li>
+<li>Database shall handle 1,000 concurrent transactions per second.</li>
+</ul>
+
+<h4>Portability</h4>
+<ul>
+<li>App shall run on iOS 14+ and Android 10+.</li>
+</ul>
+
+</div>
+
+<h3>Scrum Plan (6 Sprints, 2 Weeks Each)</h3>
+<div class="scrum-plan">
+<table>
+<tr><th>Sprint</th><th>Duration</th><th>Goal / Backlog Items</th><th>Assigned to</th><th>Priority</th><th>Status</th></tr>
+<tr>
+  <td><b>Sprint 1</b></td>
+  <td>2 weeks</td>
+  <td>Project setup: Repository, CI/CD, database schema, authentication module (email + password)</td>
+  <td>Shehroz (Backend), Ali (DB)</td>
+  <td><span class="badge high">High</span></td>
+  <td><span class="badge done">Done</span></td>
+</tr>
+<tr>
+  <td><b>Sprint 2</b></td>
+  <td>2 weeks</td>
+  <td>User profile, OTP verification, home screen with points display</td>
+  <td>Fatima (Frontend), Shehroz (Backend)</td>
+  <td><span class="badge high">High</span></td>
+  <td><span class="badge done">Done</span></td>
+</tr>
+<tr>
+  <td><b>Sprint 3</b></td>
+  <td>2 weeks</td>
+  <td>Points earning mechanism, transaction logging, purchase webhook integration</td>
+  <td>Ali (Backend), Bilal (Integration)</td>
+  <td><span class="badge high">High</span></td>
+  <td><span class="badge wip">In Progress</span></td>
+</tr>
+<tr>
+  <td><b>Sprint 4</b></td>
+  <td>2 weeks</td>
+  <td>Reward redemption flow, reward catalog, order confirmation</td>
+  <td>Fatima (Frontend), Shehroz (Backend)</td>
+  <td><span class="badge med">Medium</span></td>
+  <td><span class="badge todo">To Do</span></td>
+</tr>
+<tr>
+  <td><b>Sprint 5</b></td>
+  <td>2 weeks</td>
+  <td>Promotions engine, personalized offers, push notifications</td>
+  <td>Bilal (Integration), Ali (Backend)</td>
+  <td><span class="badge med">Medium</span></td>
+  <td><span class="badge todo">To Do</span></td>
+</tr>
+<tr>
+  <td><b>Sprint 6</b></td>
+  <td>2 weeks</td>
+  <td>Referral program, activity tracking dashboard, final QA &amp; deployment</td>
+  <td>Whole team</td>
+  <td><span class="badge low">Low</span></td>
+  <td><span class="badge todo">To Do</span></td>
+</tr>
+</table>
+</div>
+
+<h3>Architecture</h3>
+<div class="box">
+<ul>
+<li><b>Frontend:</b> React Native mobile app (iOS + Android)</li>
+<li><b>Backend:</b> Node.js REST API with Express.js</li>
+<li><b>Database:</b> PostgreSQL for structured data, Redis for caching</li>
+<li><b>Authentication:</b> JWT tokens + OTP via Twilio</li>
+<li><b>Notifications:</b> Firebase Cloud Messaging</li>
+<li><b>Hosting:</b> AWS (EC2 for API, RDS for database)</li>
+</ul>
+</div>
+
+<!-- ============ CASE STUDY 2 ============ -->
+<h2 id="cs2">Case Study 2: Insulin Pump Control System (From Course Material)</h2>
+
+<div class="problem">
+<b>Problem Statement:</b><br>
+An insulin pump is a medical system that simulates the operation of the pancreas. The software controlling this system is an embedded system which collects information from a sensor and controls a pump that delivers a controlled dose of insulin to a user. The system is safety-critical because low blood glucose can lead to brain malfunctioning, coma, and death, while high blood glucose levels can cause long-term eye, kidney, and heart problems.
+</div>
+
+<h3>Chosen Model: V-Model</h3>
+<div class="box">
+<b>Why V-Model?</b>
+<ul>
+<li>Safety-critical system requires testing at every phase</li>
+<li>Medical systems must comply with strict regulations</li>
+<li>Requirements are well-understood (medical protocols)</li>
+<li>Verification and validation are essential</li>
+</ul>
+</div>
+
+<h3>Functional Requirements</h3>
+<div class="fr">
+<ol>
+<li>The system shall collect blood sugar readings from the sensor every 10 minutes.</li>
+<li>The system shall calculate required insulin dosage based on current blood sugar and rate of change.</li>
+<li>The system shall send signals to the micro-pump to deliver the calculated insulin dose.</li>
+<li>The system shall log every reading, calculation, and dose delivered with timestamps.</li>
+<li>The system shall alert the user if blood sugar falls below a safety threshold.</li>
+<li>The system shall alert the user if blood sugar rises above a safety threshold.</li>
+<li>The system shall prevent over-dosing even if the sensor returns incorrect data.</li>
+<li>The system shall allow manual override by medical staff in emergency.</li>
+<li>The system shall display current blood sugar level and next scheduled dose.</li>
+<li>The system shall shut down the pump if battery falls below 10%.</li>
+<li>The system shall export logs for doctors via Bluetooth.</li>
+</ol>
+</div>
+
+<h3>Non-Functional Requirements</h3>
+<div class="nfr">
+
+<h4>Reliability (CRITICAL)</h4>
+<ul>
+<li>System shall have 99.999% uptime (medical grade).</li>
+<li>Mean Time Between Failures (MTBF) shall be &gt; 5 years.</li>
+<li>System shall pass all safety tests specified in ISO 13485.</li>
+</ul>
+
+<h4>Performance</h4>
+<ul>
+<li>Dosage calculation shall complete in under 100 milliseconds.</li>
+<li>Sensor reading shall be processed within 1 second.</li>
+</ul>
+
+<h4>Safety</h4>
+<ul>
+<li>System shall NEVER deliver more than 10 units of insulin in one dose.</li>
+<li>Emergency shutoff shall activate within 50 milliseconds of critical reading.</li>
+<li>Backup power shall sustain operation for at least 1 hour.</li>
+</ul>
+
+<h4>Usability</h4>
+<ul>
+<li>Patient shall be able to check status with one button press.</li>
+<li>Alerts shall be visible, audible, and vibratory.</li>
+</ul>
+
+<h4>Maintainability</h4>
+<ul>
+<li>Firmware shall be updatable by authorized medical staff.</li>
+<li>Error logs shall be accessible via Bluetooth diagnostic tool.</li>
+</ul>
+
+</div>
+
+<h3>Architecture</h3>
+<div class="box">
+<ul>
+<li><b>Hardware:</b> Microsensor (blood sugar), microcontroller, micro-pump, LCD display, buttons</li>
+<li><b>Software:</b> Embedded C running on RTOS</li>
+<li><b>Communication:</b> Bluetooth Low Energy for logs and firmware updates</li>
+<li><b>Storage:</b> Internal flash memory for logs</li>
+</ul>
+</div>
+
+<!-- ============ CASE STUDY 3 ============ -->
+<h2 id="cs3">Case Study 3: Mental Health Patient Management System (MHC-PMS)</h2>
+
+<div class="problem">
+<b>Problem Statement:</b><br>
+A patient information system to support mental health care is a medical information system that maintains information about patients suffering from mental health problems and treatments they have received. The MHC-PMS is used in clinics, hospitals, local medical practices, and community centers. It uses a centralized database but can also run on a PC so it may be accessed from sites without secure network connectivity. When offline, local systems download and use local copies of patient records.
+</div>
+
+<h3>Chosen Model: Incremental Model</h3>
+<div class="box">
+<b>Why Incremental?</b>
+<ul>
+<li>Core features can be delivered early (patient records)</li>
+<li>Additional features added incrementally (appointments, reports)</li>
+<li>Privacy and security need iterative refinement</li>
+<li>Requirements are mostly clear but evolving</li>
+</ul>
+</div>
+
+<h3>Functional Requirements</h3>
+<div class="fr">
+<ol>
+<li>The system shall allow doctors to create and update patient records.</li>
+<li>The system shall maintain a history of all patient visits and treatments.</li>
+<li>The system shall schedule appointments and send reminders.</li>
+<li>The system shall allow doctors to prescribe medications electronically.</li>
+<li>The system shall track medication dosage and side effects.</li>
+<li>The system shall synchronize local copies with the central database when online.</li>
+<li>The system shall allow offline access to patient records at remote clinics.</li>
+<li>The system shall generate monthly reports for clinic administrators.</li>
+<li>The system shall integrate with external clinical information systems.</li>
+<li>The system shall track progress of treatment plans over time.</li>
+</ol>
+</div>
+
+<h3>Non-Functional Requirements</h3>
+<div class="nfr">
+
+<h4>Security &amp; Privacy (CRITICAL)</h4>
+<ul>
+<li>All patient data shall be encrypted at rest and in transit.</li>
+<li>Access shall be restricted based on role (doctor, nurse, admin).</li>
+<li>System shall comply with HIPAA and local medical data protection laws.</li>
+<li>All data access shall be logged (audit trail).</li>
+</ul>
+
+<h4>Reliability</h4>
+<ul>
+<li>System shall have 99.9% uptime during clinic hours.</li>
+<li>Daily backups shall be maintained off-site.</li>
+</ul>
+
+<h4>Performance</h4>
+<ul>
+<li>Patient record retrieval shall take less than 2 seconds.</li>
+<li>Sync with central database shall complete in under 30 seconds.</li>
+</ul>
+
+<h4>Portability</h4>
+<ul>
+<li>System shall run on Windows, macOS, and Linux.</li>
+<li>Web interface shall work on modern browsers.</li>
+</ul>
+
+<h4>Usability</h4>
+<ul>
+<li>Doctors shall be trained in under 2 hours.</li>
+<li>Common tasks shall require 3 clicks or fewer.</li>
+</ul>
+
+</div>
+
+<!-- ============ CASE STUDY 4 ============ -->
+<h2 id="cs4">Case Study 4: Online Shopping App</h2>
+
+<div class="problem">
+<b>Problem Statement:</b><br>
+Develop an online shopping application that allows customers to browse products, add items to a cart, make secure payments, and track their orders. The system should support multiple sellers, product reviews, and a recommendation engine. The business expects up to 50,000 concurrent users during sales events.
+</div>
+
+<h3>Chosen Model: Agile / Scrum</h3>
+
+<h3>Functional Requirements</h3>
+<div class="fr">
+<ol>
+<li>The system shall allow users to register and log in with email or social accounts.</li>
+<li>The system shall display products with photos, price, description, and reviews.</li>
+<li>The system shall allow users to search and filter products by category, price, and ratings.</li>
+<li>The system shall allow users to add products to a shopping cart.</li>
+<li>The system shall calculate total price including tax and shipping.</li>
+<li>The system shall process payments through multiple methods (credit card, JazzCash, Easypaisa).</li>
+<li>The system shall generate an order confirmation and email it to the user.</li>
+<li>The system shall allow users to track their order status.</li>
+<li>The system shall allow users to leave product reviews after purchase.</li>
+<li>The system shall provide sellers with a dashboard to manage inventory.</li>
+<li>The system shall recommend similar products based on purchase history.</li>
+<li>The system shall handle order cancellations and refunds.</li>
+</ol>
+</div>
+
+<h3>Non-Functional Requirements</h3>
+<div class="nfr">
+
+<h4>Performance</h4>
+<ul>
+<li>Pages shall load in less than 2 seconds.</li>
+<li>Search results shall appear within 1 second.</li>
+</ul>
+
+<h4>Scalability</h4>
+<ul>
+<li>System shall support 50,000 concurrent users during sale events.</li>
+<li>Database shall handle 10,000 transactions per minute.</li>
+</ul>
+
+<h4>Reliability</h4>
+<ul>
+<li>System shall have 99.9% uptime.</li>
+<li>Payment processing shall have 99.99% success rate.</li>
+</ul>
+
+<h4>Security</h4>
+<ul>
+<li>All payment data shall be PCI-DSS compliant.</li>
+<li>User passwords shall be hashed with bcrypt.</li>
+<li>All communication shall be over HTTPS/TLS.</li>
+</ul>
+
+<h4>Usability</h4>
+<ul>
+<li>Mobile responsive design for all screen sizes.</li>
+<li>Checkout flow shall take 3 steps or fewer.</li>
+</ul>
+
+<h4>Portability</h4>
+<ul>
+<li>System shall work on Chrome, Firefox, Safari, Edge.</li>
+<li>Mobile apps for iOS 14+ and Android 10+.</li>
+</ul>
+
+</div>
+
+<!-- ============ CASE STUDY 5 ============ -->
+<h2 id="cs5">Case Study 5: University Attendance System</h2>
+
+<div class="problem">
+<b>Problem Statement:</b><br>
+Design a web-based university attendance management system that allows teachers to mark attendance, generate reports, and automatically notify students and parents about absences. The system should support 10,000+ students, integrate with the existing student information system, and work on both web and mobile.
+</div>
+
+<h3>Chosen Model: Incremental Model</h3>
+
+<h3>Functional Requirements</h3>
+<div class="fr">
+<ol>
+<li>The system shall allow teachers to log in using university credentials.</li>
+<li>The system shall display class lists for each teacher.</li>
+<li>The system shall allow teachers to mark attendance as Present, Absent, or Late.</li>
+<li>The system shall allow students to view their own attendance records.</li>
+<li>The system shall generate daily, monthly, and semester attendance reports.</li>
+<li>The system shall send SMS/email notifications to parents when a student is absent.</li>
+<li>The system shall alert students when their attendance falls below 75%.</li>
+<li>The system shall integrate with the student information system for course enrollment.</li>
+<li>The system shall allow admins to export attendance data to Excel.</li>
+<li>The system shall support QR code based attendance for faster marking.</li>
+<li>The system shall maintain a historical record for at least 7 years.</li>
+</ol>
+</div>
+
+<h3>Non-Functional Requirements</h3>
+<div class="nfr">
+
+<h4>Performance</h4>
+<ul>
+<li>Marking attendance shall take less than 5 seconds for a class of 60.</li>
+<li>Reports shall generate within 10 seconds.</li>
+</ul>
+
+<h4>Scalability</h4>
+<ul>
+<li>System shall support 10,000+ students and 500+ teachers.</li>
+<li>Real-time sync across web and mobile.</li>
+</ul>
+
+<h4>Reliability</h4>
+<ul>
+<li>System shall have 99.5% uptime during academic hours.</li>
+<li>Daily backups shall be kept for 30 days.</li>
+</ul>
+
+<h4>Security</h4>
+<ul>
+<li>Role-based access (student, teacher, admin).</li>
+<li>Attendance records shall not be editable after 24 hours.</li>
+<li>All data shall be stored on encrypted servers.</li>
+</ul>
+
+<h4>Usability</h4>
+<ul>
+<li>Teachers shall complete attendance in 3 taps on mobile.</li>
+<li>UI shall be available in English and Urdu.</li>
+</ul>
+
+</div>
+
+<!-- ============ EXAM STRATEGY ============ -->
+<h2 id="strategy">Exam Strategy for Q3 (Case Study)</h2>
+
+<div class="answer">
+<b>Time budget for Q3 (assuming ~30 min):</b>
+<ol>
+<li><b>Read &amp; understand (3 min):</b> Read the problem twice. Underline key features.</li>
+<li><b>Pick the model (2 min):</b> Scrum for modern apps, V-Model for safety-critical, Waterfall for stable requirements.</li>
+<li><b>Write 8-12 Functional Requirements (10 min):</b> Start each with "The system shall..."</li>
+<li><b>Write 6-10 Non-Functional Requirements (8 min):</b> Group by category.</li>
+<li><b>Draw Scrum plan table (5 min):</b> 4-6 sprints, assignees, priority, status.</li>
+<li><b>Brief architecture (2 min):</b> Frontend, backend, database, key tech.</li>
+</ol>
+</div>
+
+<div class="tip">
+<b>What graders LOVE:</b>
+<ul>
+<li>Clear structure with headings</li>
+<li>Numbered functional requirements</li>
+<li>Categorized non-functional requirements</li>
+<li>A Scrum plan TABLE (not paragraphs)</li>
+<li>Justification for model choice (1-2 lines)</li>
+<li>Real-world examples (tech stack names)</li>
+</ul>
+</div>
+
+<div class="warn">
+<b>Common Mistakes to Avoid:</b>
+<ul>
+<li>Mixing functional with non-functional (e.g., "login fast" is NOT functional)</li>
+<li>Vague requirements ("system should be good")</li>
+<li>Forgetting to assign priority/status in Scrum plan</li>
+<li>Not explaining WHY you chose a model</li>
+<li>Writing paragraphs instead of numbered lists</li>
+</ul>
+</div>
+
+<div class="box">
+<b>Template to copy for ANY case study:</b>
+<ol>
+<li>Problem restatement (1 line)</li>
+<li>Chosen model + justification (3-4 lines)</li>
+<li>Functional requirements (numbered list of 8-12)</li>
+<li>Non-functional requirements (grouped by Performance, Reliability, Security, Usability, Scalability, Portability)</li>
+<li>Scrum plan (table with Sprint, Duration, Goal, Assignee, Priority, Status)</li>
+<li>Architecture (brief bullet list of frontend/backend/database)</li>
+</ol>
+</div>
+
+<p class="small">&mdash; SE Midterm Case Studies Prep &mdash;</p>
+
+<script src="https://js.puter.com/v2/"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>

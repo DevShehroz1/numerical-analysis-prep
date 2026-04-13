@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SE Models - Complete Explanations (Q2)</title>
+<style>
+  body { font-family: 'Georgia', serif; max-width: 900px; margin: 30px auto; padding: 20px 30px; background: #fafaf7; color: #222; line-height: 1.7; }
+  h1 { color: #1a4d80; border-bottom: 3px solid #1a4d80; padding-bottom: 8px; font-size: 1.5rem; }
+  h2 { color: #1a4d80; margin-top: 34px; border-left: 5px solid #1a4d80; padding-left: 12px; font-size: 1.25rem; }
+  h3 { color: #c0392b; margin-top: 22px; font-size: 1.05rem; }
+  h4 { color: #8e44ad; margin-top: 16px; font-size: 0.98rem; }
+  .box { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 14px 20px; margin: 14px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .definition { background: #eaf3fb; border-left: 4px solid #1a4d80; padding: 12px 16px; margin: 12px 0; font-style: italic; }
+  .warn { background: #fff8e1; border-left: 4px solid #f5b300; padding: 10px 16px; margin: 12px 0; }
+  .answer { background: #e7f7e7; border: 2px solid #28a745; padding: 12px 18px; border-radius: 6px; margin: 14px 0; }
+  .advantages { background: #e8f5ee; border-left: 4px solid #28a745; padding: 10px 16px; margin: 10px 0; }
+  .disadvantages { background: #fdecea; border-left: 4px solid #e74c3c; padding: 10px 16px; margin: 10px 0; }
+  .when-to-use { background: #f0e8ff; border-left: 4px solid #8e44ad; padding: 10px 16px; margin: 10px 0; }
+  .example { background: #fff4e6; border-left: 4px solid #e67e22; padding: 10px 16px; margin: 10px 0; }
+  .phase { background: #fff; border-left: 4px solid #c0392b; padding: 10px 16px; margin: 8px 0; }
+  .phase b { color: #c0392b; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; background: #fff; font-size: 0.9em; }
+  th, td { border: 1px solid #888; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #1a4d80; color: #fff; }
+  tr:nth-child(even) td { background: #f4f4f4; }
+  .toc { background: #fff; border: 1px solid #ccc; padding: 14px 20px; border-radius: 6px; }
+  .toc a { color: #1a4d80; text-decoration: none; display: block; padding: 4px 0; }
+  .toc a:hover { text-decoration: underline; }
+  ul li, ol li { margin-bottom: 4px; }
+  .small { font-size: 0.85em; color: #666; }
+  .diagram { background: #fff; border: 1px dashed #888; padding: 14px 18px; font-family: 'Courier New', monospace; font-size: 0.88em; margin: 12px 0; white-space: pre; overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<h1>SE Models &mdash; Complete Explanations (Q2)</h1>
+
+<div class="box">
+<b>Q2 is ALWAYS a model explanation.</b> For full marks, structure your answer as follows:
+<ol>
+<li><b>Definition</b> (2-3 lines)</li>
+<li><b>Diagram</b> (draw a simple one)</li>
+<li><b>Phases / Steps</b> (numbered with explanation)</li>
+<li><b>Advantages</b> (5+)</li>
+<li><b>Disadvantages</b> (5+)</li>
+<li><b>When to use</b> (2-3 scenarios)</li>
+<li><b>Example</b> (real project)</li>
+</ol>
+</div>
+
+<div class="toc">
+<b>Jump to Model:</b>
+<a href="#m1">1. Big Bang Model</a>
+<a href="#m2">2. Build &amp; Fix Model</a>
+<a href="#m3">3. Waterfall Model (IMPORTANT)</a>
+<a href="#m4">4. V-Model</a>
+<a href="#m5">5. Incremental Model</a>
+<a href="#m6">6. Iterative Model</a>
+<a href="#m7">7. Prototype Model</a>
+<a href="#m8">8. Agile Model</a>
+<a href="#m9">9. Scrum Framework (IMPORTANT)</a>
+<a href="#m10">10. Plan-driven vs Agile Comparison</a>
+<a href="#quick">&raquo; Quick Reference Table (all models)</a>
+<a href="#tips">&raquo; Exam Tips for Q2</a>
+</div>
+
+<!-- ============ BIG BANG ============ -->
+<h2 id="m1">1. Big Bang Model</h2>
+
+<div class="definition">
+The Big Bang model combines a lot of people, money, and resources together with little or no planning, and hopes that the result is great software. Like the Big Bang theory for the universe, the outcome is unpredictable.
+</div>
+
+<div class="diagram">
+  Resources + People + Money
+            &darr;
+       [ Lots of Effort ]
+            &darr;
+   ?  ?  Random Outcome  ?  ?
+  (great / terrible / nothing)
+</div>
+
+<h3>Key Characteristics</h3>
+<ul>
+<li>Little or no planning</li>
+<li>Little or no formal testing</li>
+<li>No specific phases</li>
+<li>Success depends on luck and team skill</li>
+</ul>
+
+<div class="advantages">
+<b>Advantages:</b>
+<ul>
+<li>Very simple &mdash; no process overhead</li>
+<li>Flexible &mdash; developers do whatever they want</li>
+<li>Good for very small prototypes or experiments</li>
+<li>Works for solo projects with one skilled developer</li>
+<li>Low initial cost for management</li>
+</ul>
+</div>
+
+<div class="disadvantages">
+<b>Disadvantages:</b>
+<ul>
+<li>Extremely risky &mdash; results are unpredictable</li>
+<li>Cannot handle complex projects</li>
+<li>No documentation for maintenance</li>
+<li>Difficult for new team members to join</li>
+<li>Waste of resources if it fails</li>
+</ul>
+</div>
+
+<div class="when-to-use">
+<b>When to use:</b> Only for very small, simple, experimental projects where the cost of failure is low, such as student projects or rough prototypes.
+</div>
+
+<div class="example">
+<b>Example:</b> A student writing a one-off script to generate a single report. No documentation, no planning, just code and hope.
+</div>
+
+<!-- ============ BUILD & FIX ============ -->
+<h2 id="m2">2. Build &amp; Fix Model</h2>
+
+<div class="definition">
+In the Build &amp; Fix model, a product is built without specifications or design effort. The product is delivered to the customer, who reports bugs that are then fixed by the vendor. No formal testing is done.
+</div>
+
+<div class="diagram">
+  Build &rarr; Deploy &rarr; Customer Uses
+                            &darr;
+                       Reports Bug
+                            &darr;
+                       Vendor Fixes
+                            &darr;
+                    (loop continues)
+</div>
+
+<h3>Key Characteristics</h3>
+<ul>
+<li>No testing before release</li>
+<li>Problems fixed through usage</li>
+<li>Assumes faithful and patient customers</li>
+<li>Repaired by the dealer at own cost</li>
+<li>Bug fixed but process NOT improved</li>
+</ul>
+
+<div class="advantages">
+<b>Advantages:</b>
+<ul>
+<li>Very low upfront cost</li>
+<li>Customer gets software quickly</li>
+<li>Simple for developers</li>
+<li>Works for very small, trivial projects</li>
+<li>Direct feedback loop with users</li>
+</ul>
+</div>
+
+<div class="disadvantages">
+<b>Disadvantages:</b>
+<ul>
+<li>No quality control</li>
+<li>Customers lose trust quickly</li>
+<li>Process never improves</li>
+<li>Costly in the long run (many bug fixes)</li>
+<li>Not suitable for any professional or large project</li>
+<li>Reputation damage</li>
+</ul>
+</div>
+
+<div class="when-to-use">
+<b>When to use:</b> Almost never professionally. Only acceptable for very small programs used by one developer for personal tasks.
+</div>
+
+<div class="example">
+<b>Example:</b> An unprofessional vendor releases software and customers call support to report bugs one by one. Bugs are fixed, but the development process stays bad.
+</div>
+
+<!-- ============ WATERFALL ============ -->
+<h2 id="m3">3. Waterfall Model &mdash; VERY IMPORTANT</h2>
+
+<div class="definition">
+The Waterfall Model is a plan-driven, sequential software development model where each phase must be completed and signed off before the next phase begins. It was the first formal software process model and is derived from hardware manufacturing.
+</div>
+
+<div class="diagram">
+  [Requirements Analysis]
+            &darr;
+  [System &amp; Software Design]
+            &darr;
+  [Implementation &amp; Unit Testing]
+            &darr;
+  [Integration &amp; System Testing]
+            &darr;
+  [Operation &amp; Maintenance]
+</div>
+
+<h3>The 5 Phases (in detail)</h3>
+
+<div class="phase">
+<b>Phase 1: Requirements Analysis and Definition</b><br>
+The system's services, constraints, and goals are established through consultation with system users. These are then defined in detail and serve as a system specification. This phase includes:
+<ul>
+<li>Feasibility study</li>
+<li>Requirements analysis</li>
+<li>Requirements definition</li>
+<li>Requirements specification</li>
+</ul>
+Output: Signed-off Requirements Document (SRS).
+</div>
+
+<div class="phase">
+<b>Phase 2: System and Software Design</b><br>
+The system design process allocates requirements to hardware or software systems by establishing an overall system architecture. Software design involves identifying fundamental software abstractions and their relationships.
+<ul>
+<li><b>System design:</b> partitions requirements to hardware/software</li>
+<li><b>Software design:</b> represents software functions in executable-ready form</li>
+</ul>
+Output: Design Document (architecture, modules, data structures).
+</div>
+
+<div class="phase">
+<b>Phase 3: Implementation and Unit Testing</b><br>
+The software design is realized as a set of programs or program units (written new, acquired, or modified). Unit testing verifies each unit meets its specification.<br>
+Output: Working code + unit test results.
+</div>
+
+<div class="phase">
+<b>Phase 4: Integration and System Testing</b><br>
+Individual program units are integrated and tested as a complete system. They are tested against requirements to ensure compliance. After testing, the system is delivered to the customer.<br>
+Output: Fully tested, deployed system.
+</div>
+
+<div class="phase">
+<b>Phase 5: Operation and Maintenance</b><br>
+Normally the LONGEST phase. The system is installed and put into practical use. Maintenance includes:
+<ul>
+<li><b>Operation:</b> system in practical use</li>
+<li><b>Maintenance:</b> fix errors not found earlier</li>
+<li><b>Evolution:</b> add new functions as requirements change</li>
+<li><b>Phase out:</b> withdrawn from service</li>
+</ul>
+</div>
+
+<div class="advantages">
+<b>Advantages:</b>
+<ul>
+<li><b>Process visibility</b> &mdash; clear phases and signed-off documents</li>
+<li><b>Quality control</b> &mdash; each phase is reviewed before next starts</li>
+<li><b>Cost control</b> &mdash; early planning helps budgeting</li>
+<li><b>Easy to manage</b> &mdash; good for contracts and schedules</li>
+<li><b>Good documentation</b> &mdash; every phase produces docs</li>
+<li>Works well for large coordinated projects across sites</li>
+</ul>
+</div>
+
+<div class="disadvantages">
+<b>Disadvantages:</b>
+<ul>
+<li><b>Inflexible</b> &mdash; cannot easily respond to changing requirements</li>
+<li>Problems are often discovered late (during testing)</li>
+<li>Working software is delivered only at the END</li>
+<li>Not suitable when requirements are unclear</li>
+<li>Each stage reveals new understanding that may require revising earlier stages (costly rework)</li>
+<li>Premature freezing of requirements may cause wrong system</li>
+<li>Design problems circumvented by implementation "tricks"</li>
+</ul>
+</div>
+
+<div class="when-to-use">
+<b>When to use:</b>
+<ul>
+<li>Requirements are well-understood and stable</li>
+<li>Large systems engineering projects across multiple sites</li>
+<li>Projects needing strong documentation (medical, defense, aerospace)</li>
+<li>Technology is well-understood, no experimentation needed</li>
+</ul>
+</div>
+
+<div class="example">
+<b>Example:</b> Building a payroll system for a government department where tax rules are well-defined and unchanging. All requirements can be documented upfront.
+</div>
+
+<!-- ============ V-MODEL ============ -->
+<h2 id="m4">4. V-Model (Verification and Validation)</h2>
+
+<div class="definition">
+The V-Model is an extension of the Waterfall model where every development phase is matched with a corresponding testing phase. Development flows down one side of a "V" and testing flows up the other side. Also called the Verification and Validation Model.
+</div>
+
+<div class="diagram">
+  Requirements  &harr;&harr;&harr;  Acceptance Testing
+      \                         /
+    System Design  &harr;&harr;  System Testing
+         \                    /
+     Arch Design  &harr;  Integration Testing
+            \              /
+        Module Design  &harr;  Unit Testing
+                  \        /
+                   \      /
+                    Coding
+</div>
+
+<h3>Phases (Development side &rarr; matched Testing side)</h3>
+<table>
+<tr><th>Development Phase (Verification)</th><th>Testing Phase (Validation)</th></tr>
+<tr><td>Requirements Analysis</td><td>Acceptance Testing</td></tr>
+<tr><td>System Design</td><td>System Testing</td></tr>
+<tr><td>Architectural Design</td><td>Integration Testing</td></tr>
+<tr><td>Module Design</td><td>Unit Testing</td></tr>
+<tr><td>Coding (bottom of V)</td><td>&mdash;</td></tr>
+</table>
+
+<h3>Verification vs Validation</h3>
+<ul>
+<li><b>Verification:</b> Are we building the product right? (checks documents, plans)</li>
+<li><b>Validation:</b> Are we building the right product? (tests against user needs)</li>
+</ul>
+
+<div class="advantages">
+<b>Advantages:</b>
+<ul>
+<li>Testing is planned from the beginning</li>
+<li>Defects caught early (each phase is verified)</li>
+<li>Clear deliverables at each stage</li>
+<li>Disciplined and well-organized</li>
+<li>Good for critical systems where reliability matters</li>
+</ul>
+</div>
+
+<div class="disadvantages">
+<b>Disadvantages:</b>
+<ul>
+<li>Rigid like Waterfall &mdash; hard to handle changes</li>
+<li>No working software until late</li>
+<li>If requirements change, whole V must be updated</li>
+<li>Not suitable for small, dynamic projects</li>
+<li>Expensive due to heavy documentation</li>
+</ul>
+</div>
+
+<div class="when-to-use">
+<b>When to use:</b>
+<ul>
+<li>Projects where testing is critical (medical, banking, aerospace)</li>
+<li>Requirements are stable</li>
+<li>Compliance with standards required</li>
+</ul>
+</div>
+
+<div class="example">
+<b>Example:</b> An airline's flight control system where every requirement must be verifiable and validated through matching tests.
+</div>
+
+<!-- ============ INCREMENTAL ============ -->
+<h2 id="m5">5. Incremental Model</h2>
+
+<div class="definition">
+The Incremental Model is a software development method where the model is designed, implemented, and tested incrementally (a little more new is added each time) until the product is finished. It combines elements of the Waterfall model with the iterative philosophy of prototyping.
+</div>
+
+<div class="diagram">
+  Requirements
+       &darr;
+  Increment 1: Design &rarr; Code &rarr; Test &rarr; Deliver
+       &darr;
+  Increment 2: Design &rarr; Code &rarr; Test &rarr; Deliver
+       &darr;
+  Increment 3: Design &rarr; Code &rarr; Test &rarr; Deliver
+       &darr;
+  ... until all requirements are met
+</div>
+
+<h3>How It Works</h3>
+<ol>
+<li>Collect customer's requirements (complete list)</li>
+<li>Instead of building entire software at once, take a subset of requirements</li>
+<li>Build a module/function from that subset</li>
+<li>Deliver it to the customer</li>
+<li>Take more requirements, add another module</li>
+<li>Continue until the complete system is created</li>
+</ol>
+
+<div class="advantages">
+<b>Advantages:</b>
+<ul>
+<li>Early, partial delivery of useful software</li>
+<li>Customers see progress and gain value quickly</li>
+<li>Easier to accommodate changing requirements</li>
+<li>Customer feedback is easier to obtain</li>
+<li>Less analysis and documentation to redo compared to Waterfall</li>
+<li>Backtracking is possible</li>
+</ul>
+</div>
+
+<div class="disadvantages">
+<b>Disadvantages:</b>
+<ul>
+<li>Process is not as visible as Waterfall</li>
+<li>System structure tends to degrade as new increments are added (unless refactoring is done)</li>
+<li>Managers need regular deliverables to measure progress</li>
+<li>Large organizations with bureaucratic procedures may struggle</li>
+<li>Incorporating further changes becomes increasingly difficult</li>
+</ul>
+</div>
+
+<div class="when-to-use">
+<b>When to use:</b>
+<ul>
+<li>Requirements are well-defined but partial delivery is beneficial</li>
+<li>Customer wants early access to core features</li>
+<li>Risk of changing requirements is moderate</li>
+<li>Project is too large to complete in one big push</li>
+</ul>
+</div>
+
+<div class="example">
+<b>Example:</b> An e-commerce platform where Increment 1 delivers browse + cart, Increment 2 adds payments, Increment 3 adds reviews, Increment 4 adds recommendations.
+</div>
+
+<!-- ============ ITERATIVE ============ -->
+<h2 id="m6">6. Iterative Model</h2>
+
+<div class="definition">
+In the Iterative Model, we start developing software with some initial requirements. When developed, it is reviewed, and if changes are needed, a new version is developed based on those changes. This cycle repeats many times until the final, improved product is obtained.
+</div>
+
+<div class="diagram">
+  Initial Requirements
+       &darr;
+  Build Version 1
+       &darr;
+  Review  &rarr;  Feedback
+       &darr;
+  Build Version 2 (improved)
+       &darr;
+  Review  &rarr;  Feedback
+       &darr;
+  Build Version 3 ... until final product
+</div>
+
+<h3>Key Difference: Iterative vs Incremental</h3>
+<ul>
+<li><b>Incremental:</b> Each cycle ADDS new features</li>
+<li><b>Iterative:</b> Each cycle REFINES the existing product</li>
+</ul>
+
+<div class="advantages">
+<b>Advantages:</b>
+<ul>
+<li>Perfect when requirements are unclear or evolving</li>
+<li>Continuous improvement based on real user feedback</li>
+<li>Handles complexity through repeated refinement</li>
+<li>Good for research and innovation projects</li>
+<li>Reduces risk by catching issues early</li>
+</ul>
+</div>
+
+<div class="disadvantages">
+<b>Disadvantages:</b>
+<ul>
+<li>Hard to manage &mdash; unclear when the project ends</li>
+<li>Can be expensive due to many iterations</li>
+<li>Requires skilled architects</li>
+<li>Difficult to estimate time and cost upfront</li>
+</ul>
+</div>
+
+<div class="when-to-use">
+<b>When to use:</b>
+<ul>
+<li>Requirements are not fully known</li>
+<li>Project is complex and needs exploration</li>
+<li>Innovation is required</li>
+<li>Product will keep evolving over time</li>
+</ul>
+</div>
+
+<div class="example">
+<b>Example: Search Engine (from course material)</b><br>
+A search engine is never "finished." It follows an iterative process to improve accuracy and user experience.
+<ul>
+<li><b>Iteration 1:</b> Basic search bar &mdash; keyword matching only</li>
+<li><b>Iteration 2:</b> Add "ranking" so popular sites appear first</li>
+<li><b>Iteration 3:</b> Add "Autocomplete" and "Did you mean?" for typos</li>
+<li><b>Iteration 4:</b> Integrate AI to understand question intent</li>
+</ul>
+<b>Why it works:</b> It allows developers to react to how billions of people actually use the tool in real-time.
+</div>
+
+<!-- ============ PROTOTYPE ============ -->
+<h2 id="m7">7. Prototype Model</h2>
+
+<div class="definition">
+The Prototype Model is a software development approach where a prototype (early version) is built, tested, and reworked based on customer feedback until an acceptable prototype is achieved. It was developed to overcome the shortcomings of the Waterfall model when requirements are unclear.
+</div>
+
+<div class="diagram">
+  Communication
+       &darr;
+  Quick Design
+       &darr;
+  Modeling Quick Design
+       &darr;
+  Construction of Prototype
+       &darr;
+  Deployment, Delivery, Feedback
+       &darr;
+  (If not satisfied, refine and repeat)
+       &darr;
+  Final System Development
+</div>
+
+<h3>The 5 Phases of Prototype Model</h3>
+
+<div class="phase">
+<b>1. Communication</b><br>
+In this phase, developer and customer meet and discuss the overall objectives of the software. Basic understanding is established.
+</div>
+
+<div class="phase">
+<b>2. Quick Design</b><br>
+Implemented when requirements are known. Includes only the important aspects: input format, output format, and what the user will see. Focuses on visible aspects rather than detailed internal plans.
+</div>
+
+<div class="phase">
+<b>3. Modeling Quick Design</b><br>
+Gives a clear idea about software development. Helps developers better understand exact requirements.
+</div>
+
+<div class="phase">
+<b>4. Construction of Prototype</b><br>
+The prototype is built and evaluated by the customer themselves. Feedback is collected.
+</div>
+
+<div class="phase">
+<b>5. Deployment, Delivery, Feedback</b><br>
+If the user is not satisfied, the prototype is refined according to new requirements. This process repeats until all user requirements are met. When satisfied, the final system is built based on the final prototype.
+</div>
+
+<h3>Throw-away Prototypes</h3>
+<div class="warn">
+Prototypes should be <b>discarded</b> after development &mdash; they are NOT a good basis for a production system because:
+<ul>
+<li>Impossible to tune to meet non-functional requirements</li>
+<li>Prototypes are normally undocumented</li>
+<li>Structure degrades through rapid change</li>
+<li>Will not meet normal quality standards</li>
+</ul>
+</div>
+
+<div class="advantages">
+<b>Advantages:</b>
+<ul>
+<li>Improved system usability</li>
+<li>Closer match to users' real needs</li>
+<li>Improved design quality</li>
+<li>Improved maintainability</li>
+<li>Reduced development effort in the long run</li>
+<li>Customer sees and interacts with the system early</li>
+</ul>
+</div>
+
+<div class="disadvantages">
+<b>Disadvantages:</b>
+<ul>
+<li>Prototype may not be used the same way as the final system</li>
+<li>Tester of the prototype may not be typical of real users</li>
+<li>Training time during prototype evaluation may be insufficient</li>
+<li>If prototype is slow, users adjust their behavior to avoid slow features</li>
+<li>Expensive because model may be rebuilt many times</li>
+<li>Customer may think prototype is the final product</li>
+</ul>
+</div>
+
+<div class="when-to-use">
+<b>When to use:</b>
+<ul>
+<li>Requirements are not clear or are evolving</li>
+<li>User interface design is critical</li>
+<li>Project has high uncertainty</li>
+<li>Customer cannot describe exactly what they want</li>
+</ul>
+</div>
+
+<div class="example">
+<b>Example:</b> Building a mobile app for a new product. The developer creates a clickable prototype first, shows it to the customer, refines it based on feedback, then builds the real app based on the approved prototype.
+</div>
+
+<!-- ============ AGILE ============ -->
+<h2 id="m8">8. Agile Model</h2>
+
+<div class="definition">
+Agile methods are iterative development approaches that focus on working code rather than design documentation. They aim to deliver working software quickly and evolve it rapidly to meet changing requirements. Agile was created due to dissatisfaction with the heavy overheads of 1980s-90s software methods.
+</div>
+
+<h3>The Agile Manifesto (4 Core Values)</h3>
+<div class="box">
+"We are uncovering better ways of developing software by doing it and helping others do it. Through this work we have come to value:"
+<ol>
+<li><b>Individuals and interactions</b> over processes and tools</li>
+<li><b>Working software</b> over comprehensive documentation</li>
+<li><b>Customer collaboration</b> over contract negotiation</li>
+<li><b>Responding to change</b> over following a plan</li>
+</ol>
+"That is, while there is value in the items on the right, we value the items on the left more."
+</div>
+
+<h3>The 5 Key Agile Principles</h3>
+<table>
+<tr><th>Principle</th><th>Description</th></tr>
+<tr><td><b>Customer involvement</b></td><td>Customers are closely involved throughout development. They provide and prioritize new requirements and evaluate iterations.</td></tr>
+<tr><td><b>Incremental delivery</b></td><td>Software is developed in increments with customer specifying what to include in each.</td></tr>
+<tr><td><b>People not process</b></td><td>Team skills are recognized and exploited. Team members develop their own ways of working.</td></tr>
+<tr><td><b>Embrace change</b></td><td>System requirements will change. Design the system to accommodate these changes.</td></tr>
+<tr><td><b>Maintain simplicity</b></td><td>Focus on simplicity in software and process. Actively eliminate complexity.</td></tr>
+</table>
+
+<div class="advantages">
+<b>Advantages:</b>
+<ul>
+<li>Fast response to changing requirements</li>
+<li>Early, frequent delivery of working software</li>
+<li>High customer involvement and satisfaction</li>
+<li>Less documentation overhead</li>
+<li>Better product quality through continuous testing</li>
+<li>Team morale is higher due to autonomy</li>
+</ul>
+</div>
+
+<div class="disadvantages">
+<b>Disadvantages:</b>
+<ul>
+<li>Difficult to keep customer interest throughout</li>
+<li>Team members must be suited to intense involvement</li>
+<li>Prioritizing changes difficult with multiple stakeholders</li>
+<li>Maintaining simplicity requires extra work</li>
+<li>Contracts are problematic (hard to fix price/scope)</li>
+<li>Hard to scale to large systems and teams</li>
+<li>Less documentation can hurt maintenance</li>
+</ul>
+</div>
+
+<div class="when-to-use">
+<b>When to use:</b>
+<ul>
+<li>Small or medium-sized product development</li>
+<li>Custom systems with committed customer involvement</li>
+<li>Few external rules or regulations constraining the software</li>
+<li>Requirements are likely to change</li>
+</ul>
+</div>
+
+<div class="example">
+<b>Example:</b> A startup building a consumer mobile app. Requirements evolve weekly based on user feedback. Two-week sprints deliver new features rapidly.
+</div>
+
+<!-- ============ SCRUM ============ -->
+<h2 id="m9">9. Scrum Framework &mdash; VERY IMPORTANT</h2>
+
+<div class="definition">
+Scrum is a general agile method that focuses on managing iterative development rather than specific agile practices. The name comes from rugby where a scrum is a tight formation. It organizes work into fixed-length sprints with specific roles and ceremonies.
+</div>
+
+<h3>The 3 Phases of Scrum</h3>
+
+<div class="phase">
+<b>Phase 1: Outline Planning</b><br>
+Establish the general objectives for the project and design the software architecture. No detailed sprint planning yet &mdash; just big-picture direction.
+</div>
+
+<div class="phase">
+<b>Phase 2: Sprint Cycles</b><br>
+A series of short, fixed-length sprints where each cycle develops an increment of the system. This is where most of the work happens.
+</div>
+
+<div class="phase">
+<b>Phase 3: Project Closure</b><br>
+Wraps up the project, completes required documentation (help frames, user manuals), and assesses lessons learned.
+</div>
+
+<h3>The Sprint Cycle (Detailed)</h3>
+<ol>
+<li><b>Sprint duration:</b> Fixed length, normally 2-4 weeks</li>
+<li><b>Product Backlog:</b> The prioritized list of all work to be done on the project</li>
+<li><b>Selection phase:</b> The whole project team works with the customer to select features/functionality to develop during the sprint</li>
+<li><b>Development:</b> Once features are agreed, the team self-organizes to develop them. They are isolated from external distractions.</li>
+<li><b>Daily Scrum:</b> Short daily meeting where team members share progress, problems, and today's plans</li>
+<li><b>Sprint Review:</b> At the end of the sprint, the work is reviewed and presented to stakeholders</li>
+<li><b>Next sprint begins</b></li>
+</ol>
+
+<h3>Key Roles in Scrum</h3>
+<table>
+<tr><th>Role</th><th>Responsibility</th></tr>
+<tr><td><b>Scrum Master</b></td><td>Facilitator who arranges daily meetings, tracks backlog, records decisions, measures progress, and protects the development team from external distractions.</td></tr>
+<tr><td><b>Product Owner</b></td><td>Owns the product backlog, represents the customer, prioritizes features.</td></tr>
+<tr><td><b>Development Team</b></td><td>Self-organizing group that builds the software during sprints.</td></tr>
+</table>
+
+<div class="advantages">
+<b>Scrum Benefits:</b>
+<ul>
+<li>Product broken into manageable, understandable chunks</li>
+<li>Unstable requirements do not hold up progress</li>
+<li>Whole team has visibility of everything &mdash; improved communication</li>
+<li>Customers see on-time delivery of increments</li>
+<li>Gain feedback on how the product works</li>
+<li>Trust is established between customers and developers</li>
+<li>Positive culture is created in which everyone expects success</li>
+</ul>
+</div>
+
+<div class="disadvantages">
+<b>Disadvantages:</b>
+<ul>
+<li>Requires experienced team</li>
+<li>Scope creep if Product Owner is weak</li>
+<li>Daily meetings can frustrate some members</li>
+<li>Hard to predict total project cost/duration</li>
+<li>Not ideal for very large distributed teams (needs scaling)</li>
+</ul>
+</div>
+
+<div class="when-to-use">
+<b>When to use:</b>
+<ul>
+<li>Small to medium teams (5-9 people typical)</li>
+<li>Projects where requirements will change</li>
+<li>Customer is engaged and available</li>
+<li>Modern product development</li>
+</ul>
+</div>
+
+<div class="example">
+<b>Example:</b> Developing a Customer Loyalty Mobile App in Scrum (from course):
+<ul>
+<li><b>Sprint 1 (2 weeks):</b> User registration + Login + Database schema</li>
+<li><b>Sprint 2 (2 weeks):</b> Points earning from purchases + transaction log</li>
+<li><b>Sprint 3 (2 weeks):</b> Reward redemption + promotions</li>
+<li><b>Sprint 4 (2 weeks):</b> Referral program + activity tracking</li>
+<li><b>Sprint 5 (2 weeks):</b> Testing + deployment</li>
+</ul>
+Each sprint has a Scrum Master, assigned developers, status tracking, and priority levels.
+</div>
+
+<!-- ============ COMPARISON ============ -->
+<h2 id="m10">10. Plan-driven vs Agile Comparison</h2>
+
+<table>
+<tr><th>Aspect</th><th>Plan-driven (Waterfall, V-Model)</th><th>Agile (Scrum, XP)</th></tr>
+<tr><td>Planning</td><td>All activities planned in advance</td><td>Incremental planning, adaptive</td></tr>
+<tr><td>Requirements</td><td>Frozen early, stable</td><td>Embraces changing requirements</td></tr>
+<tr><td>Documentation</td><td>Heavy, detailed at each phase</td><td>Light, working software preferred</td></tr>
+<tr><td>Customer involvement</td><td>Low, mostly at start and end</td><td>High, throughout development</td></tr>
+<tr><td>Delivery</td><td>One big delivery at the end</td><td>Frequent small increments</td></tr>
+<tr><td>Flexibility</td><td>Rigid</td><td>Very flexible</td></tr>
+<tr><td>Risk handling</td><td>High upfront risk</td><td>Risk spread across iterations</td></tr>
+<tr><td>Team structure</td><td>Hierarchical roles</td><td>Self-organizing teams</td></tr>
+<tr><td>Best for</td><td>Large, stable projects with regulations</td><td>Small/medium dynamic projects</td></tr>
+<tr><td>Contract basis</td><td>Easy (fixed scope/price)</td><td>Difficult (evolving scope)</td></tr>
+</table>
+
+<div class="warn">
+<b>Note:</b> In practice, most real projects include elements of BOTH plan-driven and agile approaches. There are no right or wrong software processes &mdash; the best choice depends on the project context.
+</div>
+
+<!-- ============ QUICK REFERENCE ============ -->
+<h2 id="quick">Quick Reference Table (All Models)</h2>
+
+<table>
+<tr><th>Model</th><th>Type</th><th>Key Feature</th><th>When to Use</th><th>Main Advantage</th><th>Main Disadvantage</th></tr>
+<tr><td><b>Big Bang</b></td><td>No process</td><td>No planning</td><td>Tiny experimental projects</td><td>Simple</td><td>Unpredictable</td></tr>
+<tr><td><b>Build &amp; Fix</b></td><td>No process</td><td>Fix through usage</td><td>Personal scripts</td><td>Fast start</td><td>No quality</td></tr>
+<tr><td><b>Waterfall</b></td><td>Plan-driven</td><td>5 sequential phases</td><td>Stable requirements</td><td>Process visibility</td><td>Inflexible</td></tr>
+<tr><td><b>V-Model</b></td><td>Plan-driven</td><td>Testing at every phase</td><td>Safety-critical</td><td>Early defect detection</td><td>Rigid</td></tr>
+<tr><td><b>Incremental</b></td><td>Hybrid</td><td>Build in chunks</td><td>Partial delivery beneficial</td><td>Early value</td><td>Structure degrades</td></tr>
+<tr><td><b>Iterative</b></td><td>Hybrid</td><td>Refine through cycles</td><td>Unclear requirements</td><td>Handles change</td><td>Hard to estimate</td></tr>
+<tr><td><b>Prototype</b></td><td>Requirements-focused</td><td>Build throw-away prototype first</td><td>Unclear UI/needs</td><td>Matches real needs</td><td>Prototype confusion</td></tr>
+<tr><td><b>Agile</b></td><td>Agile</td><td>Working software over docs</td><td>Small/medium, changing needs</td><td>Rapid response</td><td>Hard to scale</td></tr>
+<tr><td><b>Scrum</b></td><td>Agile</td><td>Sprints + Scrum Master</td><td>Modern product teams</td><td>Visibility + trust</td><td>Needs experienced team</td></tr>
+</table>
+
+<!-- ============ EXAM TIPS ============ -->
+<h2 id="tips">Exam Tips for Q2 (Model Explanation)</h2>
+
+<div class="answer">
+<b>How to write a perfect Q2 answer for FULL marks:</b>
+<ol>
+<li><b>Start with definition</b> (2-3 lines) &mdash; shows you know what the model IS</li>
+<li><b>Draw a diagram</b> &mdash; even a rough one earns marks. Show phases in order.</li>
+<li><b>List phases/steps</b> with a short explanation of each (1-2 lines each)</li>
+<li><b>Write 4-5 advantages</b> in bullet points</li>
+<li><b>Write 4-5 disadvantages</b> in bullet points</li>
+<li><b>When to use</b> (2-3 scenarios)</li>
+<li><b>Real-world example</b> (1 sentence showing application)</li>
+</ol>
+</div>
+
+<div class="warn">
+<b>Common Mistakes to Avoid:</b>
+<ul>
+<li>Don't just write the definition and move on &mdash; examiner wants DETAIL</li>
+<li>Don't forget the diagram &mdash; visuals earn marks</li>
+<li>Don't confuse Iterative with Incremental</li>
+<li>Don't skip advantages/disadvantages &mdash; they're always asked</li>
+<li>Don't forget "When to use" &mdash; shows critical thinking</li>
+</ul>
+</div>
+
+<div class="box">
+<b>Most likely Q2 topics (high probability):</b>
+<ol>
+<li>Waterfall Model (classic, always asked)</li>
+<li>Scrum Framework (hot topic, modern)</li>
+<li>Incremental or Iterative (tricky difference)</li>
+<li>Prototype Model (clear phases)</li>
+<li>V-Model (disciplined approach)</li>
+</ol>
+</div>
+
+<p class="small">&mdash; SE Midterm Model Explanations &mdash;</p>
+
+<script src="https://js.puter.com/v2/"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>

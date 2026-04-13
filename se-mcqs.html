@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SE MCQs & Theory Practice</title>
+<style>
+  body { font-family: 'Georgia', serif; max-width: 900px; margin: 30px auto; padding: 20px 30px; background: #fafaf7; color: #222; line-height: 1.7; }
+  h1 { color: #1a4d80; border-bottom: 3px solid #1a4d80; padding-bottom: 8px; font-size: 1.5rem; }
+  h2 { color: #1a4d80; margin-top: 32px; border-left: 5px solid #1a4d80; padding-left: 12px; font-size: 1.2rem; }
+  h3 { color: #c0392b; margin-top: 22px; font-size: 1.05rem; }
+  .box { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 14px 20px; margin: 14px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .warn { background: #fff8e1; border-left: 4px solid #f5b300; padding: 10px 16px; margin: 12px 0; }
+  .answer-box { background: #e7f7e7; border: 2px solid #28a745; border-radius: 6px; padding: 10px 14px; margin-top: 8px; }
+  .answer-box b { color: #1d7a35; }
+  .mcq { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+  .mcq .question { font-weight: bold; color: #1a4d80; margin-bottom: 8px; }
+  .mcq ul { list-style: none; padding-left: 0; }
+  .mcq ul li { padding: 4px 0 4px 10px; border-left: 3px solid #ddd; margin: 4px 0; }
+  .show-answer { background: #1a4d80; color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 0.85em; margin-top: 6px; font-family: inherit; }
+  .show-answer:hover { background: #143e66; }
+  .toc { background: #fff; border: 1px solid #ccc; padding: 14px 20px; border-radius: 6px; }
+  .toc a { color: #1a4d80; text-decoration: none; display: block; padding: 4px 0; }
+  .toc a:hover { text-decoration: underline; }
+  .controls { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+  .control-btn { background: #c0392b; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.9rem; }
+  .control-btn:hover { background: #a53224; }
+  .control-btn.alt { background: #1a4d80; }
+  .control-btn.alt:hover { background: #143e66; }
+  .small { font-size: 0.85em; color: #666; }
+</style>
+</head>
+<body>
+
+<h1>SE MCQs &amp; Theory Practice (Q1)</h1>
+
+<div class="box">
+<b>Exam Format:</b> Total 30 marks<br>
+&bull; <b>Q1:</b> MCQs or theory from any topic<br>
+&bull; <b>Q2:</b> Model explanation<br>
+&bull; <b>Q3:</b> Case study<br><br>
+This page contains 60+ MCQs covering all topics. Click <b>Show Answer</b> on any question, or use the buttons below to show/hide all at once.
+</div>
+
+<div class="controls">
+<button class="control-btn" onclick="toggleAll(true)">&#9654; Show All Answers</button>
+<button class="control-btn alt" onclick="toggleAll(false)">&#9647; Hide All Answers</button>
+</div>
+
+<div class="toc">
+<b>Jump to Topic:</b>
+<a href="#t1">Topic 1 &mdash; Introduction to SE</a>
+<a href="#t2">Topic 2 &mdash; Models Overview (Big Bang, Build &amp; Fix, SDLC)</a>
+<a href="#t3">Topic 3 &mdash; Waterfall Model</a>
+<a href="#t4">Topic 4 &mdash; V-Model</a>
+<a href="#t5">Topic 5 &mdash; Incremental &amp; Iterative</a>
+<a href="#t6">Topic 6 &mdash; Prototype Model</a>
+<a href="#t7">Topic 7 &mdash; Agile &amp; Scrum</a>
+<a href="#t8">Topic 8 &mdash; Software Requirements</a>
+<a href="#t9">Topic 9 &mdash; Feasibility, CIA Triad, OOP</a>
+</div>
+
+<!-- ============ TOPIC 1 ============ -->
+<h2 id="t1">Topic 1 &mdash; Introduction to Software Engineering</h2>
+
+<div class="mcq">
+<p class="question">Q1. What is software?</p>
+<ul>
+  <li>a) Only the hardware components of a computer</li>
+  <li>b) Programs, data, and instructions that enable computers to perform tasks</li>
+  <li>c) Operating system only</li>
+  <li>d) Physical storage devices</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Software is programs, data, and instructions that enable computers to perform tasks. (Webster's Dictionary, 1981)</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q2. Which of the following is NOT a software function?</p>
+<ul>
+  <li>a) Data processing and manipulation</li>
+  <li>b) User interface interactions</li>
+  <li>c) Manufacturing physical products</li>
+  <li>d) Security and access control</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> Software does not manufacture physical products. It handles data, calculations, I/O, files, networking, security, errors, scheduling, databases, and graphics.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q3. Which is the correct order of software application levels (highest to lowest)?</p>
+<ul>
+  <li>a) Hardware Logic &rarr; System Software &rarr; Application Software &rarr; End-user Software</li>
+  <li>b) End-user Software &rarr; Application Software &rarr; System Software &rarr; Hardware Logic</li>
+  <li>c) System Software &rarr; Hardware Logic &rarr; Application Software &rarr; End-user Software</li>
+  <li>d) Application Software &rarr; System Software &rarr; End-user Software &rarr; Hardware Logic</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> From highest (user-facing) to lowest (hardware): End-user &rarr; Application &rarr; System &rarr; Hardware Logic.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q4. Generic software products are:</p>
+<ul>
+  <li>a) Built for one specific customer only</li>
+  <li>b) Stand-alone systems marketed and sold to any customer</li>
+  <li>c) Embedded systems</li>
+  <li>d) Air traffic control systems</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Generic products are stand-alone systems sold to any customer (e.g., MS Office, CAD software). Customized products are built for a specific customer.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q5. Who gave the famous definition: "The establishment and use of sound engineering principles to obtain economically software that is reliable and works on real machines"?</p>
+<ul>
+  <li>a) Pressman (1992)</li>
+  <li>b) Bauer (1972)</li>
+  <li>c) Wang and King (2000)</li>
+  <li>d) Sommerville (2011)</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Bauer (1972) gave this classic definition of Software Engineering.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q6. According to Pressman, Software Engineering consists of three key elements. Which is NOT one of them?</p>
+<ul>
+  <li>a) Methods</li>
+  <li>b) Tools</li>
+  <li>c) Procedures</li>
+  <li>d) Hardware</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: d)</b> Pressman (1992): SE = Methods + Tools + Procedures. Hardware is not part of this definition.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q7. Which of the following is NOT a software characteristic (according to Brooks)?</p>
+<ul>
+  <li>a) Complexity</li>
+  <li>b) Conformity</li>
+  <li>c) Manufacturability</li>
+  <li>d) Invisibility</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> The 4 software characteristics are: Complexity, Conformity, Changeability, Invisibility. Software is NOT manufactured &mdash; it is developed.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q8. Software is considered "invisible" because:</p>
+<ul>
+  <li>a) It cannot be seen on a screen</li>
+  <li>b) It is a virtual object, not physical</li>
+  <li>c) It is written in binary</li>
+  <li>d) It is always encrypted</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Software is a virtual/logical object. You can't touch or see it physically like hardware.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q9. The Software Crisis of the 1960s-1980s was mainly caused by:</p>
+<ul>
+  <li>a) Lack of computers</li>
+  <li>b) Growing complexity of software, lack of structured methods, high cost and frequent failures</li>
+  <li>c) Too many programmers</li>
+  <li>d) Too much testing</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> The software crisis was due to complexity growth, lack of proper engineering methods, and high cost/failure rates. It led to the creation of Software Engineering as a discipline.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q10. Which software process activity is concerned with "defining what the software should do"?</p>
+<ul>
+  <li>a) Software development</li>
+  <li>b) Software specification</li>
+  <li>c) Software validation</li>
+  <li>d) Software evolution</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Software specification is where customers and engineers define what is to be produced and its constraints.</div>
+</div>
+
+<!-- ============ TOPIC 2 ============ -->
+<h2 id="t2">Topic 2 &mdash; Models Overview</h2>
+
+<div class="mcq">
+<p class="question">Q11. The Big Bang model of software development is characterized by:</p>
+<ul>
+  <li>a) Detailed planning and testing</li>
+  <li>b) Little or no planning, little or no formal testing</li>
+  <li>c) Multiple iterative sprints</li>
+  <li>d) Customer involvement at every step</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Big Bang combines people, money, and resources without planning. The result could be great software, terrible software, or nothing at all.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q12. In the Build &amp; Fix model:</p>
+<ul>
+  <li>a) Bugs are fixed before release</li>
+  <li>b) No testing is done; problems are fixed through usage</li>
+  <li>c) Every module is formally verified</li>
+  <li>d) Only experts can use it</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Build &amp; Fix has no testing. Bugs are found through customer usage and fixed by the vendor. The process itself is not improved.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q13. Which of the following is NOT a cause of software failure?</p>
+<ul>
+  <li>a) Lack of user participation</li>
+  <li>b) Changing requirements</li>
+  <li>c) Well-defined system requirements</li>
+  <li>d) Poor project management</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> Well-defined requirements HELP success. BADLY defined requirements cause failure.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q14. SDLC stands for:</p>
+<ul>
+  <li>a) System Development Language Code</li>
+  <li>b) Software Development Life Cycle</li>
+  <li>c) Structured Data Logic Chain</li>
+  <li>d) System Design Level Control</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Software Development Life Cycle.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q15. The correct order of SDLC phases is:</p>
+<ul>
+  <li>a) Design &rarr; Analysis &rarr; Development &rarr; Testing &rarr; Deployment &rarr; Maintenance</li>
+  <li>b) Analysis &rarr; Design &rarr; Development &rarr; Testing &rarr; Deployment &rarr; Maintenance</li>
+  <li>c) Testing &rarr; Design &rarr; Development &rarr; Analysis &rarr; Deployment &rarr; Maintenance</li>
+  <li>d) Development &rarr; Testing &rarr; Analysis &rarr; Design &rarr; Deployment &rarr; Maintenance</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Analysis &amp; Planning &rarr; Design &rarr; Development &rarr; Testing &rarr; Deployment &rarr; Maintenance.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q16. Plan-driven processes are characterized by:</p>
+<ul>
+  <li>a) Incremental planning based on feedback</li>
+  <li>b) All process activities planned in advance, progress measured against plan</li>
+  <li>c) No planning at all</li>
+  <li>d) Customer does all the planning</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Plan-driven processes plan everything in advance. Agile plans incrementally.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q17. Which is NOT one of the four main software process activities?</p>
+<ul>
+  <li>a) Software specification</li>
+  <li>b) Software development</li>
+  <li>c) Software validation</li>
+  <li>d) Software marketing</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: d)</b> The 4 activities are: Specification, Development, Validation, Evolution. Marketing is not one of them.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q18. General issues that affect most software include:</p>
+<ul>
+  <li>a) Heterogeneity, Business change, Security and trust</li>
+  <li>b) Graphics only</li>
+  <li>c) Just hardware speed</li>
+  <li>d) Programming language version</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: a)</b> Three general issues: Heterogeneity (different devices/networks), Business/social change, Security and trust.</div>
+</div>
+
+<!-- ============ TOPIC 3 ============ -->
+<h2 id="t3">Topic 3 &mdash; Waterfall Model</h2>
+
+<div class="mcq">
+<p class="question">Q19. How many phases does the Waterfall model have?</p>
+<ul>
+  <li>a) 3</li>
+  <li>b) 4</li>
+  <li>c) 5</li>
+  <li>d) 6</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> 5 phases: Requirements Analysis, System Design, Implementation &amp; Unit Testing, Integration &amp; System Testing, Operation &amp; Maintenance.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q20. In the Waterfall model, the next phase starts:</p>
+<ul>
+  <li>a) Anytime, in parallel with previous phases</li>
+  <li>b) Only after the previous phase has finished and been signed off</li>
+  <li>c) Before the previous phase begins</li>
+  <li>d) Only if the customer requests it</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Waterfall is sequential. Each phase must be completed and approved before the next begins.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q21. The longest phase in the Waterfall model is usually:</p>
+<ul>
+  <li>a) Requirements</li>
+  <li>b) Design</li>
+  <li>c) Implementation</li>
+  <li>d) Operation and Maintenance</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: d)</b> Operation and Maintenance is normally the longest phase &mdash; fixing errors, enhancing features, adapting to new requirements over years.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q22. Waterfall model is best suited for:</p>
+<ul>
+  <li>a) Projects with constantly changing requirements</li>
+  <li>b) Small experimental apps</li>
+  <li>c) Large systems engineering projects with well-understood, stable requirements</li>
+  <li>d) Unknown technologies</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> Waterfall works when requirements are stable and well-understood, especially for large coordinated projects across multiple sites.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q23. Which is a DISADVANTAGE of Waterfall?</p>
+<ul>
+  <li>a) Good process visibility</li>
+  <li>b) Inflexible, hard to respond to changing requirements</li>
+  <li>c) Quality control</li>
+  <li>d) Cost control</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Waterfall's rigid sequential nature makes it hard to accommodate changes. The others are advantages.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q24. In Waterfall, unit testing happens during which phase?</p>
+<ul>
+  <li>a) Requirements analysis</li>
+  <li>b) System and software design</li>
+  <li>c) Implementation and Unit Testing</li>
+  <li>d) Operation and maintenance</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> Unit testing happens alongside implementation &mdash; each unit is tested as it is coded.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q25. Which of these is an ADVANTAGE of Waterfall?</p>
+<ul>
+  <li>a) Handles changing requirements easily</li>
+  <li>b) Fast delivery of partial software</li>
+  <li>c) Process visibility with clear documents at each phase</li>
+  <li>d) No need for customer involvement</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> Waterfall provides excellent process visibility, quality control, and cost control because each phase produces signed-off documents.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q26. What does feedback in Waterfall mean?</p>
+<ul>
+  <li>a) Customers give reviews</li>
+  <li>b) Later phases can feed information back to earlier phases when problems are found</li>
+  <li>c) Testers write reports</li>
+  <li>d) Managers get weekly updates</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> In practice, stages overlap and feed info back. E.g., during coding, design problems may be found &mdash; requiring changes to the design phase.</div>
+</div>
+
+<!-- ============ TOPIC 4 ============ -->
+<h2 id="t4">Topic 4 &mdash; V-Model</h2>
+
+<div class="mcq">
+<p class="question">Q27. V-Model is also called:</p>
+<ul>
+  <li>a) Iterative Model</li>
+  <li>b) Verification and Validation Model</li>
+  <li>c) Velocity Model</li>
+  <li>d) Vertical Model</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> V-Model stands for Verification and Validation Model, emphasizing testing at every stage.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q28. V-Model is derived from which model?</p>
+<ul>
+  <li>a) Agile</li>
+  <li>b) Spiral</li>
+  <li>c) Waterfall</li>
+  <li>d) Scrum</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> V-Model is an extension of the Waterfall model but emphasizes verification/validation (testing) at each phase.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q29. In V-Model, each development phase is matched with:</p>
+<ul>
+  <li>a) A customer meeting</li>
+  <li>b) A corresponding testing phase</li>
+  <li>c) A budget review</li>
+  <li>d) A coding task</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Each dev phase has a matching test phase. E.g., Requirements &harr; Acceptance Testing, System Design &harr; System Testing, Unit Design &harr; Unit Testing.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q30. In V-Model, the left side represents ___ and the right side represents ___:</p>
+<ul>
+  <li>a) Testing / Development</li>
+  <li>b) Development / Testing</li>
+  <li>c) Design / Requirements</li>
+  <li>d) Customer / Developer</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Left side = Development phases (Requirements, Design, Coding). Right side = Testing phases corresponding to each dev phase.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q31. V-Model is considered suitable for:</p>
+<ul>
+  <li>a) Small experimental projects with unclear requirements</li>
+  <li>b) Projects requiring disciplined approach with clear testing</li>
+  <li>c) Research projects only</li>
+  <li>d) Only hardware projects</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> V-Model is disciplined and widely used when testing/verification is critical (medical, aerospace, banking).</div>
+</div>
+
+<!-- ============ TOPIC 5 ============ -->
+<h2 id="t5">Topic 5 &mdash; Incremental &amp; Iterative Models</h2>
+
+<div class="mcq">
+<p class="question">Q32. The Incremental Model involves:</p>
+<ul>
+  <li>a) Building the entire system at once</li>
+  <li>b) Developing in small parts, each adding new functionality</li>
+  <li>c) Only testing, no development</li>
+  <li>d) Copying an existing system</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> The system is built in increments. Each iteration passes through requirements, design, coding, and testing, adding new functions.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q33. Which is a BENEFIT of the Incremental model?</p>
+<ul>
+  <li>a) Process is completely invisible</li>
+  <li>b) Customer can get and use partial software early</li>
+  <li>c) No testing needed</li>
+  <li>d) No customer involvement</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Customers get working software earlier than with Waterfall. Changes are cheaper to accommodate.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q34. A PROBLEM with Incremental development is:</p>
+<ul>
+  <li>a) Customer cannot see progress</li>
+  <li>b) System structure tends to degrade as new increments are added</li>
+  <li>c) It always fails</li>
+  <li>d) It is too slow</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> As more increments are added without refactoring, the system architecture may become messy and harder to maintain.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q35. Iterative model is best when:</p>
+<ul>
+  <li>a) Requirements are fully known and fixed</li>
+  <li>b) Requirements are not fully known, the project is complex, or innovation is required</li>
+  <li>c) You have unlimited time</li>
+  <li>d) There is no customer</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Iterative works well when you don't know everything upfront &mdash; you develop, review, improve, repeat.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q36. In the Search Engine example (iterative model), Iteration 1 is:</p>
+<ul>
+  <li>a) Add AI to understand intent</li>
+  <li>b) Basic search bar returning results by keyword matching</li>
+  <li>c) Add ranking</li>
+  <li>d) Add autocomplete</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Iteration 1 = basic keyword search. Later iterations add ranking, autocomplete, AI &mdash; each responding to user feedback.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q37. The Incremental model combines elements of:</p>
+<ul>
+  <li>a) Waterfall and iterative prototyping</li>
+  <li>b) Big Bang and Build &amp; Fix</li>
+  <li>c) V-Model and Agile only</li>
+  <li>d) DevOps only</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: a)</b> Incremental combines Waterfall's structured phases with the iterative philosophy of prototyping.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q38. Which is TRUE about Iterative vs Incremental?</p>
+<ul>
+  <li>a) They are the same thing</li>
+  <li>b) Incremental = adding new features; Iterative = refining the same system through reviews</li>
+  <li>c) Iterative only works for games</li>
+  <li>d) Incremental cannot handle changes</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Incremental adds more chunks. Iterative refines the existing product through repeated review cycles.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q39. In Incremental model, each iteration goes through:</p>
+<ul>
+  <li>a) Only coding</li>
+  <li>b) Requirements, design, coding, testing phases</li>
+  <li>c) Only testing</li>
+  <li>d) Only deployment</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Each increment is a mini waterfall cycle: requirements &rarr; design &rarr; code &rarr; test &rarr; deliver.</div>
+</div>
+
+<!-- ============ TOPIC 6 ============ -->
+<h2 id="t6">Topic 6 &mdash; Prototype Model</h2>
+
+<div class="mcq">
+<p class="question">Q40. The Prototype model was developed to overcome the shortcomings of:</p>
+<ul>
+  <li>a) Agile</li>
+  <li>b) Scrum</li>
+  <li>c) Waterfall</li>
+  <li>d) Kanban</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> Prototype model was created to overcome Waterfall's rigidity, especially when requirements are unclear.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q41. Which of these is NOT a phase in the Prototype model?</p>
+<ul>
+  <li>a) Communication</li>
+  <li>b) Quick design</li>
+  <li>c) Deployment, delivery, feedback</li>
+  <li>d) Sprint planning</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: d)</b> Sprint planning is from Scrum. Prototype phases: Communication, Quick design, Modeling quick design, Construction of prototype, Deployment/delivery/feedback.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q42. A throw-away prototype:</p>
+<ul>
+  <li>a) Is used as the final product</li>
+  <li>b) Is discarded after development; not a good basis for production</li>
+  <li>c) Is sold separately</li>
+  <li>d) Is stored forever</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Throw-away prototypes are discarded after they help refine requirements. They are not documented or structured for production use.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q43. Which is a PROBLEM with prototyping?</p>
+<ul>
+  <li>a) Prototype may not be used the same way as the final system</li>
+  <li>b) Customer sees early results</li>
+  <li>c) Improves usability</li>
+  <li>d) Better design quality</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: a)</b> Testers may not use the prototype the way real users will. Response times differ, training is inadequate.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q44. Prototyping is best used when:</p>
+<ul>
+  <li>a) Requirements are fully understood</li>
+  <li>b) Requirements are unclear and need refinement</li>
+  <li>c) No customer is available</li>
+  <li>d) Budget is unlimited</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Prototype helps clarify requirements when customers don't know exactly what they want.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q45. A benefit of prototyping is:</p>
+<ul>
+  <li>a) No code needed</li>
+  <li>b) Improved system usability and closer match to users' real needs</li>
+  <li>c) Prototype becomes the final product</li>
+  <li>d) No testing needed</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Benefits include better usability, closer match to real needs, improved design, reduced effort.</div>
+</div>
+
+<!-- ============ TOPIC 7 ============ -->
+<h2 id="t7">Topic 7 &mdash; Agile &amp; Scrum</h2>
+
+<div class="mcq">
+<p class="question">Q46. Agile methods were created to overcome the problems of:</p>
+<ul>
+  <li>a) Heavy, documentation-focused software methods of 1980s-90s</li>
+  <li>b) Programming languages</li>
+  <li>c) Database design</li>
+  <li>d) Hardware costs</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: a)</b> Agile was born from dissatisfaction with the heavy overhead of 1980s-90s software processes.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q47. The Agile Manifesto values Individuals and interactions over:</p>
+<ul>
+  <li>a) Working software</li>
+  <li>b) Customer collaboration</li>
+  <li>c) Processes and tools</li>
+  <li>d) Responding to change</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> Agile Manifesto: "Individuals and interactions OVER processes and tools".</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q48. Which is NOT one of the 4 Agile Manifesto values?</p>
+<ul>
+  <li>a) Working software over comprehensive documentation</li>
+  <li>b) Customer collaboration over contract negotiation</li>
+  <li>c) Responding to change over following a plan</li>
+  <li>d) Managers over team members</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: d)</b> The 4 values are: Individuals/interactions, Working software, Customer collaboration, Responding to change. Managers over team is NOT a value.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q49. Scrum has how many phases?</p>
+<ul>
+  <li>a) 2</li>
+  <li>b) 3</li>
+  <li>c) 5</li>
+  <li>d) 7</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> 3 phases: Outline Planning, Sprint Cycles, Project Closure.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q50. A Sprint in Scrum is typically:</p>
+<ul>
+  <li>a) 1 day</li>
+  <li>b) 2-4 weeks</li>
+  <li>c) 6 months</li>
+  <li>d) 1 year</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Sprints are fixed-length, normally 2-4 weeks.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q51. The Scrum Master's main role is to:</p>
+<ul>
+  <li>a) Write all the code</li>
+  <li>b) Facilitate the team, arrange meetings, protect from distractions, track backlog</li>
+  <li>c) Talk directly to customers all day</li>
+  <li>d) Test software</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Scrum Master is a facilitator: arranges daily meetings, tracks backlog, records decisions, measures progress, protects team from external distractions.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q52. The Product Backlog is:</p>
+<ul>
+  <li>a) Old discarded features</li>
+  <li>b) The list of work to be done on the project</li>
+  <li>c) Bug reports only</li>
+  <li>d) Customer complaints</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Product Backlog is the prioritized list of all work/features to be done on the project.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q53. Daily Scrum meetings are:</p>
+<ul>
+  <li>a) Long 2-hour planning sessions</li>
+  <li>b) Short daily meetings where team members share progress, problems, and plans</li>
+  <li>c) Customer feedback sessions</li>
+  <li>d) Budget reviews</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Short daily stand-ups where each member discusses yesterday's progress, today's plan, and blockers.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q54. Scaling UP agile means:</p>
+<ul>
+  <li>a) Using agile to develop large software systems that can't be built by a small team</li>
+  <li>b) Introducing agile across a large organization</li>
+  <li>c) Training more managers</li>
+  <li>d) Buying bigger computers</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: a)</b> Scaling UP = for LARGE systems. Scaling OUT = for ORGANIZATIONAL adoption across many teams.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q55. Which is NOT an Agile principle?</p>
+<ul>
+  <li>a) Customer involvement</li>
+  <li>b) Incremental delivery</li>
+  <li>c) Extensive documentation first</li>
+  <li>d) Embrace change</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> Agile values working software OVER comprehensive documentation. Principles: customer involvement, incremental delivery, people not process, embrace change, maintain simplicity.</div>
+</div>
+
+<!-- ============ TOPIC 8 ============ -->
+<h2 id="t8">Topic 8 &mdash; Software Requirements</h2>
+
+<div class="mcq">
+<p class="question">Q56. A requirement is:</p>
+<ul>
+  <li>a) Only a code module</li>
+  <li>b) A description of system services and constraints</li>
+  <li>c) Just a test case</li>
+  <li>d) A bug report</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Requirements describe the services the system should provide and the constraints under which it operates.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q57. Functional requirements describe:</p>
+<ul>
+  <li>a) How fast the system must be</li>
+  <li>b) What services the system should provide</li>
+  <li>c) Hardware costs</li>
+  <li>d) Programming language used</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Functional = what the system SHALL DO. Non-functional = what the system SHALL BE (fast, secure, etc.).</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q58. Non-functional requirements include:</p>
+<ul>
+  <li>a) User login function</li>
+  <li>b) Search feature</li>
+  <li>c) Response time, reliability, security, performance</li>
+  <li>d) Print receipt button</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: c)</b> Non-functional = constraints on the system: speed, reliability, security, usability, maintainability, performance.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q59. User requirements are written for:</p>
+<ul>
+  <li>a) Developers only</li>
+  <li>b) Customers, in natural language, with diagrams</li>
+  <li>c) Testers only</li>
+  <li>d) Managers only</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> User requirements are natural-language statements (+ diagrams) of services, written FOR CUSTOMERS.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q60. System requirements are written for:</p>
+<ul>
+  <li>a) End users only</li>
+  <li>b) A structured document as a contract between client and contractor</li>
+  <li>c) Marketing team</li>
+  <li>d) Hardware vendors</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> System requirements are structured, detailed, written as a contract between client and contractor.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q61. Domain requirements are derived from:</p>
+<ul>
+  <li>a) User preferences</li>
+  <li>b) The application domain (industry/field) of the system</li>
+  <li>c) Programming language rules</li>
+  <li>d) Budget constraints</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Domain requirements come from the application domain (e.g., banking rules, medical protocols) and can be functional or non-functional.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q62. Which is a functional requirement for an online shopping app?</p>
+<ul>
+  <li>a) Pages must load in less than 2 seconds</li>
+  <li>b) The system shall allow users to add items to a cart</li>
+  <li>c) 99% uptime</li>
+  <li>d) Works on Chrome browser</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> "Add to cart" is an action = functional. The others are non-functional (performance, reliability, portability).</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q63. Functional requirements specification should be:</p>
+<ul>
+  <li>a) Vague and open to interpretation</li>
+  <li>b) Complete and consistent</li>
+  <li>c) Written only in code</li>
+  <li>d) Only verbal</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Functional requirements must be complete (all services defined) and consistent (no contradictions).</div>
+</div>
+
+<!-- ============ TOPIC 9 ============ -->
+<h2 id="t9">Topic 9 &mdash; Feasibility, CIA Triad, OOP</h2>
+
+<div class="mcq">
+<p class="question">Q64. A Feasibility Study is conducted:</p>
+<ul>
+  <li>a) After the software is complete</li>
+  <li>b) Before committing to a project to decide: go ahead / don't go ahead / think again</li>
+  <li>c) Only during testing</li>
+  <li>d) After deployment</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Feasibility study is done BEFORE committing. It leads to decisions and a budget request.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q65. The CIA Triad stands for:</p>
+<ul>
+  <li>a) Central Intelligence Agency</li>
+  <li>b) Confidentiality, Integrity, Availability</li>
+  <li>c) Computing, Internet, Applications</li>
+  <li>d) Code, Information, Access</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> CIA Triad: Confidentiality (only authorized access), Integrity (data is correct), Availability (system accessible when needed).</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q66. In OOP, a Class is:</p>
+<ul>
+  <li>a) An instance of an object</li>
+  <li>b) A user-defined data type that acts as a blueprint for objects</li>
+  <li>c) A function</li>
+  <li>d) A variable</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Class is a blueprint. Object is an instance of a class with specific data.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q67. Methods in OOP are:</p>
+<ul>
+  <li>a) Variables that store data</li>
+  <li>b) Functions defined inside a class that describe behaviours of an object</li>
+  <li>c) Classes</li>
+  <li>d) Objects</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Methods = functions inside a class that describe what an object can do.</div>
+</div>
+
+<div class="mcq">
+<p class="question">Q68. Software reuse means:</p>
+<ul>
+  <li>a) Running the same program twice</li>
+  <li>b) Using existing assets (libraries, modules, components, code) to solve different problems</li>
+  <li>c) Copying code without permission</li>
+  <li>d) Re-installing software</li>
+</ul>
+<button class="show-answer" onclick="showAns(this)">Show Answer</button>
+<div class="answer-box" style="display:none;"><b>Answer: b)</b> Reuse = using existing libraries, components, COTS assets, design patterns to save time, cost, and improve reliability.</div>
+</div>
+
+<h2>Quick Theory Answers</h2>
+
+<div class="box">
+<b>If Q1 is a theory question, here are key short answers ready to go:</b>
+</div>
+
+<h3>Define Software Engineering</h3>
+<p>Software Engineering is a systematic, disciplined, time-and-cost-effective technique for developing software. According to Bauer (1972), it is "the establishment and use of sound engineering principles to obtain economically software that is reliable and works on real machines."</p>
+
+<h3>What are the 4 Software Characteristics?</h3>
+<ol>
+<li><b>Complexity:</b> Software is developed not manufactured, no two parts are alike, hard to estimate effort</li>
+<li><b>Conformity:</b> Custom-built, unique to each project</li>
+<li><b>Changeability:</b> Needs constant modification as requirements change</li>
+<li><b>Invisibility:</b> Virtual object, not physical, cannot be touched</li>
+</ol>
+
+<h3>What are the 4 Software Process Activities?</h3>
+<ol>
+<li><b>Specification:</b> Define what the software should do</li>
+<li><b>Development:</b> Design and program the software</li>
+<li><b>Validation:</b> Check the software meets customer needs</li>
+<li><b>Evolution:</b> Modify software to meet changing requirements</li>
+</ol>
+
+<h3>Waterfall Model Phases</h3>
+<ol>
+<li>Requirements Analysis and Definition</li>
+<li>System and Software Design</li>
+<li>Implementation and Unit Testing</li>
+<li>Integration and System Testing</li>
+<li>Operation and Maintenance</li>
+</ol>
+
+<h3>Agile Manifesto (4 Values)</h3>
+<ol>
+<li>Individuals and interactions over processes and tools</li>
+<li>Working software over comprehensive documentation</li>
+<li>Customer collaboration over contract negotiation</li>
+<li>Responding to change over following a plan</li>
+</ol>
+
+<h3>Scrum Phases</h3>
+<ol>
+<li><b>Outline Planning:</b> Establish objectives, design architecture</li>
+<li><b>Sprint Cycles:</b> Develop increments in 2-4 week sprints with daily scrums</li>
+<li><b>Project Closure:</b> Complete documentation, assess lessons learned</li>
+</ol>
+
+<h3>Functional vs Non-Functional (One-liner)</h3>
+<p><b>Functional:</b> "The system SHALL DO ___" (services, features, actions)<br>
+<b>Non-functional:</b> "The system SHALL BE ___" (fast, secure, reliable, usable)</p>
+
+<p class="small" style="margin-top: 30px;">&mdash; SE Midterm MCQs Practice &mdash;</p>
+
+<script>
+function showAns(btn) {
+  btn.nextElementSibling.style.display = 'block';
+  btn.style.display = 'none';
+}
+function toggleAll(show) {
+  document.querySelectorAll('.answer-box').forEach(el => {
+    el.style.display = show ? 'block' : 'none';
+  });
+  document.querySelectorAll('.show-answer').forEach(el => {
+    el.style.display = show ? 'none' : 'inline-block';
+  });
+}
+</script>
+<script src="https://js.puter.com/v2/"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>
