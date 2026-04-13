@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Numerical Analysis - Study Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.puter.com/v2/"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -310,8 +311,280 @@ body {
 /* RESPONSIVE */
 @media (min-width: 768px) {
   .welcome h1 { font-size: 2.2rem; }
-  .page-cards { flex-direction: row; max-width: 700px; }
-  .page-card { flex: 1; flex-direction: column; text-align: center; padding: 24px; }
+  .page-cards { flex-direction: row; flex-wrap: wrap; max-width: 720px; }
+  .page-card { flex: 1 1 calc(33% - 12px); flex-direction: column; text-align: center; padding: 22px; min-width: 180px; }
+}
+
+/* ============ FLOATING CHAT WIDGET ============ */
+.chat-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #d26a4e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(224,122,95,0.45);
+  z-index: 500;
+  border: none;
+  color: #fff;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.chat-fab:hover {
+  transform: scale(1.08) rotate(-8deg);
+  box-shadow: 0 10px 32px rgba(224,122,95,0.55);
+}
+.chat-fab.hidden {
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.chat-fab .pulse-ring {
+  position: absolute;
+  inset: -6px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  animation: pulseRing 2s infinite;
+}
+@keyframes pulseRing {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  70% { transform: scale(1.3); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.chat-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 380px;
+  max-width: calc(100vw - 24px);
+  height: 560px;
+  max-height: calc(100vh - 80px);
+  background: var(--bg2);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  display: none;
+  flex-direction: column;
+  z-index: 501;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.chat-panel.open { display: flex; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.chat-panel-header {
+  background: linear-gradient(135deg, var(--bg3), var(--bg2));
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+.chat-panel-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+.chat-panel-info {
+  flex: 1;
+  min-width: 0;
+}
+.chat-panel-info h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+.chat-panel-info p {
+  font-size: 0.7rem;
+  color: var(--accent2);
+  margin: 0;
+}
+.chat-panel-info .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent2);
+  border-radius: 50%;
+  margin-right: 4px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.chat-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.chat-close-btn:hover { background: rgba(255,255,255,0.15); }
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bg);
+}
+.chat-msg {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  word-wrap: break-word;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.chat-msg.user {
+  align-self: flex-end;
+  background: var(--accent3);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.chat-msg.bot {
+  align-self: flex-start;
+  background: var(--card);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+.chat-msg.bot strong { color: var(--accent); }
+.chat-msg.bot code { background: rgba(0,0,0,0.4); padding: 2px 5px; border-radius: 4px; font-size: 0.82em; }
+.chat-msg.bot pre { background: rgba(0,0,0,0.4); padding: 8px 10px; border-radius: 6px; overflow-x: auto; margin: 6px 0; font-size: 0.78rem; }
+.chat-msg.bot ul, .chat-msg.bot ol { margin: 6px 0 6px 16px; }
+.chat-msg.bot li { margin-bottom: 3px; }
+.chat-msg.bot h3 { color: var(--accent); font-size: 0.95rem; margin: 8px 0 3px; }
+
+.chat-typing {
+  display: inline-flex;
+  gap: 4px;
+  padding: 10px 14px;
+  background: var(--card);
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+.chat-typing span {
+  width: 7px; height: 7px;
+  background: var(--muted);
+  border-radius: 50%;
+  animation: bounce 1.4s infinite;
+}
+.chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+.chat-suggestions {
+  padding: 6px 10px 8px;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  flex-shrink: 0;
+  scrollbar-width: none;
+  background: var(--bg);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.chat-suggestions::-webkit-scrollbar { display: none; }
+.chat-suggestion {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.chat-suggestion:hover {
+  background: var(--bg3);
+  border-color: var(--accent);
+}
+
+.chat-input-row {
+  background: var(--bg2);
+  padding: 10px 12px;
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+#chatInput {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  min-width: 0;
+}
+#chatInput:focus { border-color: var(--accent); }
+#chatInput::placeholder { color: var(--muted); }
+#chatSendBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+#chatSendBtn:hover:not(:disabled) { background: #d26a4e; transform: scale(1.08); }
+#chatSendBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Mobile: chat fills most of screen */
+@media (max-width: 600px) {
+  .chat-panel {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    height: 75vh;
+    max-height: 600px;
+  }
+  .chat-fab { bottom: 16px; right: 16px; }
 }
 </style>
 </head>
@@ -350,14 +623,6 @@ body {
       <div>
         <div class="nav-label">Complete Study Guide</div>
         <div class="nav-desc">All topics + interactive</div>
-      </div>
-    </div>
-
-    <div class="nav-item" onclick="loadPage('chatbot.html')">
-      <div class="nav-icon">&#129302;</div>
-      <div>
-        <div class="nav-label">AI Chatbot</div>
-        <div class="nav-desc">Ask NA questions directly</div>
       </div>
     </div>
 
@@ -403,6 +668,22 @@ body {
       </div>
     </div>
 
+    <div class="nav-item" onclick="loadPage('nr-advanced-examples.html')">
+      <div class="nav-icon">&#127942;</div>
+      <div>
+        <div class="nav-label">NR Advanced (Ex 5-8)</div>
+        <div class="nav-desc">Product, Quotient, Trig, Chain rule</div>
+      </div>
+    </div>
+
+    <div class="nav-item" onclick="loadPage('gauss-example.html')">
+      <div class="nav-icon">&#128290;</div>
+      <div>
+        <div class="nav-label">Gauss Elimination</div>
+        <div class="nav-desc">3x3 system solved</div>
+      </div>
+    </div>
+
   </div>
   <div class="drawer-footer">
     Numerical Analysis Prep &middot; 2026
@@ -413,15 +694,8 @@ body {
 <div class="welcome" id="welcome">
   <div class="welcome-icon">&#128209;</div>
   <h1>Midterm<br>Study Hub</h1>
-  <p>Tap the menu or pick a subject below to start studying. Works on mobile!</p>
+  <p>Tap the menu or pick a subject below. Need help? Tap the <b>&#129302; chat button</b> in the corner to ask the AI tutor anything!</p>
   <div class="page-cards">
-    <div class="page-card" onclick="loadPage('chatbot.html')">
-      <div class="card-icon c1">&#129302;</div>
-      <div class="card-text">
-        <h3>AI Chatbot</h3>
-        <span>Ask anything about NA</span>
-      </div>
-    </div>
     <div class="page-card" onclick="loadPage('study-guide.html')">
       <div class="card-icon c1">&#128218;</div>
       <div class="card-text">
@@ -472,6 +746,43 @@ body {
   <iframe id="pageFrame" src="about:blank"></iframe>
 </div>
 
+<!-- FLOATING CHAT BUTTON -->
+<button class="chat-fab" id="chatFab" onclick="openChat()" title="Ask NA Chatbot">
+  <span class="pulse-ring"></span>
+  &#129302;
+</button>
+
+<!-- CHAT PANEL -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-panel-header">
+    <div class="chat-panel-avatar">&#129302;</div>
+    <div class="chat-panel-info">
+      <h3>NA Study Buddy</h3>
+      <p><span class="dot"></span>Ask me anything</p>
+    </div>
+    <button class="chat-close-btn" onclick="closeChat()">&#10005;</button>
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot">
+      Hi Shehroz! &#128075; I'm your NA study buddy. Ask me anything about Bisection, False Position, Newton-Raphson, Secant, Gauss, or Gauss-Jordan methods. &#128170;
+    </div>
+  </div>
+
+  <div class="chat-suggestions">
+    <button class="chat-suggestion" onclick="askQuick('Explain bisection method in easy words')">Bisection</button>
+    <button class="chat-suggestion" onclick="askQuick('When do I stop iterating?')">Stopping rule</button>
+    <button class="chat-suggestion" onclick="askQuick('Difference between Newton-Raphson and Secant')">NR vs Secant</button>
+    <button class="chat-suggestion" onclick="askQuick('Solve f(x) = x^3 - x - 2 by false position')">False Position</button>
+    <button class="chat-suggestion" onclick="askQuick('Explain Gauss elimination step by step')">Gauss</button>
+  </div>
+
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="Ask your question..." onkeydown="if(event.key==='Enter') sendChat();" autocomplete="off" />
+    <button id="chatSendBtn" onclick="sendChat()">&#10148;</button>
+  </div>
+</div>
+
 <script>
 const drawer = document.getElementById('drawer');
 const overlay = document.getElementById('overlay');
@@ -502,9 +813,7 @@ function loadPage(page) {
     contentArea.style.display = 'block';
     pageFrame.src = page;
 
-    if (page.includes('chatbot')) {
-      document.querySelector('.header-title').innerHTML = '<em>NA</em> Chatbot';
-    } else if (page.includes('se-study')) {
+    if (page.includes('se-study')) {
       document.querySelector('.header-title').innerHTML = '<em>SE</em> Study Guide';
     } else if (page.includes('study-guide')) {
       document.querySelector('.header-title').innerHTML = '<em>NA</em> Study Guide';
@@ -530,7 +839,157 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && drawer.classList.contains('open')) {
     toggleDrawer();
   }
+  if (e.key === 'Escape' && document.getElementById('chatPanel').classList.contains('open')) {
+    closeChat();
+  }
 });
+
+/* ============ FLOATING CHATBOT ============ */
+const chatFab = document.getElementById('chatFab');
+const chatPanel = document.getElementById('chatPanel');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const chatSendBtn = document.getElementById('chatSendBtn');
+
+const SYSTEM_PROMPT = `You are a friendly Numerical Analysis tutor for Shehroz, a student preparing for his midterm exam at the University of Lahore. He is new to NA and needs clear, simple explanations in easy words.
+
+Topics in his course ONLY:
+1. Bisection Method (main example: f(x) = x^3 - x - 1)
+2. False Position / Regula Falsi (f(x) = x^3 - x - 2)
+3. Newton-Raphson (f(x) = x^3 - x - 1, x0=1, stopping: |x_{n+1}-x_n| <= 0.001)
+4. Secant Method (f(x) = x^3 - x - 1, x0=1, x1=2)
+5. Gauss Elimination (3x3 systems)
+6. Gauss-Jordan Elimination
+7. Error types (absolute, relative, round-off, truncation)
+
+RULES:
+- Simple words, short sentences, beginner-friendly.
+- Use plain text math: x^3, x_1, sqrt(), or Unicode superscripts/subscripts.
+- NEVER use LaTeX ($ $ or \\( \\)).
+- Show iterations in clear numbered steps.
+- Always give worked examples with real numbers.
+- Keep answers under 250 words unless solving a full example.
+- Stopping criterion is always |x_new - x_old| <= 0.001.
+- Be encouraging; he has only 1-2 days to prepare.
+- If asked something outside these 6 topics, politely redirect.`;
+
+let chatHistory = [{ role: 'system', content: SYSTEM_PROMPT }];
+let chatInitialized = false;
+
+function openChat() {
+  chatPanel.classList.add('open');
+  chatFab.classList.add('hidden');
+  setTimeout(() => {
+    if (window.innerWidth > 600) chatInput.focus();
+  }, 300);
+}
+
+function closeChat() {
+  chatPanel.classList.remove('open');
+  chatFab.classList.remove('hidden');
+}
+
+function addChatMessage(text, who) {
+  const msg = document.createElement('div');
+  msg.className = 'chat-msg ' + who;
+  if (who === 'bot') {
+    msg.innerHTML = formatChatBotMessage(text);
+  } else {
+    msg.textContent = text;
+  }
+  chatMessages.appendChild(msg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function formatChatBotMessage(text) {
+  let html = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  html = html.replace(/```([\s\S]*?)```/g, '<pre>$1</pre>');
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/(<li>[\s\S]*?<\/li>)(?!\s*<li>)/g, function(m) {
+    return '<ul>' + m + '</ul>';
+  });
+  html = html.replace(/<\/ul>\s*<ul>/g, '');
+  html = html.replace(/\n\n/g, '<br><br>');
+  html = html.replace(/\n/g, '<br>');
+  return html;
+}
+
+function showChatTyping() {
+  const typing = document.createElement('div');
+  typing.className = 'chat-typing';
+  typing.id = 'chatTyping';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  chatMessages.appendChild(typing);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function hideChatTyping() {
+  const t = document.getElementById('chatTyping');
+  if (t) t.remove();
+}
+
+async function sendChat() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+
+  addChatMessage(text, 'user');
+  chatInput.value = '';
+  chatSendBtn.disabled = true;
+  showChatTyping();
+
+  chatHistory.push({ role: 'user', content: text });
+
+  try {
+    if (typeof puter === 'undefined' || !puter.ai) {
+      throw new Error('Puter.ai not loaded');
+    }
+
+    const response = await puter.ai.chat(chatHistory, { model: 'claude-sonnet-4' });
+
+    hideChatTyping();
+
+    let reply;
+    if (typeof response === 'string') {
+      reply = response;
+    } else if (response && response.message && response.message.content) {
+      if (Array.isArray(response.message.content)) {
+        reply = response.message.content.map(c => c.text || c).join('\n');
+      } else {
+        reply = response.message.content;
+      }
+    } else if (response && response.text) {
+      reply = response.text;
+    } else {
+      reply = String(response);
+    }
+
+    chatHistory.push({ role: 'assistant', content: reply });
+    addChatMessage(reply, 'bot');
+  } catch (err) {
+    hideChatTyping();
+    console.error('Chat error:', err);
+    addChatMessage(
+      "Sorry, I couldn't connect right now. &#128577;<br><br>" +
+      "Try refreshing the page, or check your internet connection. You may need to sign in to Puter the first time.",
+      'bot'
+    );
+  }
+
+  chatSendBtn.disabled = false;
+  if (window.innerWidth > 600) chatInput.focus();
+}
+
+function askQuick(question) {
+  chatInput.value = question;
+  sendChat();
+}
 </script>
 
 </body>

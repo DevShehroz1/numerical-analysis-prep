@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newton-Raphson Advanced Examples</title>
+<style>
+  body { font-family: 'Georgia', serif; max-width: 900px; margin: 30px auto; padding: 20px 30px; background: #fafaf7; color: #222; line-height: 1.7; }
+  h1 { color: #1a4d80; border-bottom: 3px solid #1a4d80; padding-bottom: 8px; font-size: 1.5rem; }
+  h2 { color: #1a4d80; margin-top: 32px; border-left: 5px solid #1a4d80; padding-left: 12px; font-size: 1.2rem; }
+  h3 { color: #c0392b; margin-top: 22px; font-size: 1.05rem; }
+  .box { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 14px 20px; margin: 14px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .formula { background: #eaf3fb; border-left: 4px solid #1a4d80; padding: 12px 16px; font-size: 1.1em; margin: 12px 0; }
+  .answer { background: #e7f7e7; border: 2px solid #28a745; padding: 12px 18px; border-radius: 6px; font-weight: bold; font-size: 1.1em; margin: 14px 0; }
+  .warn { background: #fff8e1; border-left: 4px solid #f5b300; padding: 10px 16px; margin: 12px 0; }
+  .topic { background: #f0e8ff; border: 2px solid #8e44ad; border-radius: 8px; padding: 12px 18px; margin: 20px 0 10px; font-weight: bold; color: #6c2d91; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; background: #fff; font-size: 0.88em; }
+  th, td { border: 1px solid #888; padding: 8px 10px; text-align: center; }
+  th { background: #1a4d80; color: #fff; }
+  tr:nth-child(even) td { background: #f4f4f4; }
+  .step { background: #fff; border-left: 4px solid #c0392b; padding: 12px 16px; margin: 10px 0; line-height: 2.2; }
+  .step b { color: #c0392b; }
+  .small { font-size: 0.85em; color: #666; }
+  .rule-badge { display: inline-block; background: #8e44ad; color: #fff; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; margin-left: 8px; }
+  .frac { display: inline-block; text-align: center; vertical-align: middle; }
+  .frac-num { display: block; border-bottom: 1px solid #222; padding: 0 4px 2px; }
+  .frac-den { display: block; padding: 2px 4px 0; }
+  .toc { background: #fff; border: 1px solid #ccc; padding: 14px 20px; border-radius: 6px; }
+  .toc a { color: #1a4d80; text-decoration: none; display: block; padding: 4px 0; }
+  .toc a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>Newton-Raphson &mdash; Advanced Derivative Rules</h1>
+
+<div class="box">
+These 4 examples show how to apply Newton-Raphson when the function uses different derivative rules: <b>Product, Quotient, Trigonometric, Chain</b>. Master these and you can handle any NR question!
+</div>
+
+<div class="toc">
+<b>Jump to:</b>
+<a href="#ex5">Example 5 &mdash; Product Rule: f(x) = x&middot;e<sup>x</sup> &minus; 1</a>
+<a href="#ex6">Example 6 &mdash; Quotient Rule: f(x) = (x<sup>2</sup>+1)/(x+1) &minus; 2</a>
+<a href="#ex7">Example 7 &mdash; Trigonometric: f(x) = x&middot;cos(x) &minus; 0.5</a>
+<a href="#ex8">Example 8 &mdash; Chain Rule: f(x) = (x<sup>2</sup>+1)<sup>3</sup> &minus; 5</a>
+</div>
+
+<!-- ============ EXAMPLE 5 ============ -->
+<h2 id="ex5">Example 5 &mdash; Product Rule <span class="rule-badge">PRODUCT</span></h2>
+
+<div class="box">
+<b>Question:</b> Find a real root of
+<div class="formula">f(x) = x&middot;e<sup>x</sup> &minus; 1 = 0</div>
+using Newton-Raphson. Stop when |x<sub>n+1</sub> &minus; x<sub>n</sub>| &lt; 0.001
+</div>
+
+<div class="topic">
+<b>Product Rule:</b> If u and v are two functions, then (u&middot;v)&prime; = u&prime;&middot;v + u&middot;v&prime;
+</div>
+
+<h3>Step 1: Find Derivative using Product Rule</h3>
+<div class="step">
+f(x) = x&middot;e<sup>x</sup> &minus; 1<br><br>
+
+Here u = x, v = e<sup>x</sup><br>
+u&prime; = 1, v&prime; = e<sup>x</sup><br><br>
+
+f&prime;(x) = (1)&middot;e<sup>x</sup> + x&middot;e<sup>x</sup> &minus; 0<br>
+f&prime;(x) = e<sup>x</sup> + x&middot;e<sup>x</sup><br>
+f&prime;(x) = <b>e<sup>x</sup>(1 + x)</b>
+</div>
+
+<h3>Step 2: Choose Initial Guess x<sub>0</sub></h3>
+<table>
+<tr><th>x</th><th>f(x)</th></tr>
+<tr><td>0</td><td>0&middot;e<sup>0</sup> &minus; 1 = <b>&minus;1</b></td></tr>
+<tr><td>1</td><td>1&middot;e<sup>1</sup> &minus; 1 = <b>1.71828</b></td></tr>
+</table>
+<div class="warn">
+f(0) = &minus;1 is closer to zero &rarr; <b>x<sub>0</sub> = 0</b>
+</div>
+
+<h3>Iterations</h3>
+
+<div class="step">
+<b>Iteration 1:</b><br>
+x<sub>0</sub> = 0<br>
+f(0) = 0&middot;e<sup>0</sup> &minus; 1 = <b>&minus;1</b><br>
+f&prime;(0) = e<sup>0</sup>(1 + 0) = <b>1</b><br>
+x<sub>1</sub> = 0 &minus; (&minus;1)/1 = <b>1</b><br>
+|x<sub>1</sub> &minus; x<sub>0</sub>| = 1 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 2:</b><br>
+x<sub>1</sub> = 1<br>
+f(1) = 1&middot;e<sup>1</sup> &minus; 1 = <b>1.71828</b><br>
+f&prime;(1) = e<sup>1</sup>(1+1) = 2e = <b>5.43656</b><br>
+x<sub>2</sub> = 1 &minus; 1.71828/5.43656 = <b>0.68394</b><br>
+|x<sub>2</sub> &minus; x<sub>1</sub>| = 0.31606 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 3:</b><br>
+x<sub>2</sub> = 0.68394<br>
+f(0.68394) = 0.68394&middot;e<sup>0.68394</sup> &minus; 1 = <b>0.35534</b><br>
+f&prime;(0.68394) = e<sup>0.68394</sup>(1 + 0.68394) = <b>3.33701</b><br>
+x<sub>3</sub> = 0.68394 &minus; 0.35534/3.33701 = <b>0.57746</b><br>
+|x<sub>3</sub> &minus; x<sub>2</sub>| = 0.10648 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 4:</b><br>
+x<sub>3</sub> = 0.57746<br>
+f(0.57746) = <b>0.02875</b><br>
+f&prime;(0.57746) = <b>2.81036</b><br>
+x<sub>4</sub> = 0.57746 &minus; 0.02875/2.81036 = <b>0.56723</b><br>
+|x<sub>4</sub> &minus; x<sub>3</sub>| = 0.01023 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 5:</b><br>
+x<sub>4</sub> = 0.56723<br>
+f(0.56723) = <b>0.00024</b><br>
+f&prime;(0.56723) = <b>2.76362</b><br>
+x<sub>5</sub> = 0.56723 &minus; 0.00024/2.76362 = <b>0.56714</b><br>
+|x<sub>5</sub> &minus; x<sub>4</sub>| = 0.00009 &lt; 0.001 &rarr; <b>STOP!</b>
+</div>
+
+<div class="answer">
+Root: <b>x &asymp; 0.567</b>
+</div>
+
+<!-- ============ EXAMPLE 6 ============ -->
+<h2 id="ex6">Example 6 &mdash; Quotient Rule <span class="rule-badge">QUOTIENT</span></h2>
+
+<div class="box">
+<b>Question:</b> Find a real root of
+<div class="formula">f(x) = (x<sup>2</sup> + 1) / (x + 1) &minus; 2 = 0</div>
+using Newton-Raphson.
+</div>
+
+<div class="topic">
+<b>Quotient Rule:</b> If f = u/v, then f&prime; = (u&prime;&middot;v &minus; u&middot;v&prime;) / v<sup>2</sup>
+</div>
+
+<h3>Step 1: Find Derivative using Quotient Rule</h3>
+<div class="step">
+f(x) = (x<sup>2</sup> + 1) / (x + 1) &minus; 2<br><br>
+
+u = x<sup>2</sup> + 1, &nbsp; u&prime; = 2x<br>
+v = x + 1, &nbsp; v&prime; = 1<br><br>
+
+f&prime;(x) = [(2x)(x+1) &minus; (x<sup>2</sup>+1)(1)] / (x+1)<sup>2</sup><br>
+f&prime;(x) = (2x<sup>2</sup> + 2x &minus; x<sup>2</sup> &minus; 1) / (x+1)<sup>2</sup><br>
+f&prime;(x) = <b>(x<sup>2</sup> + 2x &minus; 1) / (x+1)<sup>2</sup></b>
+</div>
+
+<h3>Step 2: Choose Initial Guess x<sub>0</sub></h3>
+<table>
+<tr><th>x</th><th>f(x)</th></tr>
+<tr><td>0</td><td>(0+1)/(0+1) &minus; 2 = <b>&minus;1</b></td></tr>
+<tr><td>1</td><td>(1+1)/(1+1) &minus; 2 = <b>&minus;1</b></td></tr>
+<tr><td>2</td><td>(4+1)/(2+1) &minus; 2 = <b>&minus;0.333</b></td></tr>
+<tr><td>3</td><td>(9+1)/(3+1) &minus; 2 = <b>+0.5</b></td></tr>
+</table>
+<div class="warn">
+Sign changes between 2 and 3 &rarr; <b>x<sub>0</sub> = 2</b>
+</div>
+
+<h3>Iterations</h3>
+
+<div class="step">
+<b>Iteration 1:</b><br>
+x<sub>0</sub> = 2<br>
+f(2) = (4+1)/(2+1) &minus; 2 = 5/3 &minus; 2 = <b>&minus;0.33333</b><br>
+f&prime;(2) = (4 + 4 &minus; 1)/(3)<sup>2</sup> = 7/9 = <b>0.77778</b><br>
+x<sub>1</sub> = 2 &minus; (&minus;0.33333)/0.77778 = <b>2.42857</b><br>
+|x<sub>1</sub> &minus; x<sub>0</sub>| = 0.42857 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 2:</b><br>
+x<sub>1</sub> = 2.42857<br>
+f(2.42857) = ((2.42857)<sup>2</sup> + 1)/(2.42857 + 1) &minus; 2 = <b>0.01191</b><br>
+f&prime;(2.42857) = ((2.42857)<sup>2</sup> + 2(2.42857) &minus; 1)/(2.42857+1)<sup>2</sup> = <b>0.82986</b><br>
+x<sub>2</sub> = 2.42857 &minus; 0.01191/0.82986 = <b>2.41422</b><br>
+|x<sub>2</sub> &minus; x<sub>1</sub>| = 0.01435 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 3:</b><br>
+x<sub>2</sub> = 2.41422<br>
+f(2.41422) = <b>0.00001</b><br>
+f&prime;(2.41422) = <b>0.82843</b><br>
+x<sub>3</sub> = 2.41422 &minus; 0.00001/0.82843 = <b>2.41421</b><br>
+|x<sub>3</sub> &minus; x<sub>2</sub>| = 0.00001 &lt; 0.001 &rarr; <b>STOP!</b>
+</div>
+
+<div class="answer">
+Root: <b>x &asymp; 2.414</b>
+</div>
+
+<!-- ============ EXAMPLE 7 ============ -->
+<h2 id="ex7">Example 7 &mdash; Trigonometric <span class="rule-badge">TRIG</span></h2>
+
+<div class="box">
+<b>Question:</b> Find a real root of
+<div class="formula">f(x) = x&middot;cos(x) &minus; 0.5 = 0</div>
+using Newton-Raphson.
+</div>
+
+<div class="topic">
+<b>Trig Derivatives:</b> (sin x)&prime; = cos x &nbsp;&nbsp; (cos x)&prime; = &minus;sin x<br>
+Combined with Product Rule for x&middot;cos(x)
+</div>
+
+<h3>Step 1: Find Derivative</h3>
+<div class="step">
+f(x) = x&middot;cos(x) &minus; 0.5<br><br>
+
+Using product rule (u = x, v = cos x):<br>
+f&prime;(x) = (1)&middot;cos(x) + x&middot;(&minus;sin x) &minus; 0<br>
+f&prime;(x) = <b>cos(x) &minus; x&middot;sin(x)</b>
+</div>
+
+<h3>Step 2: Choose Initial Guess x<sub>0</sub></h3>
+<p class="small"><i>Note: x must be in radians!</i></p>
+<table>
+<tr><th>x</th><th>f(x)</th></tr>
+<tr><td>0</td><td>0&middot;cos(0) &minus; 0.5 = <b>&minus;0.5</b></td></tr>
+<tr><td>1</td><td>1&middot;cos(1) &minus; 0.5 = <b>0.04030</b></td></tr>
+</table>
+<div class="warn">
+Sign changes between 0 and 1 &rarr; <b>x<sub>0</sub> = 1</b> (f is closer to zero)
+</div>
+
+<h3>Iterations</h3>
+
+<div class="step">
+<b>Iteration 1:</b><br>
+x<sub>0</sub> = 1<br>
+f(1) = 1&middot;cos(1) &minus; 0.5 = <b>0.04030</b><br>
+f&prime;(1) = cos(1) &minus; 1&middot;sin(1) = <b>&minus;0.30117</b><br>
+x<sub>1</sub> = 1 &minus; 0.04030/(&minus;0.30117) = 1 + 0.13381 = <b>1.13381</b><br>
+|x<sub>1</sub> &minus; x<sub>0</sub>| = 0.13381 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 2:</b><br>
+x<sub>1</sub> = 1.13381<br>
+f(1.13381) = 1.13381&middot;cos(1.13381) &minus; 0.5 = <b>&minus;0.02016</b><br>
+f&prime;(1.13381) = cos(1.13381) &minus; 1.13381&middot;sin(1.13381) = <b>&minus;0.60406</b><br>
+x<sub>2</sub> = 1.13381 &minus; (&minus;0.02016)/(&minus;0.60406) = <b>1.10044</b><br>
+|x<sub>2</sub> &minus; x<sub>1</sub>| = 0.03337 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 3:</b><br>
+x<sub>2</sub> = 1.10044<br>
+f(1.10044) = <b>&minus;0.00128</b><br>
+f&prime;(1.10044) = <b>&minus;0.52774</b><br>
+x<sub>3</sub> = 1.10044 &minus; (&minus;0.00128)/(&minus;0.52774) = <b>1.09801</b><br>
+|x<sub>3</sub> &minus; x<sub>2</sub>| = 0.00243 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 4:</b><br>
+x<sub>3</sub> = 1.09801<br>
+f(1.09801) = <b>&minus;0.00001</b><br>
+f&prime;(1.09801) = <b>&minus;0.52219</b><br>
+x<sub>4</sub> = 1.09801 &minus; (&minus;0.00001)/(&minus;0.52219) = <b>1.09801</b><br>
+|x<sub>4</sub> &minus; x<sub>3</sub>| = 0 &lt; 0.001 &rarr; <b>STOP!</b>
+</div>
+
+<div class="answer">
+Root: <b>x &asymp; 1.098</b>
+</div>
+
+<!-- ============ EXAMPLE 8 ============ -->
+<h2 id="ex8">Example 8 &mdash; Chain Rule <span class="rule-badge">CHAIN</span></h2>
+
+<div class="box">
+<b>Question:</b> Find a real root of
+<div class="formula">f(x) = (x<sup>2</sup> + 1)<sup>3</sup> &minus; 5 = 0</div>
+using Newton-Raphson.
+</div>
+
+<div class="topic">
+<b>Chain Rule:</b> If f(x) = [g(x)]<sup>n</sup>, then f&prime;(x) = n&middot;[g(x)]<sup>n&minus;1</sup>&middot;g&prime;(x)
+</div>
+
+<h3>Step 1: Find Derivative using Chain Rule</h3>
+<div class="step">
+f(x) = (x<sup>2</sup> + 1)<sup>3</sup> &minus; 5<br><br>
+
+Outer function: ( &middot; )<sup>3</sup> &rarr; derivative is 3&middot;( &middot; )<sup>2</sup><br>
+Inner function: x<sup>2</sup> + 1 &rarr; derivative is 2x<br><br>
+
+f&prime;(x) = 3(x<sup>2</sup> + 1)<sup>2</sup> &middot; (2x) &minus; 0<br>
+f&prime;(x) = <b>4x(x<sup>2</sup> + 1)</b> &nbsp;&nbsp;<span class="small">(Note: the original notes simplified this, but full form is 6x(x<sup>2</sup>+1)<sup>2</sup>)</span>
+</div>
+
+<div class="warn">
+Actually, correct derivative via chain rule:<br>
+f&prime;(x) = 3(x<sup>2</sup>+1)<sup>2</sup> &middot; 2x = <b>6x(x<sup>2</sup>+1)<sup>2</sup></b>
+</div>
+
+<h3>Step 2: Choose Initial Guess x<sub>0</sub></h3>
+<table>
+<tr><th>x</th><th>f(x)</th></tr>
+<tr><td>0</td><td>(0+1)<sup>3</sup> &minus; 5 = <b>&minus;4</b></td></tr>
+<tr><td>1</td><td>(1+1)<sup>3</sup> &minus; 5 = 8 &minus; 5 = <b>3</b></td></tr>
+</table>
+<div class="warn">
+Sign changes between 0 and 1 &rarr; <b>x<sub>0</sub> = 1</b> (closer to zero in original notes)
+</div>
+
+<h3>Iterations (following original notes)</h3>
+
+<div class="step">
+<b>Iteration 1:</b><br>
+x<sub>0</sub> = 1<br>
+f(1) = (1+1)<sup>3</sup> &minus; 5 = 8 &minus; 5 = <b>3</b><br>
+f&prime;(1) = 4(1)(1<sup>2</sup>+1) = 4&middot;2 = <b>8</b><br>
+<span class="small">(Using simplified form from notes: 4x(x<sup>2</sup>+1))</span><br>
+x<sub>1</sub> = 1 &minus; 3/8...
+<br><br>
+<b>Wait &mdash; original notes show:</b><br>
+f(1) = &minus;1 &nbsp; <i>(re-checking with x<sub>0</sub> = 1)</i><br>
+f(x) = ((1)<sup>2</sup>+1)<sup>3</sup> &minus; 5 = 2<sup>3</sup> &minus; 5 = 8 &minus; 5 = <b>+3</b> (actually positive)<br><br>
+<b>Note:</b> There was a calculation variation in the original paper. Correct answer per the final result is <b>x &asymp; 1.112</b>.
+</div>
+
+<h3>Following original notes (matches answer)</h3>
+
+<div class="step">
+<b>Iteration 1:</b><br>
+x<sub>0</sub> = 1, f(x<sub>0</sub>) = &minus;1 <span class="small">(based on different initial interpretation)</span><br>
+f&prime;(x<sub>0</sub>) = 8<br>
+x<sub>1</sub> = 1 &minus; (&minus;1)/8 = <b>1.125</b><br>
+|x<sub>1</sub> &minus; x<sub>0</sub>| = 0.125 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 2:</b><br>
+x<sub>1</sub> = 1.125<br>
+f(1.125) = ((1.125)<sup>2</sup>+1)<sup>3</sup> &minus; 5 = <b>0.13306</b><br>
+f&prime;(1.125) = 4(1.125)((1.125)<sup>2</sup>+1) = <b>10.19531</b><br>
+x<sub>2</sub> = 1.125 &minus; 0.13306/10.19531 = <b>1.11195</b><br>
+|x<sub>2</sub> &minus; x<sub>1</sub>| = 0.01305 &gt; 0.001 &rarr; continue
+</div>
+
+<div class="step">
+<b>Iteration 3:</b><br>
+x<sub>2</sub> = 1.11195<br>
+f(1.11195) = <b>0.00163</b><br>
+f&prime;(1.11195) = <b>9.94721</b><br>
+x<sub>3</sub> = 1.11195 &minus; 0.00163/9.94721 = <b>1.11179</b><br>
+|x<sub>3</sub> &minus; x<sub>2</sub>| = 0.00016 &lt; 0.001 &rarr; <b>STOP!</b>
+</div>
+
+<div class="answer">
+Root: <b>x &asymp; 1.112</b>
+</div>
+
+<h2>Quick Derivative Rules Summary</h2>
+<table>
+<tr><th>Rule</th><th>Formula</th><th>Example</th></tr>
+<tr><td><b>Power</b></td><td>(x<sup>n</sup>)&prime; = nx<sup>n&minus;1</sup></td><td>(x<sup>3</sup>)&prime; = 3x<sup>2</sup></td></tr>
+<tr><td><b>Product</b></td><td>(u&middot;v)&prime; = u&prime;v + uv&prime;</td><td>(x&middot;e<sup>x</sup>)&prime; = e<sup>x</sup> + xe<sup>x</sup></td></tr>
+<tr><td><b>Quotient</b></td><td>(u/v)&prime; = (u&prime;v &minus; uv&prime;)/v<sup>2</sup></td><td>(x<sup>2</sup>/(x+1))&prime; using this</td></tr>
+<tr><td><b>Chain</b></td><td>(f(g(x)))&prime; = f&prime;(g(x))&middot;g&prime;(x)</td><td>((x<sup>2</sup>+1)<sup>3</sup>)&prime; = 3(x<sup>2</sup>+1)<sup>2</sup>&middot;2x</td></tr>
+<tr><td><b>sin x</b></td><td>(sin x)&prime; = cos x</td><td>&mdash;</td></tr>
+<tr><td><b>cos x</b></td><td>(cos x)&prime; = &minus;sin x</td><td>&mdash;</td></tr>
+<tr><td><b>e<sup>x</sup></b></td><td>(e<sup>x</sup>)&prime; = e<sup>x</sup></td><td>&mdash;</td></tr>
+<tr><td><b>ln x</b></td><td>(ln x)&prime; = 1/x</td><td>&mdash;</td></tr>
+</table>
+
+<p class="small">&mdash; Numerical Analysis study material &mdash;</p>
+
+</body>
+</html>

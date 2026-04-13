@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gauss Elimination - Solved Example</title>
+<style>
+  body { font-family: 'Georgia', serif; max-width: 900px; margin: 30px auto; padding: 20px 30px; background: #fafaf7; color: #222; line-height: 1.7; }
+  h1 { color: #1a4d80; border-bottom: 3px solid #1a4d80; padding-bottom: 8px; font-size: 1.5rem; }
+  h2 { color: #1a4d80; margin-top: 28px; border-left: 5px solid #1a4d80; padding-left: 12px; font-size: 1.2rem; }
+  h3 { color: #c0392b; margin-top: 22px; font-size: 1.05rem; }
+  .box { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 14px 20px; margin: 14px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .formula { background: #eaf3fb; border-left: 4px solid #1a4d80; padding: 12px 16px; font-size: 1.1em; margin: 12px 0; }
+  .answer { background: #e7f7e7; border: 2px solid #28a745; padding: 12px 18px; border-radius: 6px; font-weight: bold; font-size: 1.1em; margin: 14px 0; }
+  .warn { background: #fff8e1; border-left: 4px solid #f5b300; padding: 10px 16px; margin: 12px 0; }
+  .matrix { font-family: 'Courier New', monospace; background: #fff; padding: 14px 20px; border: 1px solid #888; border-radius: 6px; font-size: 1rem; white-space: pre; overflow-x: auto; margin: 10px 0; }
+  .step { background: #fff; border-left: 4px solid #c0392b; padding: 12px 16px; margin: 10px 0; line-height: 1.9; }
+  .step b { color: #c0392b; }
+  .small { font-size: 0.85em; color: #666; }
+</style>
+</head>
+<body>
+
+<h1>Gauss Elimination &mdash; Solved Example</h1>
+
+<div class="box">
+<b>Question:</b> Solve the system of linear equations:
+<div class="formula">
+2x + y &minus; z = 8<br>
+&minus;3x &minus; y + 2z = &minus;11<br>
+&minus;2x + y + 2z = &minus;3
+</div>
+using <b>Gauss Elimination</b>.
+</div>
+
+<h2>Step 1 &mdash; Convert to Matrix Form (AX = B)</h2>
+<div class="step">
+Coefficient matrix A, unknowns X, constants B:
+</div>
+<div class="matrix">
+A = [  2   1  -1 ]      X = [ x ]      B = [  8 ]
+    [ -3  -1   2 ]          [ y ]          [-11 ]
+    [ -2   1   2 ]          [ z ]          [ -3 ]
+</div>
+
+<h2>Step 2 &mdash; Write Augmented Matrix [A | B]</h2>
+<div class="matrix">
+[  2   1  -1 |  8 ]   &larr; R1
+[ -3  -1   2 | -11]   &larr; R2
+[ -2   1   2 | -3 ]   &larr; R3
+</div>
+
+<div class="warn">
+<b>Goal:</b> Use row operations to turn the left side into <b>upper triangular</b> form (zeros below the diagonal). Then use <b>back substitution</b>.
+</div>
+
+<h2>Step 3 &mdash; Forward Elimination</h2>
+
+<h3>Pivot = R1 (first row), pivot element = 2</h3>
+<p>Eliminate x from R2 and R3 using R1.</p>
+
+<div class="step">
+<b>R2 &larr; R2 + (3/2)&middot;R1</b><br><br>
+[&minus;3, &minus;1, 2, &minus;11] + (3/2)&middot;[2, 1, &minus;1, 8]<br>
+= [&minus;3, &minus;1, 2, &minus;11] + [3, 1.5, &minus;1.5, 12]<br>
+= <b>[0, 0.5, 0.5, 1]</b>
+</div>
+
+<div class="step">
+<b>R3 &larr; R3 + R1</b><br><br>
+[&minus;2, 1, 2, &minus;3] + [2, 1, &minus;1, 8]<br>
+= <b>[0, 2, 1, 5]</b>
+</div>
+
+<p><b>Matrix after first elimination:</b></p>
+<div class="matrix">
+[  2   1   -1  |  8 ]
+[  0   0.5  0.5 | 1 ]
+[  0   2    1   | 5 ]
+</div>
+
+<h3>Pivot = R2 (second row), pivot element = 0.5</h3>
+<p>Eliminate y from R3 using R2.</p>
+
+<div class="step">
+<b>R3 &larr; R3 &minus; 4&middot;R2</b><br>
+<span class="small">(because 2 / 0.5 = 4)</span><br><br>
+[0, 2, 1, 5] &minus; 4&middot;[0, 0.5, 0.5, 1]<br>
+= [0, 2, 1, 5] &minus; [0, 2, 2, 4]<br>
+= <b>[0, 0, &minus;1, 1]</b>
+</div>
+
+<p><b>Matrix now in upper triangular form:</b></p>
+<div class="matrix">
+[  2   1    -1  |  8 ]
+[  0   0.5   0.5 | 1 ]
+[  0   0    -1  |  1 ]
+</div>
+
+<h2>Step 4 &mdash; Back Substitution</h2>
+
+<div class="step">
+<b>From Row 3:</b><br>
+&minus;z = 1<br>
+<b>z = &minus;1</b>
+</div>
+
+<div class="step">
+<b>From Row 2:</b><br>
+0.5y + 0.5z = 1<br>
+0.5y + 0.5(&minus;1) = 1<br>
+0.5y &minus; 0.5 = 1<br>
+0.5y = 1.5<br>
+<b>y = 3</b>
+</div>
+
+<div class="step">
+<b>From Row 1:</b><br>
+2x + y &minus; z = 8<br>
+2x + 3 &minus; (&minus;1) = 8<br>
+2x + 3 + 1 = 8<br>
+2x + 4 = 8<br>
+2x = 4<br>
+<b>x = 2</b>
+</div>
+
+<div class="answer">
+Solution: <b>x = 2, &nbsp; y = 3, &nbsp; z = &minus;1</b>
+</div>
+
+<h2>Step 5 &mdash; Verification (check answer in original equations)</h2>
+
+<div class="step">
+<b>Equation 1:</b> 2x + y &minus; z = 8<br>
+2(2) + 3 &minus; (&minus;1) = 4 + 3 + 1 = <b>8</b> &check;
+</div>
+
+<div class="step">
+<b>Equation 2:</b> &minus;3x &minus; y + 2z = &minus;11<br>
+&minus;3(2) &minus; 3 + 2(&minus;1) = &minus;6 &minus; 3 &minus; 2 = <b>&minus;11</b> &check;
+</div>
+
+<div class="step">
+<b>Equation 3:</b> &minus;2x + y + 2z = &minus;3<br>
+&minus;2(2) + 3 + 2(&minus;1) = &minus;4 + 3 &minus; 2 = <b>&minus;3</b> &check;
+</div>
+
+<div class="answer">
+All three equations satisfied! Unique solution: <b>(x, y, z) = (2, 3, &minus;1)</b>
+</div>
+
+<h2>Easy Words &mdash; Steps to Remember</h2>
+<div class="box">
+<ol style="line-height: 2.2;">
+  <li><b>Write</b> the augmented matrix [A | B]</li>
+  <li><b>Forward elimination:</b> Make zeros below each diagonal element (use row operations)
+    <ul>
+      <li>Pick a pivot (diagonal element)</li>
+      <li>Use that row to kill the numbers below it</li>
+    </ul>
+  </li>
+  <li>Continue until you have <b>upper triangular</b> form (zeros below diagonal)</li>
+  <li><b>Back substitution:</b> Start from the last row, solve for each variable going up</li>
+  <li><b>Verify:</b> Plug the answers back into original equations</li>
+</ol>
+</div>
+
+<h2>Row Operations Allowed</h2>
+<ul style="line-height: 2;">
+  <li>Swap two rows</li>
+  <li>Multiply a row by a non-zero constant</li>
+  <li>Add a multiple of one row to another row</li>
+</ul>
+
+<p class="small">&mdash; Numerical Analysis study material &mdash;</p>
+
+</body>
+</html>
