@@ -353,6 +353,14 @@ body {
       </div>
     </div>
 
+    <div class="nav-item" onclick="loadPage('chatbot.html')">
+      <div class="nav-icon">&#129302;</div>
+      <div>
+        <div class="nav-label">AI Chatbot</div>
+        <div class="nav-desc">Ask NA questions directly</div>
+      </div>
+    </div>
+
     <div class="nav-item" onclick="loadPage('se-study-guide.html')">
       <div class="nav-icon">&#128187;</div>
       <div>
@@ -407,6 +415,13 @@ body {
   <h1>Midterm<br>Study Hub</h1>
   <p>Tap the menu or pick a subject below to start studying. Works on mobile!</p>
   <div class="page-cards">
+    <div class="page-card" onclick="loadPage('chatbot.html')">
+      <div class="card-icon c1">&#129302;</div>
+      <div class="card-text">
+        <h3>AI Chatbot</h3>
+        <span>Ask anything about NA</span>
+      </div>
+    </div>
     <div class="page-card" onclick="loadPage('study-guide.html')">
       <div class="card-icon c1">&#128218;</div>
       <div class="card-text">
@@ -487,7 +502,9 @@ function loadPage(page) {
     contentArea.style.display = 'block';
     pageFrame.src = page;
 
-    if (page.includes('se-study')) {
+    if (page.includes('chatbot')) {
+      document.querySelector('.header-title').innerHTML = '<em>NA</em> Chatbot';
+    } else if (page.includes('se-study')) {
       document.querySelector('.header-title').innerHTML = '<em>SE</em> Study Guide';
     } else if (page.includes('study-guide')) {
       document.querySelector('.header-title').innerHTML = '<em>NA</em> Study Guide';

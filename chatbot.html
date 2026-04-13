@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NA Chatbot - Ask Anything</title>
+<script src="https://js.puter.com/v2/"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0f0f1a;
+  --bg2: #1a1a2e;
+  --bg3: #25254a;
+  --card: #1e1e35;
+  --text: #e8e8f0;
+  --muted: #8888aa;
+  --accent: #e07a5f;
+  --accent2: #81b29a;
+  --accent3: #3d5a80;
+  --user-bubble: #3d5a80;
+  --bot-bubble: #25254a;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.header {
+  background: var(--bg2);
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.header-text h1 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.header-text p {
+  font-size: 0.72rem;
+  color: var(--accent2);
+}
+.header-text p .dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: var(--accent2);
+  border-radius: 50%;
+  margin-right: 4px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* CHAT */
+.chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.message {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  word-wrap: break-word;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message.user {
+  align-self: flex-end;
+  background: var(--user-bubble);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background: var(--bot-bubble);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+
+.message.bot strong { color: var(--accent); }
+.message.bot code {
+  background: rgba(0,0,0,0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.88em;
+}
+.message.bot pre {
+  background: rgba(0,0,0,0.35);
+  padding: 10px 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 8px 0;
+  font-size: 0.82rem;
+}
+
+.message.bot ul, .message.bot ol { margin: 8px 0 8px 20px; }
+.message.bot li { margin-bottom: 4px; }
+.message.bot h3 { color: var(--accent); font-size: 1rem; margin: 10px 0 4px; }
+
+.typing {
+  display: flex;
+  gap: 4px;
+  padding: 14px 18px;
+}
+.typing span {
+  width: 8px; height: 8px;
+  background: var(--muted);
+  border-radius: 50%;
+  animation: bounce 1.4s infinite;
+}
+.typing span:nth-child(2) { animation-delay: 0.15s; }
+.typing span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* SUGGESTIONS */
+.suggestions {
+  padding: 0 16px 8px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  flex-shrink: 0;
+  scrollbar-width: none;
+}
+.suggestions::-webkit-scrollbar { display: none; }
+
+.suggestion {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.suggestion:hover {
+  background: var(--bg3);
+  border-color: var(--accent);
+}
+
+/* INPUT */
+.input-area {
+  background: var(--bg2);
+  padding: 12px 14px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+#input {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 22px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#input:focus { border-color: var(--accent); }
+#input::placeholder { color: var(--muted); }
+
+#sendBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+#sendBtn:hover:not(:disabled) {
+  background: #d26a4e;
+  transform: scale(1.05);
+}
+#sendBtn:disabled {
+  background: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ERROR */
+.error-msg {
+  background: rgba(231, 76, 60, 0.15);
+  border: 1px solid rgba(231, 76, 60, 0.4);
+  color: #ff9e88;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  margin: 10px 16px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="avatar">&#129302;</div>
+  <div class="header-text">
+    <h1>NA Study Buddy</h1>
+    <p><span class="dot"></span>Ask me anything about Numerical Analysis</p>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div class="chat" id="chat">
+  <div class="message bot">
+    Hi Shehroz! &#128075; I'm your Numerical Analysis study buddy. I know everything from your course: Bisection, False Position, Newton-Raphson, Secant, Gauss Elimination, and Gauss-Jordan.
+    <br><br>
+    Ask me anything in simple words &mdash; formulas, worked examples, when to use which method, or even solve a question for you. &#128170;
+  </div>
+</div>
+
+<!-- SUGGESTIONS -->
+<div class="suggestions">
+  <button class="suggestion" onclick="askQuick('Explain bisection method in easy words')">Explain Bisection</button>
+  <button class="suggestion" onclick="askQuick('Solve f(x) = x^3 - x - 1 using Newton-Raphson')">Newton-Raphson example</button>
+  <button class="suggestion" onclick="askQuick('What is the difference between Newton-Raphson and Secant?')">NR vs Secant</button>
+  <button class="suggestion" onclick="askQuick('When should I stop iterating?')">Stopping criteria</button>
+  <button class="suggestion" onclick="askQuick('Solve by false position: x^3 - x - 2 = 0')">False Position</button>
+  <button class="suggestion" onclick="askQuick('Explain Gauss Elimination step by step')">Gauss Elimination</button>
+</div>
+
+<!-- INPUT -->
+<div class="input-area">
+  <input
+    type="text"
+    id="input"
+    placeholder="Ask your question..."
+    onkeydown="if(event.key==='Enter') send();"
+    autocomplete="off"
+  />
+  <button id="sendBtn" onclick="send()">&#10148;</button>
+</div>
+
+<script>
+const chat = document.getElementById('chat');
+const input = document.getElementById('input');
+const sendBtn = document.getElementById('sendBtn');
+
+const SYSTEM_PROMPT = `You are a friendly Numerical Analysis tutor for Shehroz, a student preparing for his midterm exam at the University of Lahore. He is new to the subject and needs clear, simple explanations in easy words.
+
+The course covers ONLY these topics:
+1. Bisection Method (f(x) = x^3 - x - 1 is the main example)
+2. False Position / Regula Falsi Method (f(x) = x^3 - x - 2)
+3. Newton-Raphson Method (f(x) = x^3 - x - 1, x_0 = 1, stopping: |x_{n+1} - x_n| <= 0.001)
+4. Secant Method (f(x) = x^3 - x - 1, x_0 = 1, x_1 = 2)
+5. Gauss Elimination
+6. Gauss-Jordan Elimination
+7. Error types (absolute, relative, round-off, truncation)
+
+RULES:
+- Use simple words and short sentences. Think "explain to a beginner".
+- For math: use plain text like x^3, x_1, sqrt(), and Unicode for ^2, ^3, subscripts.
+- Never use LaTeX \\( \\) or $ $ notation.
+- When showing iterations, put them in clear numbered steps, not big code blocks.
+- Always give worked examples with actual numbers.
+- If the student asks something outside these topics, politely redirect them.
+- Stopping criterion: always |x_new - x_old| <= 0.001
+- Keep answers focused and under 300 words unless solving a full example.
+- Be encouraging. He has only 1-2 days to prepare.`;
+
+let conversationHistory = [
+  { role: 'system', content: SYSTEM_PROMPT }
+];
+
+function addMessage(text, who) {
+  const msg = document.createElement('div');
+  msg.className = 'message ' + who;
+
+  if (who === 'bot') {
+    msg.innerHTML = formatBotMessage(text);
+  } else {
+    msg.textContent = text;
+  }
+
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+  return msg;
+}
+
+function formatBotMessage(text) {
+  // Simple markdown-lite formatting
+  let html = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Code blocks
+  html = html.replace(/```([\s\S]*?)```/g, '<pre>$1</pre>');
+
+  // Inline code
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+  // Bold
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+  // Headings (### -> h3)
+  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+
+  // Bullet lists
+  html = html.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/(<li>[\s\S]*?<\/li>)/g, function(m) {
+    if (m.includes('</li>\n<li>') || m.indexOf('<li>') !== m.lastIndexOf('<li>')) {
+      return '<ul>' + m + '</ul>';
+    }
+    return '<ul>' + m + '</ul>';
+  });
+
+  // Numbered lists
+  html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+
+  // Line breaks
+  html = html.replace(/\n\n/g, '<br><br>');
+  html = html.replace(/\n/g, '<br>');
+
+  return html;
+}
+
+function showTyping() {
+  const typing = document.createElement('div');
+  typing.className = 'message bot typing';
+  typing.id = 'typing';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  chat.appendChild(typing);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function hideTyping() {
+  const t = document.getElementById('typing');
+  if (t) t.remove();
+}
+
+async function send() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  addMessage(text, 'user');
+  input.value = '';
+  sendBtn.disabled = true;
+  showTyping();
+
+  conversationHistory.push({ role: 'user', content: text });
+
+  try {
+    // Call Puter AI
+    const response = await puter.ai.chat(conversationHistory, {
+      model: 'claude-sonnet-4'
+    });
+
+    hideTyping();
+
+    let reply;
+    if (typeof response === 'string') {
+      reply = response;
+    } else if (response && response.message && response.message.content) {
+      if (Array.isArray(response.message.content)) {
+        reply = response.message.content.map(c => c.text || c).join('\n');
+      } else {
+        reply = response.message.content;
+      }
+    } else if (response && response.text) {
+      reply = response.text;
+    } else {
+      reply = String(response);
+    }
+
+    conversationHistory.push({ role: 'assistant', content: reply });
+    addMessage(reply, 'bot');
+  } catch (err) {
+    hideTyping();
+    console.error(err);
+    addMessage(
+      "Sorry, I couldn't connect right now. &#128577;<br><br>" +
+      "This chatbot uses <strong>Puter.ai</strong> (free AI in browser). " +
+      "You may need to sign in to Puter the first time. Try refreshing the page, or use the Study Guide in the meantime!",
+      'bot'
+    );
+  }
+
+  sendBtn.disabled = false;
+  input.focus();
+}
+
+function askQuick(question) {
+  input.value = question;
+  send();
+}
+
+// Focus input on load (but not on mobile to avoid keyboard popup)
+if (window.innerWidth > 768) {
+  input.focus();
+}
+</script>
+
+</body>
+</html>
