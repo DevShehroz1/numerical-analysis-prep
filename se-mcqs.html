@@ -28,18 +28,22 @@
   .control-btn.alt { background: #1a4d80; }
   .control-btn.alt:hover { background: #143e66; }
   .small { font-size: 0.85em; color: #666; }
+  * { box-sizing: border-box; }
   /* Mobile responsive */
-  @media (max-width: 600px) {
-    body { margin: 0; padding: 14px 16px; font-size: 0.95rem; line-height: 1.6; }
-    h1 { font-size: 1.25rem; }
-    h2 { font-size: 1.05rem; padding-left: 8px; margin-top: 24px; }
-    h3 { font-size: 0.95rem; }
-    .box, .warn, .answer-box { padding: 10px 14px; }
-    .mcq { padding: 12px 14px; }
-    .mcq ul li { font-size: 0.88rem; padding: 3px 0 3px 8px; }
+  @media (max-width: 768px) {
+    body { margin: 0 !important; padding: 12px 14px !important; font-size: 0.94rem !important; line-height: 1.6 !important; max-width: 100% !important; }
+    h1 { font-size: 1.25rem !important; }
+    h2 { font-size: 1.08rem !important; padding-left: 8px !important; margin-top: 24px !important; }
+    h3 { font-size: 0.96rem !important; margin-top: 16px !important; }
+    .box, .warn, .answer-box { padding: 10px 14px !important; }
+    .mcq { padding: 12px 14px !important; }
+    .mcq .question { font-size: 0.92rem; }
+    .mcq ul li { font-size: 0.86rem; padding: 3px 0 3px 8px; }
     .controls { flex-direction: column; }
     .control-btn { width: 100%; }
-    .toc a { padding: 6px 0; }
+    .toc { padding: 12px 16px !important; }
+    .toc a { padding: 6px 0; font-size: 0.88rem; }
+    table { display: block; overflow-x: auto; max-width: 100%; font-size: 0.82rem; white-space: nowrap; }
   }
 </style>
 </head>

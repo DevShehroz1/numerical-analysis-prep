@@ -469,9 +469,28 @@ tbody tr:hover { background: var(--blue-light); }
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
   .mobile-toggle { display: flex; align-items: center; justify-content: center; }
-  .main { margin-left: 0; padding: 70px 20px 60px; }
+  .main { margin-left: 0; padding: 70px 16px 60px; max-width: 100%; }
   .compare-grid { grid-template-columns: 1fr; }
-  h2 { font-size: 1.7rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.15rem; }
+  .concept-box, .definition-box, .key-point, .warning-box, .success-box, .example-box { padding: 14px 16px; }
+  table { display: block; overflow-x: auto; font-size: 0.82rem; }
+  .intro-text { font-size: 1rem; }
+}
+@media (max-width: 600px) {
+  .main { padding: 66px 12px 40px; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.02rem; }
+  h4 { font-size: 0.95rem; }
+  p { font-size: 0.9rem; }
+  .intro-text { font-size: 0.92rem; }
+  .concept-box, .definition-box, .key-point, .warning-box, .success-box, .example-box { padding: 10px 14px; margin: 12px 0; }
+  .formula-box { padding: 14px 16px; }
+  .formula-box .formula { font-size: 1rem; word-break: break-all; }
+  .nav-buttons { flex-direction: column; gap: 8px; }
+  .nav-btn { width: 100%; font-size: 0.88rem; padding: 10px; }
+  ul, ol { padding-left: 22px; }
+  li { font-size: 0.9rem; }
 }
 
 @media print {
