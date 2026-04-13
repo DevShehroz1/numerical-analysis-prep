@@ -604,7 +604,7 @@ body {
 <!-- DRAWER -->
 <div class="drawer" id="drawer">
   <div class="drawer-header">
-    <h2>Numerical Analysis</h2>
+    <h2>Software Engineering</h2>
     <p>Midterm Study Hub</p>
   </div>
   <div class="drawer-nav">
@@ -618,125 +618,78 @@ body {
       </div>
     </div>
 
-    <div class="nav-item" onclick="loadPage('study-guide.html')">
+    <div class="nav-item" onclick="loadPage('se-study-guide.html')">
       <div class="nav-icon">&#128218;</div>
       <div>
-        <div class="nav-label">Complete Study Guide</div>
-        <div class="nav-desc">All topics + interactive</div>
+        <div class="nav-label">SE Complete Guide</div>
+        <div class="nav-desc">Week 1-8 all theory</div>
       </div>
     </div>
 
-    <div class="nav-item" onclick="loadPage('se-study-guide.html')">
-      <div class="nav-icon">&#128187;</div>
+    <div class="nav-section-label">Exam Preparation</div>
+
+    <div class="nav-item" onclick="loadPage('se-mcqs.html')">
+      <div class="nav-icon">&#10067;</div>
       <div>
-        <div class="nav-label">Software Engineering</div>
-        <div class="nav-desc">Week 1-7 complete guide</div>
+        <div class="nav-label">MCQs &amp; Theory (Q1)</div>
+        <div class="nav-desc">Practice questions with answers</div>
       </div>
     </div>
 
-    <div class="nav-section-label">NA Solved Examples</div>
-
-    <div class="nav-item" onclick="loadPage('bisection-example.html')">
-      <div class="nav-icon">&#9986;</div>
+    <div class="nav-item" onclick="loadPage('se-models.html')">
+      <div class="nav-icon">&#128202;</div>
       <div>
-        <div class="nav-label">Bisection Method</div>
-        <div class="nav-desc">x&#179; &#8722; x &#8722; 1 (step by step)</div>
+        <div class="nav-label">Model Explanations (Q2)</div>
+        <div class="nav-desc">Detailed model templates</div>
       </div>
     </div>
 
-    <div class="nav-item" onclick="loadPage('false-position-example.html')">
-      <div class="nav-icon">&#128200;</div>
+    <div class="nav-item" onclick="loadPage('se-case-studies.html')">
+      <div class="nav-icon">&#128221;</div>
       <div>
-        <div class="nav-label">False Position Method</div>
-        <div class="nav-desc">x&#179; &#8722; 2x &#8722; 5 (2 decimals)</div>
-      </div>
-    </div>
-
-    <div class="nav-item" onclick="loadPage('newton-raphson-example.html')">
-      <div class="nav-icon">&#9889;</div>
-      <div>
-        <div class="nav-label">Newton-Raphson Method</div>
-        <div class="nav-desc">x&#179; &#8722; x &#8722; 1 (4 iterations)</div>
-      </div>
-    </div>
-
-    <div class="nav-item" onclick="loadPage('secant-example.html')">
-      <div class="nav-icon">&#128208;</div>
-      <div>
-        <div class="nav-label">Secant Method</div>
-        <div class="nav-desc">x&#179; &#8722; x &#8722; 1 (no derivative)</div>
-      </div>
-    </div>
-
-    <div class="nav-item" onclick="loadPage('nr-advanced-examples.html')">
-      <div class="nav-icon">&#127942;</div>
-      <div>
-        <div class="nav-label">NR Advanced (Ex 5-8)</div>
-        <div class="nav-desc">Product, Quotient, Trig, Chain rule</div>
-      </div>
-    </div>
-
-    <div class="nav-item" onclick="loadPage('gauss-example.html')">
-      <div class="nav-icon">&#128290;</div>
-      <div>
-        <div class="nav-label">Gauss Elimination</div>
-        <div class="nav-desc">3x3 system solved</div>
+        <div class="nav-label">Case Studies (Q3)</div>
+        <div class="nav-desc">Solved example answers</div>
       </div>
     </div>
 
   </div>
   <div class="drawer-footer">
-    Numerical Analysis Prep &middot; 2026
+    SE Midterm Prep &middot; 2026
   </div>
 </div>
 
 <!-- WELCOME -->
 <div class="welcome" id="welcome">
   <div class="welcome-icon">&#128209;</div>
-  <h1>Midterm<br>Study Hub</h1>
-  <p>Tap the menu or pick a subject below. Need help? Tap the <b>&#129302; chat button</b> in the corner to ask the AI tutor anything!</p>
+  <h1>Software Engineering<br>Midterm Prep</h1>
+  <p>Pick a section to study. Need help? Tap the <b>&#129302; chat</b> button in the corner!</p>
   <div class="page-cards">
-    <div class="page-card" onclick="loadPage('study-guide.html')">
+    <div class="page-card" onclick="loadPage('se-study-guide.html')">
       <div class="card-icon c1">&#128218;</div>
       <div class="card-text">
-        <h3>NA Study Guide</h3>
-        <span>Numerical Analysis</span>
+        <h3>Complete Guide</h3>
+        <span>All weeks &amp; topics</span>
       </div>
     </div>
-    <div class="page-card" onclick="loadPage('se-study-guide.html')">
-      <div class="card-icon c2">&#128187;</div>
+    <div class="page-card" onclick="loadPage('se-mcqs.html')">
+      <div class="card-icon c2">&#10067;</div>
       <div class="card-text">
-        <h3>SE Study Guide</h3>
-        <span>Software Engineering</span>
+        <h3>MCQs &amp; Theory</h3>
+        <span>Q1 preparation</span>
       </div>
     </div>
-    <div class="page-card" onclick="loadPage('bisection-example.html')">
-      <div class="card-icon c3">&#9986;</div>
+    <div class="page-card" onclick="loadPage('se-models.html')">
+      <div class="card-icon c3">&#128202;</div>
       <div class="card-text">
-        <h3>Bisection</h3>
-        <span>Solved example</span>
+        <h3>Models</h3>
+        <span>Q2 preparation</span>
       </div>
     </div>
-    <div class="page-card" onclick="loadPage('false-position-example.html')">
-      <div class="card-icon c2">&#128200;</div>
+    <div class="page-card" onclick="loadPage('se-case-studies.html')">
+      <div class="card-icon c1">&#128221;</div>
       <div class="card-text">
-        <h3>False Position</h3>
-        <span>Solved example</span>
-      </div>
-    </div>
-    <div class="page-card" onclick="loadPage('newton-raphson-example.html')">
-      <div class="card-icon c1">&#9889;</div>
-      <div class="card-text">
-        <h3>Newton-Raphson</h3>
-        <span>Solved example</span>
-      </div>
-    </div>
-    <div class="page-card" onclick="loadPage('secant-example.html')">
-      <div class="card-icon c3">&#128208;</div>
-      <div class="card-text">
-        <h3>Secant</h3>
-        <span>Solved example</span>
-      </div>
+        <h3>Case Studies</h3>
+        <span>Q3 preparation</span>
     </div>
   </div>
 </div>
@@ -747,7 +700,7 @@ body {
 </div>
 
 <!-- FLOATING CHAT BUTTON -->
-<button class="chat-fab" id="chatFab" onclick="openChat()" title="Ask NA Chatbot">
+<button class="chat-fab" id="chatFab" onclick="openChat()" title="Ask SE Chatbot">
   <span class="pulse-ring"></span>
   &#129302;
 </button>
@@ -757,7 +710,7 @@ body {
   <div class="chat-panel-header">
     <div class="chat-panel-avatar">&#129302;</div>
     <div class="chat-panel-info">
-      <h3>NA Study Buddy</h3>
+      <h3>SE Study Buddy</h3>
       <p><span class="dot"></span>Ask me anything</p>
     </div>
     <button class="chat-close-btn" onclick="closeChat()">&#10005;</button>
@@ -765,16 +718,16 @@ body {
 
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">
-      Hi Shehroz! &#128075; I'm your NA study buddy. Ask me anything about Bisection, False Position, Newton-Raphson, Secant, Gauss, or Gauss-Jordan methods. &#128170;
+      Hi Shehroz! &#128075; I'm your Software Engineering study buddy. Ask me about Waterfall, V-Model, Incremental, Iterative, Prototype, Agile, Scrum, Requirements, or any SE topic! &#128170;
     </div>
   </div>
 
   <div class="chat-suggestions">
-    <button class="chat-suggestion" onclick="askQuick('Explain bisection method in easy words')">Bisection</button>
-    <button class="chat-suggestion" onclick="askQuick('When do I stop iterating?')">Stopping rule</button>
-    <button class="chat-suggestion" onclick="askQuick('Difference between Newton-Raphson and Secant')">NR vs Secant</button>
-    <button class="chat-suggestion" onclick="askQuick('Solve f(x) = x^3 - x - 2 by false position')">False Position</button>
-    <button class="chat-suggestion" onclick="askQuick('Explain Gauss elimination step by step')">Gauss</button>
+    <button class="chat-suggestion" onclick="askQuick('Explain Waterfall model step by step')">Waterfall</button>
+    <button class="chat-suggestion" onclick="askQuick('Difference between Agile and Plan-driven')">Agile vs Plan-driven</button>
+    <button class="chat-suggestion" onclick="askQuick('Explain Scrum framework with phases')">Scrum</button>
+    <button class="chat-suggestion" onclick="askQuick('Functional vs Non-functional requirements')">Requirements</button>
+    <button class="chat-suggestion" onclick="askQuick('Write functional requirements for a loyalty app')">Case study</button>
   </div>
 
   <div class="chat-input-row">
@@ -851,27 +804,43 @@ const chatMessages = document.getElementById('chatMessages');
 const chatInput = document.getElementById('chatInput');
 const chatSendBtn = document.getElementById('chatSendBtn');
 
-const SYSTEM_PROMPT = `You are a friendly Numerical Analysis tutor for Shehroz, a student preparing for his midterm exam at the University of Lahore. He is new to NA and needs clear, simple explanations in easy words.
+const SYSTEM_PROMPT = `You are a friendly Software Engineering tutor for Shehroz, a student preparing for his midterm exam at the University of Lahore (30 marks, instructor: Engr. Saima).
 
-Topics in his course ONLY:
-1. Bisection Method (main example: f(x) = x^3 - x - 1)
-2. False Position / Regula Falsi (f(x) = x^3 - x - 2)
-3. Newton-Raphson (f(x) = x^3 - x - 1, x0=1, stopping: |x_{n+1}-x_n| <= 0.001)
-4. Secant Method (f(x) = x^3 - x - 1, x0=1, x1=2)
-5. Gauss Elimination (3x3 systems)
-6. Gauss-Jordan Elimination
-7. Error types (absolute, relative, round-off, truncation)
+His EXAM PATTERN:
+- Q1 (MCQs or theory from any topic)
+- Q2 (Model explanation)
+- Q3 (Case study - write functional/non-functional requirements or plan using Scrum)
+
+Topics covered in his course:
+1. Introduction to SE (software definitions, characteristics, engineering principles, history)
+2. Software Crisis and its causes
+3. Big Bang Model, Build & Fix Model
+4. SDLC phases (Analysis, Design, Development, Testing, Deployment, Maintenance)
+5. Waterfall Model (5 phases, advantages, disadvantages, when to use)
+6. V-Model (Verification and Validation)
+7. Incremental Model (benefits, problems)
+8. Iterative Model (Search engine example)
+9. Prototype Model (5 phases, throw-away prototypes)
+10. Agile methods (Manifesto, 4 values, principles)
+11. Scrum (3 phases, Sprint cycle, Scrum Master, backlog)
+12. Plan-driven vs Agile comparison
+13. Scaling Agile (up vs out)
+14. Software Requirements (functional, non-functional, domain)
+15. Feasibility Study
+16. Case studies (Insulin Pump, Mental Health Patient Info System, Customer Loyalty App)
+17. OOP basics (class, object, methods, attributes)
+18. Software Reuse
+19. Cyber Security (CIA Triad)
 
 RULES:
 - Simple words, short sentences, beginner-friendly.
-- Use plain text math: x^3, x_1, sqrt(), or Unicode superscripts/subscripts.
-- NEVER use LaTeX ($ $ or \\( \\)).
-- Show iterations in clear numbered steps.
-- Always give worked examples with real numbers.
-- Keep answers under 250 words unless solving a full example.
-- Stopping criterion is always |x_new - x_old| <= 0.001.
-- Be encouraging; he has only 1-2 days to prepare.
-- If asked something outside these 6 topics, politely redirect.`;
+- For exam answers: give structured, marks-worthy responses.
+- Use bullet points, numbered lists, and clear headings.
+- When asked for a model, include: definition, phases/steps, advantages, disadvantages, when to use.
+- When asked case study: identify functional + non-functional requirements clearly.
+- Keep theory answers under 300 words; full case study or model explanations can be longer.
+- Be encouraging; he has limited time to prepare.
+- If asked something outside SE, politely redirect.`;
 
 let chatHistory = [{ role: 'system', content: SYSTEM_PROMPT }];
 let chatInitialized = false;
