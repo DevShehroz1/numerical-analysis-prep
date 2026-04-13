@@ -595,7 +595,7 @@ body {
   <button class="hamburger" id="menuBtn" onclick="toggleDrawer()">
     <span></span><span></span><span></span>
   </button>
-  <div class="header-title"><em>NA</em> Study Hub</div>
+  <div class="header-title"><em>SE</em> Study Hub</div>
 </div>
 
 <!-- OVERLAY -->
@@ -690,6 +690,7 @@ body {
       <div class="card-text">
         <h3>Case Studies</h3>
         <span>Q3 preparation</span>
+      </div>
     </div>
   </div>
 </div>
@@ -760,13 +761,19 @@ function loadPage(page) {
     welcome.classList.remove('hidden');
     contentArea.style.display = 'none';
     pageFrame.src = 'about:blank';
-    document.querySelector('.header-title').innerHTML = '<em>NA</em> Study Hub';
+    document.querySelector('.header-title').innerHTML = '<em>SE</em> Study Hub';
   } else {
     welcome.classList.add('hidden');
     contentArea.style.display = 'block';
     pageFrame.src = page;
 
-    if (page.includes('se-study')) {
+    if (page.includes('se-mcqs')) {
+      document.querySelector('.header-title').innerHTML = '<em>SE</em> MCQs (Q1)';
+    } else if (page.includes('se-models')) {
+      document.querySelector('.header-title').innerHTML = '<em>SE</em> Models (Q2)';
+    } else if (page.includes('se-case-studies')) {
+      document.querySelector('.header-title').innerHTML = '<em>SE</em> Case Studies (Q3)';
+    } else if (page.includes('se-study')) {
       document.querySelector('.header-title').innerHTML = '<em>SE</em> Study Guide';
     } else if (page.includes('study-guide')) {
       document.querySelector('.header-title').innerHTML = '<em>NA</em> Study Guide';
